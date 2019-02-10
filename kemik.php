@@ -3,7 +3,7 @@ require_once "db.php";
 require_once "class.php";
 $q = new db_query ();
 $database = new database ();
-require_once "procedure.php";  
+require_once "procedure.php";
 ?>
 <!DOCTYPE html>
   <html>
@@ -19,7 +19,7 @@ require_once "procedure.php";
     </head>
     <body>
       <?php echo "Auth:".@$_SESSION['auth']."<a href='logoff'>[LOGOFF]</a>"; ?>
-
+        some changes
 
       <script type="text/javascript" src="js/materialize.min.js"></script>
       <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
