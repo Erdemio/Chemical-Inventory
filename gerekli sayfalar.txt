@@ -1,0 +1,6 @@
+anasayfa: listeleme yapmak göstermek için.
+giriþ: giriþi düzgün saðlamak için.
+
+
+
+https://materializecss.com/color.html

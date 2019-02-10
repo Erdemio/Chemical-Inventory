@@ -1,0 +1,88 @@
+body{
+  background-color: #f4f4f4;
+}
+
+
+input:not([type]):focus:not([readonly]),
+input[type=text]:not(.browser-default):focus:not([readonly]),
+input[type=password]:not(.browser-default):focus:not([readonly]),
+input[type=email]:not(.browser-default):focus:not([readonly]),
+input[type=url]:not(.browser-default):focus:not([readonly]),
+input[type=time]:not(.browser-default):focus:not([readonly]),
+input[type=date]:not(.browser-default):focus:not([readonly]),
+input[type=datetime]:not(.browser-default):focus:not([readonly]),
+input[type=datetime-local]:not(.browser-default):focus:not([readonly]),
+input[type=tel]:not(.browser-default):focus:not([readonly]),
+input[type=number]:not(.browser-default):focus:not([readonly]),
+input[type=search]:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid #757575;
+  -webkit-box-shadow: 0 1px 0 0 #757575;
+          box-shadow: 0 1px 0 0 #757575;
+}
+
+.input-field .prefix.active {
+    color: #757575;
+  }
+
+  input:not([type]):focus:not([readonly]) + label,
+  input[type=text]:not(.browser-default):focus:not([readonly]) + label,
+  input[type=password]:not(.browser-default):focus:not([readonly]) + label,
+  input[type=email]:not(.browser-default):focus:not([readonly]) + label,
+  input[type=url]:not(.browser-default):focus:not([readonly]) + label,
+  input[type=time]:not(.browser-default):focus:not([readonly]) + label,
+  input[type=date]:not(.browser-default):focus:not([readonly]) + label,
+  input[type=datetime]:not(.browser-default):focus:not([readonly]) + label,
+  input[type=datetime-local]:not(.browser-default):focus:not([readonly]) + label,
+  input[type=tel]:not(.browser-default):focus:not([readonly]) + label,
+  input[type=number]:not(.browser-default):focus:not([readonly]) + label,
+  input[type=search]:not(.browser-default):focus:not([readonly]) + label,
+  textarea.materialize-textarea:focus:not([readonly]) + label {
+    color: #757575;
+  }
+
+  .profil{
+    width:225px;
+  }
+  .user-view{
+    color: rgba(0, 0, 0, 0.87);
+  }
+  .userid{
+    text-transform: capitalize;
+  }
+  .nav-wrapper ul li a i{
+    color: #0061aa;
+  }
+  nav{
+    background-color: #fff !important;
+    box-shadow:none !important;
+    border-bottom: 1px solid rgba(0,0,0,0.14) !important;
+  }
+  .sidenav{
+    box-shadow:none !important;
+    border-right: 1px solid rgba(0,0,0,0.14) !important;
+  }
+  nav a{
+    color: rgba(0, 0, 0, 0.87) !important;
+  }
+  nav.top-nav {
+      height: 110px;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+      border-bottom: 1px solid rgba(0,0,0,0.14);
+      background-color: transparent;
+  }
+  body header ul li a{
+        font-weight: 400 !important;
+  }
+
+  /*ssssss*/
+
+  header, main, footer {
+      padding-left: 300px;
+  }
+  @media only screen and (max-width: 992px){
+    header, main, footer {
+        padding-left: 0 !important;
+    }
+  }
