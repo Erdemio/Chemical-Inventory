@@ -20,16 +20,19 @@ require_once "procedure.php";
       <header>
         <nav>
           <div class="nav-wrapper">
-            <ul class="right hide-on-med-and-down">
-              <li><a href="sass.html"><i class="material-icons">search</i></a></li>
-              <li><a href="badges.html"><i class="material-icons">view_module</i></a></li>
-              <li><a href="collapsible.html"><i class="material-icons">refresh</i></a></li>
-              <li><a href="logoff"><i class="material-icons">exit_to_app</i></a></li>
-            </ul>
-            <a href="#" data-target="nav-mobile" class=" sidenav-trigger full hide-on-large-only"><i class="material-icons">menu</i></a>
+            <div class="row">
+              <div class="col m8  hide-on-med-and-down">
+                <a href="#!" class="breadcrumb">First</a>
+                <a href="#!" class="breadcrumb">Second</a>
+                <a href="#!" class="breadcrumb">Third</a>
+              </div>
+              <div class="col m4 s12">
+                <a href="#" data-target="nav-mobile" class=" sidenav-trigger full hide-on-large-only"><i class="material-icons">menu</i></a>
+                <a href="logoff" class="right"><i class="material-icons">exit_to_app</i></a>
+              </div>
+            </div>
           </div>
         </nav>
-
         <ul id="nav-mobile" class="sidenav  sidenav-fixed">
           <li><div class="user-view">
             <a href="index"><img class="profil" src="assets/deu.png"></a>
@@ -46,17 +49,15 @@ require_once "procedure.php";
           <li><a href="logoff" class="waves-effect"><i class="material-icons">exit_to_app</i>Çıkış Yap</a></li>
         </ul>
       </header>
-
       <main>
         <div class="container">
           <div class="row">
             <div class="col m12">
-              Merhaba.
+              <span>Al<sub>2</sub>(SO<sub>4</sub>)<sub>3</sub></span>
             </div>
           </div>
         </div>
       </main>
-
       <script type="text/javascript" src="js/materialize.min.js"></script>
       <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
       <script type="text/javascript">
