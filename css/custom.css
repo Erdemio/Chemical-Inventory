@@ -79,8 +79,15 @@ textarea.materialize-textarea:focus:not([readonly]) {
     header, main, footer {
         padding-left: 0 !important;
     }
+
+  }
+  @media only screen and (min-width: 992px){
+    .mlogoff {
+      width: 25% !important ;
+    }
+
   }
 
   .breadcrumb:before {
     color: #212121 !important;
-}
+  }
