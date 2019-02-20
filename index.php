@@ -38,14 +38,14 @@ require_once "procedure.php";
             <a href="index"><img class="profil" src="assets/deu.png"></a>
             <span class="userid"><?php echo @$_SESSION['user']; ?></span>
           </div></li>
-          <li><a href="#!" class="waves-effect"><i class="material-icons">cloud</i>Kimyasal Listele</a></li>
+          <li class="active"><a href="#!" class="waves-effect"><i class="material-icons">view_list</i>Kimyasal Listele</a></li>
           <li><div class="divider"></div></li>
-          <li><a href="#!" class="waves-effect"><i class="material-icons">cloud</i>Kimyasal Düzenle</a></li>
-          <li><a href="#!" class="waves-effect"><i class="material-icons">cloud</i>Kimyasal Ekle</a></li>
-          <li><a href="#!" class="waves-effect"><i class="material-icons">cloud</i>Dışarı Aktar</a></li>
-          <li><a href="#!" class="waves-effect"><i class="material-icons">cloud</i>5</a></li>
+          <li><a href="#!" class="waves-effect"><i class="material-icons">mode_edit</i>Kimyasal Düzenle</a></li>
+          <li><a href="#!" class="waves-effect"><i class="material-icons">add</i>Kimyasal Ekle</a></li>
+          <li><a href="#!" class="waves-effect"><i class="material-icons">import_export</i>Dışarı Aktar</a></li>
           <li><div class="divider"></div></li>
-          <li><a href="#!" class="waves-effect"><i class="material-icons">cloud</i>6</a></li>
+          <li><a href="#!" class="waves-effect"><i class="material-icons">info</i>Daha fazla</a></li>
+          <li><div class="divider"></div></li>
           <li><a href="#logoff" class="waves-effect modal-trigger"><i class="material-icons">exit_to_app</i>Çıkış Yap</a></li>
         </ul>
       </header>
