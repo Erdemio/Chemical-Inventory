@@ -23,8 +23,8 @@ require_once "procedure.php";
             <div class="row">
               <div class="col m8  hide-on-med-and-down">
                 <a href="index" class="breadcrumb">Anasayfa</a>
-                <a href="#!" class="breadcrumb">Alt Sayfa</a>
-                <a href="#!" class="breadcrumb">Alt Sayfa</a>
+                <a href="#!" class="breadcrumb">Kimyasal Düzenle</a>
+                <a href="#!" class="breadcrumb">Kimyasalın İsmi</a>
               </div>
               <div class="col m4 s12">
                 <a href="#" data-target="nav-mobile" class=" sidenav-trigger full hide-on-large-only"><i class="material-icons">menu</i></a>

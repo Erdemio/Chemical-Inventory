@@ -102,7 +102,6 @@ class db_query
                             </tr>";
                     }
                   }
-
               echo '</tbody>
                 </table>
           </div>
