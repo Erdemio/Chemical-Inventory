@@ -65,6 +65,59 @@ class db_query
       //http://localhost/register.php?id=erdem&pw=123
   }
 
+  function get_data($auth_full){
+    $q = mysql_query("SELECT level FROM `user` WHERE `user_auth` = '$auth_full'");
+    if($q){
+      while($row = mysql_fetch_assoc($q)){
+        $level = $row['level'];
+      }
+      if($level > 1){
+        echo '<div class="row">
+          <div class="col m12">
+                <table class="highlight centered">
+                  <thead>
+                    <tr>
+                        <th>Kimyasal Adı</th>
+                        <th>Kimyasal Formülü</th>
+                        <th>Üretici Firma</th>
+                        <th>Miktarı</th>
+                        <th>Stok Adedi</th>
+                        <th>Giriş Tarihi</th>
+                        <th>Düzenle</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>';
+                  $q = mysql_query("SELECT * FROM `kimyasal`");
+                  if($q){
+                    while($row = mysql_fetch_assoc($q)){
+                      echo "<tr>
+                              <td>".$row['name']."</td>
+                              <td>".$row['formula']."</td>
+                              <td>".$row['manufacturer']."</td>
+                              <td>".$row['quantity']."</td>
+                              <td>".$row['stock']."</td>
+                              <td>".$row['entry_date']."</td>
+                              <td><a href=chemical_edit?n_name=".$row['n_name']."><i class='material-icons'>forward</i></a></td>
+                            </tr>";
+                    }
+                  }
+
+              echo '</tbody>
+                </table>
+          </div>
+        </div>';
+      }else{
+        echo '<div class="row">
+          <div class="col m12">
+          <h1 class="center">Yetersiz yetkiye sahipsiniz.</h1>
+          </div></div>';
+      }
+
+    }
+
+  }
+
   private function clear($item){
     return htmlspecialchars($item, ENT_QUOTES);
   }

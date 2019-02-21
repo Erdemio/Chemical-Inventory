@@ -1,0 +1,7 @@
+/*kimyasal view 21.02.2019 - 23:01 tarihinde oluþturuldu*/
+create view kimyasal as
+SELECT  chemical.unique_id,chemical_name.name, chemical_formula.formula, manufacturer_names.manufacturer, chemical.quantity, chemical.stock, chemical.entry_date, chemical.n_name
+FROM `chemical`
+INNER JOIN chemical_name ON chemical.n_name = chemical_name.n_name
+INNER JOIN chemical_formula ON chemical.n_formula = chemical_formula.n_formula
+INNER JOIN manufacturer_names ON chemical.n_manufacturer = manufacturer_names.n_manufacturer

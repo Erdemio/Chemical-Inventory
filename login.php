@@ -3,7 +3,9 @@ require_once "db.php";
 require_once "class.php";
 $q = new db_query ();
 $database = new database ();
-if(isset($_SESSION['auth']) && @$_SESSION['auth']!=0){
+if(@$_GET['error']=="not_authorized"){
+  header("location:logoff");
+}else if(isset($_SESSION['auth']) && @$_SESSION['auth']!=0){
   header("location:index");
 }
 ?>
@@ -51,7 +53,7 @@ if(isset($_SESSION['auth']) && @$_SESSION['auth']!=0){
                   </div>
                   <div class="col s12">
                     <blockquote>
-                      <span class="text" id="response"></span>
+                      <span class="text" id="response"><?php if(@$_GET){if(@$_GET['error']=="first_login"){ echo "İlk önce giriş yapın.";}} ?></span>
                     </blockquote>
                   </div>
                 </form>

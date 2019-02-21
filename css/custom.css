@@ -1,5 +1,6 @@
 body{
-  background-color: #f4f4f4;
+  /*background-color: #f4f4f4;*/
+  background-color:#fdfdfd;
 }
 
 
@@ -47,9 +48,10 @@ textarea.materialize-textarea:focus:not([readonly]) {
   .user-view{
     color: rgba(0, 0, 0, 0.87);
   }
+  /*
   .userid{
     text-transform: capitalize;
-  }
+  }*/
   .nav-wrapper ul li a i{
     color: #0061aa;
   }
