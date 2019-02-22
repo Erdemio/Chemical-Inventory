@@ -6,6 +6,7 @@ $database = new database ();
 
   if ($_POST){
     if (@$_POST['action']=="login_form") {
+      
       $identy = @$_POST['identy'];
       $password = @$_POST['password'];
       if ($identy!="" && $password!="") {
@@ -17,6 +18,18 @@ $database = new database ();
         }
       }else{
         echo "Kullanıcı adı veya şifreyi boş bırakmayın.";
+      }
+    }else if (@$_POST['action']=="search_form") {
+
+       $p1 = @$_POST['canon'];
+       $p2 = @$_POST['search'];
+       $get = $q -> get_data_with_parameters($p1,$p2,$_SESSION['auth']);
+      if($get=="level-error"){
+        echo "level-error";
+      }else if($get=="not-found"){
+        echo "not-found";
+      }else{
+        echo $get;
       }
     }
   }

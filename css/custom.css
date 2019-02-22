@@ -60,6 +60,7 @@ textarea.materialize-textarea:focus:not([readonly]) {
     box-shadow:none !important;
     border-bottom: 1px solid rgba(0,0,0,0.14) !important;
   }
+
   .sidenav{
     box-shadow:none !important;
     border-right: 1px solid rgba(0,0,0,0.14) !important;
@@ -93,3 +94,15 @@ textarea.materialize-textarea:focus:not([readonly]) {
   .breadcrumb:before {
     color: #212121 !important;
   }
+
+  table.highlight > tbody > tr:hover {
+    background-color: rgb(204, 229, 249) !important;
+}
+.search-menu{
+    box-shadow: none !important;
+    border: 1px solid rgba(0,0,0,0.14) !important;
+
+}
+.search-row-side{
+  margin-bottom: 0 !important;
+}

@@ -66,23 +66,20 @@ class db_query
   }
 
   function get_data($auth_full){
+    $auth_full = $this->clear($auth_full);
     $q = mysql_query("SELECT level FROM `user` WHERE `user_auth` = '$auth_full'");
     if($q){
       while($row = mysql_fetch_assoc($q)){
         $level = $row['level'];
       }
       if($level > 1){
-        echo '<div class="row">
-          <div class="col m12">
+        echo '
+          <div class="col m9 s12">
                 <table class="highlight centered">
                   <thead>
                     <tr>
                         <th>Kimyasal Adı</th>
                         <th>Kimyasal Formülü</th>
-                        <th>Üretici Firma</th>
-                        <th>Miktarı</th>
-                        <th>Stok Adedi</th>
-                        <th>Giriş Tarihi</th>
                         <th>Düzenle</th>
                     </tr>
                   </thead>
@@ -94,17 +91,13 @@ class db_query
                       echo "<tr>
                               <td>".$row['name']."</td>
                               <td>".$row['formula']."</td>
-                              <td>".$row['manufacturer']."</td>
-                              <td>".$row['quantity']."</td>
-                              <td>".$row['stock']."</td>
-                              <td>".$row['entry_date']."</td>
                               <td><a href=chemical_edit?n_name=".$row['n_name']."><i class='material-icons'>forward</i></a></td>
                             </tr>";
                     }
                   }
+
               echo '</tbody>
                 </table>
-          </div>
         </div>';
       }else{
         echo '<div class="row">
@@ -114,7 +107,41 @@ class db_query
       }
 
     }
+  }
 
+  function get_data_with_parameters($canon,$search,$auth){
+    $canon = $this->clear($canon);
+    $search = $this->clear($search);
+    $auth = $this->clear($auth);
+      $q = mysql_query("SELECT level FROM `user` WHERE `user_auth` = '$auth'");
+      if($q){
+        while($row = mysql_fetch_assoc($q)){
+          $level = $row['level'];
+        }
+        if($level > 1){
+              if($canon=="f"){
+                $q = mysql_query("SELECT * FROM `kimyasal` WHERE `manufacturer` LIKE '%$search%'");
+              }else if($canon=="k"){
+                $q = mysql_query("SELECT * FROM `kimyasal` WHERE `name` LIKE '%$search%'");
+              }
+              if($q){
+                while($row = mysql_fetch_assoc($q)){
+                  echo "<tr>
+                          <td>".$row['name']."</td>
+                          <td>".$row['formula']."</td>
+                          <td><a href=chemical_edit?n_name=".$row['n_name']."><i class='material-icons'>forward</i></a></td>
+                        </tr>";
+                }
+                if(mysql_num_rows($q)<1){
+                  echo "not-found";
+                }
+              }else{
+                echo "not-found";
+              }
+        }else{
+          echo 'level-error';
+        }
+      }
   }
 
   private function clear($item){

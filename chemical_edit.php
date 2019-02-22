@@ -50,9 +50,18 @@ require_once "procedure.php";
         </ul>
       </header>
       <main>
+        <div class="row">
           <?php
           $q -> get_data($_SESSION['auth']);
            ?>
+           <div class="col m3 hide-on-small-only">
+             3
+           </div>
+        </div>
+
+
+
+
       </main>
 
       <div id="logoff" class="modal mlogoff">
