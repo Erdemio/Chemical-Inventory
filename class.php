@@ -113,6 +113,9 @@ class db_query
     $canon = $this->clear($canon);
     $search = $this->clear($search);
     $auth = $this->clear($auth);
+    if($canon=="" || $search==""){
+      echo "empty-data";
+    }else{
       $q = mysql_query("SELECT level FROM `user` WHERE `user_auth` = '$auth'");
       if($q){
         while($row = mysql_fetch_assoc($q)){
@@ -142,6 +145,9 @@ class db_query
           echo 'level-error';
         }
       }
+    }
+
+
   }
 
   private function clear($item){

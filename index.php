@@ -53,8 +53,8 @@ require_once "procedure.php";
           <?php
           $q -> get_data($_SESSION['auth']);
            ?>
-           <div class="col m3 s12">
-             <div class="card  grey lighten-4 search-menu">
+           <div id="sidebar" class="col m3 s12">
+             <div class="card search-menu">
                  <div class="card-content ">
                    <span class="card-title large">Arama Yap</span>
                    <form id="form" method="POST">
@@ -121,9 +121,11 @@ require_once "procedure.php";
                   data: values ,
                   success: function (response) {
                       if (response=='level-error') {
-                          M.toast({html: '<span class="white-text">Hata!<br>Arama yetkiniz yok.</span>', classes: 'red lighten-1'})
+                          M.toast({html: '<span onclick="toast.dismiss();" class="white-text">Arama yetkiniz yok.</span>', classes: 'red lighten-1'})
                       }else if(response=='not-found'){
-                          M.toast({html: '<span class="white-text">Hata!<br>Aradığınız kriterler blunamadı.</span>', classes: 'red lighten-1'})
+                          M.toast({html: '<span class="white-text">Aradığınız kriterlere uygun veri blunamadı.</span>', classes: 'red lighten-1'})
+                      }else if(response=='empty-data'){
+                          M.toast({html: '<span class="white-text">Lütfen boş veri bıkrakmayınız.</span>', classes: 'red lighten-1'})
                       }else{
                         //satır eklesin hatalı giriş yaptığına dağir
                         M.toast({html: 'Arama başarılı!', classes: 'green lighten-1'});
@@ -134,6 +136,11 @@ require_once "procedure.php";
                   error: function(jqXHR, textStatus, errorThrown) {
                       console.log(textStatus, errorThrown);
                   }
+              });
+          });
+          $(document).on('click', '#toast-container .toast', function() {
+              $(this).fadeOut(function(){
+                  $(this).remove();
               });
           });
       </script>

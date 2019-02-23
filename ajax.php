@@ -6,7 +6,7 @@ $database = new database ();
 
   if ($_POST){
     if (@$_POST['action']=="login_form") {
-      
+
       $identy = @$_POST['identy'];
       $password = @$_POST['password'];
       if ($identy!="" && $password!="") {
@@ -27,6 +27,8 @@ $database = new database ();
       if($get=="level-error"){
         echo "level-error";
       }else if($get=="not-found"){
+        echo "not-found";
+      }else if($get=="empty-data"){
         echo "not-found";
       }else{
         echo $get;

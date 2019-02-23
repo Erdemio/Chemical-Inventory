@@ -22,7 +22,7 @@ if(@$_GET['error']=="not_authorized"){
   </head>
   <body>
     <div class="container">
-      <div class="row">
+      <div class="row login-form-s">
         <div class="col s12 l4 offset-l4">
           <div class="card">
               <div class="card-content ">
