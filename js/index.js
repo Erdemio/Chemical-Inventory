@@ -67,9 +67,11 @@ $("#gonder-arama").click(function() {
           html: 'Arama başarılı!',
           classes: 'green lighten-1'
         });
+
         $("#geri-arama").removeClass("disabled");
         $("tbody tr").addClass("hide");
         $('tbody').append(response);
+
       }
     },
     error: function(jqXHR, textStatus, errorThrown) {
@@ -77,11 +79,12 @@ $("#gonder-arama").click(function() {
     }
   });
 });
-//Geri arama.
+//Geri arama KISMINI YAPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
 $("#geri-arama").click(function() {
   $("tbody tr").removeClass("hide");
-  $( ".searched" ).remove();
+  $(".searched").remove();
   $("#geri-arama").addClass("disabled");
+
   M.toast({
     html: '<span class="white-text">Bir önceki aramaya geri dönüldü.</span>',
     classes: 'green lighten-1'

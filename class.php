@@ -81,19 +81,17 @@ class db_query
                     <tr>
                         <th>Kimyasal Adı</th>
                         <th>Kimyasal Formülü</th>
-                        <th>Üretici Firma</th>
                         <th class="no-sort">Düzenle</th>
                     </tr>
                   </thead>
 
                   <tbody>';
-                  $q = mysql_query("SELECT * FROM `kimyasal`");
+                  $q = mysql_query("select name, formula,n_name from kimyasal GROUP BY n_name;");
                   if($q){
                     while($row = mysql_fetch_assoc($q)){
                       echo "<tr>
                               <td>".$row['name']."</td>
                               <td>".$row['formula']."</td>
-                              <td>".$row['manufacturer']."</td>
                               <td><a href=chemical_edit?n_name=".$row['n_name']."><i class='material-icons'>forward</i></a></td>
                             </tr>";
                     }
@@ -128,16 +126,15 @@ class db_query
         }
         else{
             if($canon=="f"){
-              $q = mysql_query("SELECT * FROM `kimyasal` WHERE `manufacturer` LIKE '%$search%'");
+              $q = mysql_query("select name, formula,n_name from kimyasal WHERE `manufacturer` LIKE '%$search%' GROUP BY n_name;");
             }else if($canon=="k"){
-              $q = mysql_query("SELECT * FROM `kimyasal` WHERE `name` LIKE '%$search%'");
+              $q = mysql_query("select name, formula,n_name from kimyasal WHERE `name` LIKE '%$search%' GROUP BY n_name;");
             }
             if($q){
               while($row = mysql_fetch_assoc($q)){
                 echo "<tr class=\"searched\">
                         <td>".$row['name']."</td>
                         <td>".$row['formula']."</td>
-                        <td>".$row['manufacturer']."</td>
                         <td><a href=chemical_edit?n_name=".$row['n_name']."><i class='material-icons'>forward</i></a></td>
                       </tr>";
               }
