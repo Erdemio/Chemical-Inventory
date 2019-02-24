@@ -82,7 +82,7 @@ class db_query
                         <th>Kimyasal Adı</th>
                         <th>Kimyasal Formülü</th>
                         <th>Üretici Firma</th>
-                        <th>Düzenle</th>
+                        <th class="no-sort">Düzenle</th>
                     </tr>
                   </thead>
 
@@ -134,7 +134,7 @@ class db_query
             }
             if($q){
               while($row = mysql_fetch_assoc($q)){
-                echo "<tr>
+                echo "<tr class=\"searched\">
                         <td>".$row['name']."</td>
                         <td>".$row['formula']."</td>
                         <td>".$row['manufacturer']."</td>

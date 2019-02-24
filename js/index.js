@@ -40,22 +40,8 @@ $(document).on('click', '#toast-container .toast', function() {
   });
 });
 //Tablo tıklama ile A-Z Z-A sıralamasını sağlar.
-$('#kimyasal-liste').tablesorter({
-  headers: {
-    0: {
-      sorter: true
-    },
-    1: {
-      sorter: true
-    },
-    2: {
-      sorter: true
-    },
-    3: {
-      sorter: false
-    }
-  }
-});
+$('table').tablesort();
+
 //Listeleme'nin sağlandığı formda ki işlemleri sağlar.
 $("#gonder-arama").click(function() {
   var values = $("#form").serialize();
@@ -81,7 +67,8 @@ $("#gonder-arama").click(function() {
           html: 'Arama başarılı!',
           classes: 'green lighten-1'
         });
-        $("tbody").empty();
+        $("#geri-arama").removeClass("disabled");
+        $("tbody tr").addClass("hide");
         $('tbody').append(response);
       }
     },
@@ -90,6 +77,17 @@ $("#gonder-arama").click(function() {
     }
   });
 });
+//Geri arama.
+$("#geri-arama").click(function() {
+  $("tbody tr").removeClass("hide");
+  $( ".searched" ).remove();
+  $("#geri-arama").addClass("disabled");
+  M.toast({
+    html: '<span class="white-text">Bir önceki aramaya geri dönüldü.</span>',
+    classes: 'green lighten-1'
+  })
+});
+
 //Giriş formunda ki işlemleri sağlar.
 $("#gonder-login").click(function() {
   var values = $("#form").serialize();
