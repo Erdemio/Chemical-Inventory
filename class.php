@@ -116,41 +116,42 @@ class db_query
     $canon = $this->clear($canon);
     $search = $this->clear($search);
     $auth = $this->clear($auth);
-    if($canon=="" || $search==""){
-      echo "empty-data";
-    }else{
-      $q = mysql_query("SELECT level FROM `user` WHERE `user_auth` = '$auth'");
-      if($q){
-        while($row = mysql_fetch_assoc($q)){
-          $level = $row['level'];
+
+    $q = mysql_query("SELECT level FROM `user` WHERE `user_auth` = '$auth'");
+    if($q){
+      while($row = mysql_fetch_assoc($q)){
+        $level = $row['level'];
+      }
+      if(@$level > 1){
+        if($canon=="" || $search==""){
+          echo "empty-data";
         }
-        if($level > 1){
-              if($canon=="f"){
-                $q = mysql_query("SELECT * FROM `kimyasal` WHERE `manufacturer` LIKE '%$search%'");
-              }else if($canon=="k"){
-                $q = mysql_query("SELECT * FROM `kimyasal` WHERE `name` LIKE '%$search%'");
+        else{
+            if($canon=="f"){
+              $q = mysql_query("SELECT * FROM `kimyasal` WHERE `manufacturer` LIKE '%$search%'");
+            }else if($canon=="k"){
+              $q = mysql_query("SELECT * FROM `kimyasal` WHERE `name` LIKE '%$search%'");
+            }
+            if($q){
+              while($row = mysql_fetch_assoc($q)){
+                echo "<tr>
+                        <td>".$row['name']."</td>
+                        <td>".$row['formula']."</td>
+                        <td>".$row['manufacturer']."</td>
+                        <td><a href=chemical_edit?n_name=".$row['n_name']."><i class='material-icons'>forward</i></a></td>
+                      </tr>";
               }
-              if($q){
-                while($row = mysql_fetch_assoc($q)){
-                  echo "<tr>
-                          <td>".$row['name']."</td>
-                          <td>".$row['formula']."</td>
-                          <td><a href=chemical_edit?n_name=".$row['n_name']."><i class='material-icons'>forward</i></a></td>
-                        </tr>";
-                }
-                if(mysql_num_rows($q)<1){
-                  echo "not-found";
-                }
-              }else{
+              if(mysql_num_rows($q)<1){
                 echo "not-found";
               }
-        }else{
-          echo 'level-error';
+            }else{
+              echo "not-found";
+            }
         }
+      }else{
+        echo 'level-error';
       }
     }
-
-
   }
 
   private function clear($item){

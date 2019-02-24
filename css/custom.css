@@ -8,12 +8,7 @@ body {
 #toast-container .toast, #kimyasal-liste th:not(:last-child) {
     cursor: pointer;
 }
-#toast-container {
-  top: auto !important;
-  right: auto !important;
-  bottom: 10%;
-  left:80%;
-}
+
 
 input:not([type]):focus:not([readonly]),
 input[type=text]:not(.browser-default):focus:not([readonly]),
@@ -109,7 +104,12 @@ textarea.materialize-textarea:focus:not([readonly]) {
     .mlogoff {
       width: 25% !important ;
     }
-
+    #toast-container {
+      top: auto !important;
+      right: auto !important;
+      bottom: 10%;
+      left:80%;
+    }
   }
 
   .breadcrumb:before {

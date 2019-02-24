@@ -65,10 +65,7 @@ $("#gonder-arama").click(function() {
     data: values,
     success: function(response) {
       if (response == 'level-error') {
-        M.toast({
-          html: '<span onclick="toast.dismiss();" class="white-text">Arama yetkiniz yok.</span>',
-          classes: 'red lighten-1'
-        })
+        window.location.href = "login";
       } else if (response == 'not-found') {
         M.toast({
           html: '<span class="white-text">Aradığınız kriterlere uygun veri blunamadı.</span>',
