@@ -1,5 +1,6 @@
 <?php
-//error_reporting(0);
+//error_reporting(0); bunu site bitince aç.
+//kontrol eklendiği zaman ajax hata veriyor, EKLEME.
 session_start();
 ob_start();
 class database{

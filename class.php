@@ -1,4 +1,5 @@
 <?php
+//kontrol eklendiği zaman ajax hata veriyor, EKLEME.
 class db_query
 {
 
@@ -75,11 +76,12 @@ class db_query
       if($level > 1){
         echo '
           <div class="col m9 s12">
-                <table class="highlight centered">
+                <table id="kimyasal-liste" class="highlight centered">
                   <thead>
                     <tr>
                         <th>Kimyasal Adı</th>
                         <th>Kimyasal Formülü</th>
+                        <th>Üretici Firma</th>
                         <th>Düzenle</th>
                     </tr>
                   </thead>
@@ -91,6 +93,7 @@ class db_query
                       echo "<tr>
                               <td>".$row['name']."</td>
                               <td>".$row['formula']."</td>
+                              <td>".$row['manufacturer']."</td>
                               <td><a href=chemical_edit?n_name=".$row['n_name']."><i class='material-icons'>forward</i></a></td>
                             </tr>";
                     }

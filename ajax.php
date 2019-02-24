@@ -3,6 +3,7 @@ require_once "db.php";
 require_once "class.php";
 $q = new db_query ();
 $database = new database ();
+//kontrol eklendiği zaman ajax hata veriyor, EKLEME.
 
   if ($_POST){
     if (@$_POST['action']=="login_form") {

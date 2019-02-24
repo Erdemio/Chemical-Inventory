@@ -5,14 +5,14 @@ body {
     background: -webkit-linear-gradient(to right, #FFFFFF, #FFEFBA);
     background: linear-gradient(to right, #FFFFFF, #e7e8ff38);
 }
-#toast-container .toast {
+#toast-container .toast, #kimyasal-liste th:not(:last-child) {
     cursor: pointer;
 }
 #toast-container {
   top: auto !important;
   right: auto !important;
   bottom: 10%;
-  left:80%;  
+  left:80%;
 }
 
 input:not([type]):focus:not([readonly]),

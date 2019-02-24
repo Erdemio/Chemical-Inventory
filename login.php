@@ -3,6 +3,10 @@ require_once "db.php";
 require_once "class.php";
 $q = new db_query ();
 $database = new database ();
+define('check_for_direct_access', TRUE);
+//Üst kısım sabit, index'den farklı olarak procedure.php yok.
+
+//Giriş kontrol kısmı giriş varsa form'a yönlendirir.
 if(@$_GET['error']=="not_authorized"){
   header("location:logoff");
 }else if(isset($_SESSION['auth']) && @$_SESSION['auth']!=0){
@@ -12,12 +16,7 @@ if(@$_GET['error']=="not_authorized"){
 <!DOCTYPE html>
 <html>
   <head>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
-    <link type="text/css" rel="stylesheet" href="css/custom.css"  media="screen,projection"/>
-    <link rel="icon" href="assets/favicon.ico" type="image/x-icon"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta http-equiv="content-language" content="tr">
+    <?php require_once "header.php"; ?>
     <title>Giriş Yap</title>
   </head>
   <body>
@@ -46,7 +45,7 @@ if(@$_GET['error']=="not_authorized"){
                   <div class="row">
                     <div class="col s12">
                       <input type="hidden" value="login_form" name="action">
-                    <a class="btn right grey darken-1 waves-effect waves-light" id="gonder" >
+                    <a class="btn right grey darken-1 waves-effect waves-light" id="gonder-login" >
                       Giriş Yap <i class="material-icons right">send</i>
                     </a>
                     </div>
@@ -68,40 +67,6 @@ if(@$_GET['error']=="not_authorized"){
         <div class="indeterminate"></div>
       </div>
     </div>
-    <script type="text/javascript" src="js/materialize.min.js"></script>
-    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
-    <script>
-        $("#gonder").click(function() {
-            var values = $("#form").serialize();
-            $.ajax({
-                url: "ajax.php",
-                type: "post",
-                data: values ,
-                success: function (response) {
-                    document.getElementById("response").innerHTML = response;
-                    if (response=='Giriş başarılı!') {
-                      setTimeout(function() {
-                        window.location.href = "index";
-                      }, 300);
-                    }else{
-                      document.getElementById("password").value = "";
-                    }
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.log(textStatus, errorThrown);
-                }
-            });
-        });
-        $("#password").on('input',function(e){
-            document.getElementById("response").innerHTML ="";
-        });
-    </script>
-    <script type="text/javascript">
-      document.addEventListener("DOMContentLoaded", function(){
-        $('.preloader')
-          .delay(100)
-          .fadeOut();
-        });
-    </script>
+    <?php require_once "scripts.php"; ?>
   </body>
 </html>

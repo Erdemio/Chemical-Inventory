@@ -1,6 +1,7 @@
 <?php
 require_once "db.php";
 require_once "class.php";
+// KAYIT SAYFASI AÇ
 $q = new db_query ();
 $database = new database ();
 
