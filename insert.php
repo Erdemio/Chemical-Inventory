@@ -5,13 +5,18 @@ $q = new db_query ();
 $database = new database ();
 require_once "procedure.php";
 define('check_for_direct_access', TRUE);
+
+$active = "insert";
+$page = "Kimyasal Ekle";
+$link = "insert";
+
 //Sabit, değiştirme.
 ?>
 <!DOCTYPE html>
   <html>
     <head>
       <?php require_once "header.php"; ?>
-      <title>Anasayfa</title>
+      <title><?php echo $page; ?></title>
     </head>
     <body>
       <?php require_once "headerbar.php"; ?>

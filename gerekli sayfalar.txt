@@ -18,3 +18,7 @@ define('check_for_direct_access', TRUE);
 if(!defined('check_for_direct_access')) {
    die('Doðrudan eriþim yasaklýdýr.<br>Direct access not permitted.');
 }
+
+
+https://materializecss.com/autocomplete.html
+ burdan yardým al kimyasal adlarý yardýmlý gelsin !
