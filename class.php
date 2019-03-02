@@ -89,6 +89,7 @@ class db_query
                   $q = mysql_query("select name, formula,n_name from kimyasal GROUP BY n_name;");
                   if($q){
                     while($row = mysql_fetch_assoc($q)){
+                      //buraya akordiyon olarak firma isimleri ekliyebilirsin
                       echo "<tr>
                               <td>".$row['name']."</td>
                               <td>".$row['formula']."</td>

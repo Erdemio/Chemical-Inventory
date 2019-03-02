@@ -24,6 +24,13 @@ document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('select');
   var instances = M.FormSelect.init(elems, options);
 });
+/*
+//Akordiyon açılır kapanır sekmenin frameworkda ki tanımlaması.
+document.addEventListener('DOMContentLoaded', function() {
+  var options;
+  var elems = document.querySelectorAll('.collapsible');
+  var instances = M.Collapsible.init(elems, options);
+});*/
 
 //################################################################
 //################################################################

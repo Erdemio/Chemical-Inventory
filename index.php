@@ -34,7 +34,7 @@ $link = "index";
                          <div class="input-field col s12">
                            <i class="material-icons prefix">filter_1</i>
                           <select name="canon">
-                            <option value="" disabled selected>Arama kriteri seçin</option>
+                            <option value="" class="disabled" disabled selected>Arama kriteri seçin</option>
                             <option value="k">Kimyasal Adı</option>
                             <option value="f">Üretici Firma</option>
                           </select>

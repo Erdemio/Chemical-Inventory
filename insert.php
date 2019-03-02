@@ -22,8 +22,33 @@ $link = "insert";
       <?php require_once "headerbar.php"; ?>
       <main>
 
+        <div class="row">
+          <div class="col s12">
+            <div class="row">
+              <div class="input-field col s12">
+                <i class="material-icons prefix">textsms</i>
+                <input type="text" id="autocomplete-input" class="autocomplete">
+                <label for="autocomplete-input">Kimyasal Adı</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
       </main>
       <?php require_once "modal.php"; ?>
       <?php require_once "scripts.php"; ?>
+      <script type="text/javascript">
+      $(document).ready(function(){
+        $('input.autocomplete').autocomplete({
+          data: {
+            "Apple": null,
+            "Microsoft": null,
+            "Google": 'https://placehold.it/250x250'
+          },
+        });
+      });
+
+      </script>
     </body>
   </html>
