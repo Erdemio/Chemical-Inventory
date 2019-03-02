@@ -22,17 +22,82 @@ $link = "insert";
       <?php require_once "headerbar.php"; ?>
       <main>
 
-        <div class="row">
+      <div class="row">
+        <div class="col m12 s12 l8">
           <div class="col s12">
             <div class="row">
               <div class="input-field col s12">
-                <i class="material-icons prefix">textsms</i>
-                <input type="text" id="autocomplete-input" class="autocomplete">
-                <label for="autocomplete-input">Kimyasal Adı</label>
+                <i class="material-icons prefix">label_outline</i>
+                <input type="text" id="autocomplete-input-ka" class="autocomplete">
+                <label for="autocomplete-input-ka">Kimyasal Adı</label>
+              </div>
+            </div>
+          </div>
+          <div class="col s12">
+            <div class="row">
+              <div class="input-field col s9">
+                <i class="material-icons prefix">label_important_outline</i>
+                <input type="text" id="autocomplete-input-kf">
+                <label for="autocomplete-input-kf">Kimyasal Formülü</label>
+              </div>
+              <div class="input-field col s3">
+
+                  <button class="btn waves-effect waves-light col s5" type="submit" name="action">
+                    <i class="material-icons">text_format</i> <i class="material-icons">arrow_upward</i>
+                  </button>
+                  <button class="btn waves-effect waves-light col s5 offset-s1" type="submit" name="action">
+                    <i class="material-icons">text_format</i> <i class="material-icons">arrow_downward</i>
+                  </button>
+
+              </div>
+
+            </div>
+          </div>
+          <div class="col s12">
+            <div class="row">
+              <div class="input-field col s12">
+                <i class="material-icons prefix">build_outline</i>
+                <input type="text" id="autocomplete-input-uf" class="autocomplete">
+                <label for="autocomplete-input-uf">Üretici Firma</label>
+              </div>
+            </div>
+          </div>
+          <div class="col s12">
+            <div class="row">
+              <div class="input-field col s12">
+                <i class="material-icons prefix">exposure_outline</i>
+                <input type="text" id="autocomplete-input-mk">
+                <label for="autocomplete-input-mk">Miktar</label>
+              </div>
+            </div>
+          </div>
+          <div class="col s12">
+            <div class="row">
+              <div class="input-field col s12">
+                <i class="material-icons prefix">exposure_outline</i>
+                <input type="text" id="autocomplete-input-ad">
+                <label for="autocomplete-input-ad">Adet</label>
+              </div>
+            </div>
+          </div>
+          <div class="col s12">
+            <div class="row">
+              <div class="input-field col s12">
+                <i class="material-icons prefix">date_range</i>
+                <input type="text" class="datepicker" id="autocomplete-input-gt">
+                <label for="autocomplete-input-gt">Giriş Tarihi</label>
               </div>
             </div>
           </div>
         </div>
+        <div class="col m12 s12 l4">
+            card koy buraya
+            çıktılar burada olsun
+        </div>
+      </div>
+
+
+
 
 
       </main>
@@ -40,11 +105,16 @@ $link = "insert";
       <?php require_once "scripts.php"; ?>
       <script type="text/javascript">
       $(document).ready(function(){
-        $('input.autocomplete').autocomplete({
+        $('input.autocomplete#autocomplete-input-ka').autocomplete({
           data: {
-            "Apple": null,
-            "Microsoft": null,
-            "Google": 'https://placehold.it/250x250'
+            "Alizarin Sarısı": null,
+            "Test": null
+          },
+        });
+        $('input.autocomplete#autocomplete-input-uf').autocomplete({
+          data: {
+            "Merch": null,
+            "Sigma": null
           },
         });
       });

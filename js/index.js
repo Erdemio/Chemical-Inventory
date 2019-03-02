@@ -24,6 +24,72 @@ document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('select');
   var instances = M.FormSelect.init(elems, options);
 });
+//Form nesnesi olan datepicker nesnesinin frameworkda ki tanımlaması.
+document.addEventListener('DOMContentLoaded', function() {
+  var options = {
+    format: 'dd-mm-yyyy',
+    showClearBtn: true,
+    firstDay: 1,
+    showDaysInNextAndPreviousMonths:false,
+    setDefaultDate:true,
+    yearRange:2,
+    i18n: {
+      clear: 'Temizle',
+      cancel: 'İptal',
+      done: 'Tamam',
+      months: [
+        'Ocak',
+        'Şubat',
+        'Mart',
+        'Nisan',
+        'Mayıs',
+        'Haziran',
+        'Temmuz',
+        'Ağustos',
+        'Eylül',
+        'Ekim',
+        'Kasım',
+        'Aralık'
+      ],
+      monthsShort: [
+        'Ocak',
+        'Şubat',
+        'Mart',
+        'Nisan',
+        'Mayıs',
+        'Haziran',
+        'Temmuz',
+        'Ağustos',
+        'Eylül',
+        'Ekim',
+        'Kasım',
+        'Aralık'
+      ],
+      weekdays: [
+        'Pazar',
+        'Pazartesi',
+        'Salı',
+        'Çarşamba',
+        'Perşembe',
+        'Cuma',
+        'Cumartesi'
+      ],
+      weekdaysShort: [
+        'Pazar',
+        'Pazartesi',
+        'Salı',
+        'Çarşamba',
+        'Perşembe',
+        'Cuma',
+        'Cumartesi'
+      ],
+      weekdaysAbbrev: ['P', 'P', 'S', 'Ç', 'P', 'C', 'C']
+
+    }
+  };
+  var elems = document.querySelectorAll('.datepicker');
+  var instances = M.Datepicker.init(elems, options);
+});
 /*
 //Akordiyon açılır kapanır sekmenin frameworkda ki tanımlaması.
 document.addEventListener('DOMContentLoaded', function() {

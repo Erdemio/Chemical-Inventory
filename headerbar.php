@@ -12,7 +12,7 @@ if(!defined('check_for_direct_access')) {
           <a href="<?php echo $link; ?>" class="breadcrumb"><?php echo $page; ?></a>
           <?php echo @$chemical_name; ?>
         </div>
-        <div class="col m6 s12">
+        <div class="col s6 m12 l6">
           <a href="#" data-target="nav-mobile" class=" sidenav-trigger full hide-on-large-only"><i class="material-icons">menu</i></a>
           <a  href="#logoff" class="right modal-trigger"><i class="material-icons">exit_to_app</i></a>
         </div>
