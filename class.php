@@ -75,13 +75,13 @@ class db_query
       }
       if($level > 1){
         echo '
-          <div class="col m9 s12">
+          <div class="col m12 s12 l9">
                 <table id="kimyasal-liste" class="highlight centered">
                   <thead>
                     <tr>
                         <th>Kimyasal Adı</th>
                         <th>Kimyasal Formülü</th>
-                        <th class="no-sort">Düzenle</th>
+                        <th class="no-sort">Aksiyonlar</th>
                     </tr>
                   </thead>
 
@@ -93,7 +93,7 @@ class db_query
                       echo "<tr>
                               <td>".$row['name']."</td>
                               <td>".$row['formula']."</td>
-                              <td><a href=chemical_edit?n_name=".$row['n_name']."><i class='material-icons'>forward</i></a></td>
+                              <td><a href=\"#\" data-position=\"left\" data-tooltip=\"Görüntüle\" class=\"waves-effect waves-light btn tooltipped\"><i class='material-icons'>open_in_new</i></a> <a href=\"edit?n_name=".$row['n_name']."\" data-position=\"right\" data-tooltip=\"Düzenle\"  class=\"waves-effect waves-light btn tooltipped\"><i class='material-icons'>forward</i></a></td>
                             </tr>";
                     }
                   }
@@ -101,11 +101,13 @@ class db_query
               echo '</tbody>
                 </table>
         </div>';
+        return true;
       }else{
         echo '<div class="row">
           <div class="col m12">
           <h1 class="center">Yetersiz yetkiye sahipsiniz.</h1>
           </div></div>';
+          return false;
       }
 
     }
@@ -136,7 +138,7 @@ class db_query
                 echo "<tr class=\"searched\">
                         <td>".$row['name']."</td>
                         <td>".$row['formula']."</td>
-                        <td><a href=chemical_edit?n_name=".$row['n_name']."><i class='material-icons'>forward</i></a></td>
+                        <td><a href=edit?n_name=".$row['n_name']."><i class='material-icons'>forward</i></a></td>
                       </tr>";
               }
               if(mysql_num_rows($q)<1){

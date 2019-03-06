@@ -24,6 +24,20 @@ document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('select');
   var instances = M.FormSelect.init(elems, options);
 });
+
+//Alt mesaj
+document.addEventListener('DOMContentLoaded', function() {
+  var options = {enterDelay:325};
+  var elems = document.querySelectorAll('.tooltipped');
+  var instances = M.Tooltip.init(elems, options);
+});
+
+
+//belki kaldırmalıyım
+$(document).ready(function() {
+  $('input#autocomplete-input-ka, textarea#textarea2').characterCounter();
+});
+
 //Form nesnesi olan datepicker nesnesinin frameworkda ki tanımlaması.
 document.addEventListener('DOMContentLoaded', function() {
   var options = {

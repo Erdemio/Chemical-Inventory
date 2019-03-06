@@ -23,9 +23,11 @@ $link = "index";
       <main>
         <div class="row">
           <?php
-          $q -> get_data($_SESSION['auth']);
+          if($q -> get_data($_SESSION['auth'])){
            ?>
-           <div id="sidebar" class="col m3 s12">
+
+
+           <div id="sidebar" class="col m12 s12 l3">
              <div class="card search-menu">
                  <div class="card-content ">
                    <span class="card-title large">Arama Yap</span>
@@ -54,6 +56,10 @@ $link = "index";
                  </div>
                </div>
            </div>
+         <?php } ?>
+
+
+
         </div>
       </main>
       <?php require_once "modal.php"; ?>
