@@ -1,9 +1,9 @@
 body {
-    /* background-color: #f4f4f4; */
+    background-color: #f4f4f4; 
     /* background-color: #fdfdfd; */
 
 
-    background: linear-gradient(to right, #FFFFFF, #e7e8ff38);
+    /*background: linear-gradient(to right, #FFFFFF, #e7e8ff38);*/
 }
 #toast-container .toast, #kimyasal-liste th:not(:last-child) {
     cursor: pointer;
@@ -169,7 +169,7 @@ textarea.materialize-textarea:focus:not([readonly]) {
   table.highlight > tbody > tr:hover {
     background-color: rgb(204, 229, 249) !important;
 }
-.search-menu{
+.search-menu,.card-listele{
     box-shadow: none !important;
     border: 1px solid rgba(0,0,0,0.14) !important;
 

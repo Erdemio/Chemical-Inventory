@@ -3,69 +3,6 @@
 class db_query
 {
 
-  function login($identy,$password){
-    $q = mysql_query("SELECT user_login_time FROM `user` WHERE `user_id` = '$identy'");
-    if($q){
-      while($row = mysql_fetch_assoc($q)){
-        $time = $row['user_login_time'];
-      }
-      if (@$time > 0) {
-        $auth = $this->algorithm($identy,$password,@$time);
-        $q2 = mysql_query("SELECT * FROM `user` WHERE `user_auth` = '$auth'");
-        if($q2){
-          while($row = mysql_fetch_assoc($q2)){
-            $time2 = $row['user_login_time'];
-            $uid = $row['user_id'];
-          }
-          if (@$time > 0) {
-            if (@$time == @$time2) {
-              $_SESSION['user']=$uid;
-              $new_time = time();
-              $new_auth = $this->algorithm($identy,$password,$new_time);
-              $time_update = mysql_query("UPDATE `user` SET `user_login_time` = '$new_time' WHERE `user`.`user_id` = '$uid';");
-              $time_update = mysql_query("UPDATE `user` SET `user_auth` = '$new_auth' WHERE `user`.`user_id` = '$uid';");
-              $_SESSION['auth'] = $new_auth;
-              return true;
-            }
-          }else{
-            return "timeout";
-          }
-        }else{
-          return "timeout";
-        }
-      }else{
-        return "timeout";
-      }
-    }else{
-      return "timeout";
-    }
-  }
-
-  function check_auth($auth){
-      $auth = $this->clear($auth);
-      $q = mysql_query("SELECT COUNT(*) As adet FROM `user` WHERE `user_auth` = '$auth'");
-      while($row = mysql_fetch_assoc($q)){
-        $count = $row['adet'];
-      }
-      if($count>0){
-        return true;
-      }else{
-        return false;
-      }
-  }
-
-  function register($identy,$password,$time){
-      $auth = $this->algorithm($identy,$password,$time);
-      $q = mysql_query("INSERT INTO `user` (`id`, `user_id`, `user_auth`, `user_login_time`) VALUES (NULL, '$identy', '$auth', '$time');");
-      if(@$q){
-        echo 'Register Successful';
-      }else
-      {
-        echo 'Register error';
-      }
-      //http://localhost/register.php?id=erdem&pw=123
-  }
-
   function get_data($auth_full){
     $auth_full = $this->clear($auth_full);
     $q = mysql_query("SELECT level FROM `user` WHERE `user_auth` = '$auth_full'");
@@ -76,6 +13,7 @@ class db_query
       if($level > 1){
         echo '
           <div class="col m12 s12 l9">
+            <div class="card card-listele">
                 <table id="kimyasal-liste" class="highlight centered">
                   <thead>
                     <tr>
@@ -100,6 +38,7 @@ class db_query
 
               echo '</tbody>
                 </table>
+            </div>
         </div>';
         return true;
       }else{
@@ -109,7 +48,6 @@ class db_query
           </div></div>';
           return false;
       }
-
     }
   }
 
@@ -138,7 +76,7 @@ class db_query
                 echo "<tr class=\"searched\">
                         <td>".$row['name']."</td>
                         <td>".$row['formula']."</td>
-                        <td><a href=edit?n_name=".$row['n_name']."><i class='material-icons'>forward</i></a></td>
+                        <td><a href=\"#\" data-position=\"left\" data-tooltip=\"Görüntüle\" class=\"waves-effect waves-light btn tooltipped\"><i class='material-icons'>open_in_new</i></a> <a href=\"edit?n_name=".$row['n_name']."\" data-position=\"right\" data-tooltip=\"Düzenle\"  class=\"waves-effect waves-light btn tooltipped\"><i class='material-icons'>forward</i></a></td>
                       </tr>";
               }
               if(mysql_num_rows($q)<1){
@@ -154,6 +92,20 @@ class db_query
     }
   }
 
+  /* Güvenlik Prosedürleri */
+  function check_auth($auth){
+      $auth = $this->clear($auth);
+      $q = mysql_query("SELECT COUNT(*) As adet FROM `user` WHERE `user_auth` = '$auth'");
+      while($row = mysql_fetch_assoc($q)){
+        $count = $row['adet'];
+      }
+      if(@$count>0){
+        return true;
+      }else{
+        return false;
+      }
+  }
+
   private function clear($item){
     return htmlspecialchars($item, ENT_QUOTES);
   }
@@ -162,14 +114,65 @@ class db_query
     return md5($identy+"SECRET"+$password+"SERVERSEED"+$time);
   }
 
+  function register($identy,$password,$time){
+      $auth = $this->algorithm($identy,$password,$time);
+      $q = mysql_query("INSERT INTO `user` (`id`, `user_id`, `user_auth`, `user_login_time`) VALUES (NULL, '$identy', '$auth', '$time');");
+      if(@$q){
+        echo 'Register Successful';
+      }else
+      {
+        echo 'Register error';
+      }
+      //http://localhost/register.php?id=erdem&pw=123
+  }
+
+  function login($identy,$password){
+    $q = mysql_query("SELECT user_login_time FROM `user` WHERE `user_id` = '$identy'");
+    if($q){
+      while($row = mysql_fetch_assoc($q)){
+        $time = $row['user_login_time'];
+      }
+      if (@$time > 0) {
+        $auth = $this->algorithm($identy,$password,@$time);
+        $q2 = mysql_query("SELECT * FROM `user` WHERE `user_auth` = '$auth'");
+        if($q2){
+          while($row = mysql_fetch_assoc($q2)){
+            $time2 = $row['user_login_time'];
+            $uid = $row['user_id'];
+          }
+          if (@$time > 0) {
+            if (@$time == @$time2) {
+              $_SESSION['user']=$uid;
+              $new_time = time();
+              $new_auth = $this->algorithm($identy,$password,$new_time);
+              $time_update = mysql_query("UPDATE `user` SET `user_login_time` = '$new_time', `user_auth` = '$new_auth' WHERE `user`.`user_id` = '$uid';");
+              $_SESSION['auth'] = $new_auth;
+              return true;
+            }
+          }else{
+            return false;
+          }
+        }else{
+          return false;
+        }
+      }else{
+        return false;
+      }
+    }else{
+      return false;
+    }
+  }
+
   /*Komutlar burada biter*/
   private function close() {
       $this->connection = @mysql_close($this->connection);
       if($this->connection) { return true ;} else { return false ;}
-    }
+  }
+
   function __destruct() {
       $this->close();
   }
+
 }
 
 ?>

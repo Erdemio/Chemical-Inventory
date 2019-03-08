@@ -10,6 +10,6 @@ if(!defined('check_for_direct_access')) {
   </div>
   <div class="modal-footer">
     <a href="javascript:void(0)" class="modal-close btn waves-effect waves-light">Geri dön</a>
-    <a href="logoff" class="btn waves-effect red waves-light">Evet<i class="material-icons right">exit_to_app</i></a>
+    <a href="logoff" class="btn waves-effect red waves-light">Çıkış yap<i class="material-icons right">exit_to_app</i></a>
   </div>
 </div>
