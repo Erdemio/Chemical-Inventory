@@ -12,8 +12,8 @@ class db_query
       }
       if($level > 1){
         echo '
-          <div class="col m12 s12 l9">
-            <div class="card card-listele">
+          <div class="col m12 s12 l9 iomr">
+            <div class="card card-wns">
                 <table id="kimyasal-liste" class="highlight centered">
                   <thead>
                     <tr>
@@ -35,7 +35,6 @@ class db_query
                             </tr>";
                     }
                   }
-
               echo '</tbody>
                 </table>
             </div>
@@ -94,16 +93,16 @@ class db_query
 
   /* Güvenlik Prosedürleri */
   function check_auth($auth){
-      $auth = $this->clear($auth);
-      $q = mysql_query("SELECT COUNT(*) As adet FROM `user` WHERE `user_auth` = '$auth'");
-      while($row = mysql_fetch_assoc($q)){
-        $count = $row['adet'];
-      }
-      if(@$count>0){
-        return true;
-      }else{
-        return false;
-      }
+    $auth = $this->clear($auth);
+    $q = mysql_query("SELECT COUNT(*) As adet FROM `user` WHERE `user_auth` = '$auth'");
+    while($row = mysql_fetch_assoc($q)){
+      $count = $row['adet'];
+    }
+    if(@$count>0){
+      return true;
+    }else{
+      return false;
+    }
   }
 
   private function clear($item){
@@ -115,15 +114,14 @@ class db_query
   }
 
   function register($identy,$password,$time){
-      $auth = $this->algorithm($identy,$password,$time);
-      $q = mysql_query("INSERT INTO `user` (`id`, `user_id`, `user_auth`, `user_login_time`) VALUES (NULL, '$identy', '$auth', '$time');");
-      if(@$q){
-        echo 'Register Successful';
-      }else
-      {
-        echo 'Register error';
-      }
-      //http://localhost/register.php?id=erdem&pw=123
+    $auth = $this->algorithm($identy,$password,$time);
+    $q = mysql_query("INSERT INTO `user` (`id`, `user_id`, `user_auth`, `user_login_time`) VALUES (NULL, '$identy', '$auth', '$time');");
+    if(@$q){
+      echo 'Register Successful';
+    }else
+    {
+      echo 'Register error';
+    }
   }
 
   function login($identy,$password){

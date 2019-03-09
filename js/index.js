@@ -32,12 +32,6 @@ document.addEventListener('DOMContentLoaded', function() {
   var instances = M.Tooltip.init(elems, options);
 });
 
-
-//belki kaldırmalıyım
-$(document).ready(function() {
-  $('input#autocomplete-input-ka, textarea#textarea2').characterCounter();
-});
-
 //Form nesnesi olan datepicker nesnesinin frameworkda ki tanımlaması.
 document.addEventListener('DOMContentLoaded', function() {
   var options = {

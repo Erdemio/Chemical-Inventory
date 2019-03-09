@@ -28,7 +28,7 @@ $link = "index";
 
 
            <div id="sidebar" class="col m12 s12 l3">
-             <div class="card search-menu">
+             <div class="card card-wns">
                  <div class="card-content ">
                    <span class="card-title large">Arama Yap</span>
                    <form id="form" method="POST">
