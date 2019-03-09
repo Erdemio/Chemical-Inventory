@@ -179,7 +179,6 @@ $link = "insert";
         var text = document.getElementById("autocomplete-input-kf");
         var cf = document.getElementById("cf");
         var fullt = text.value;
-
         for(var i=0; i<fullt.length;i++){
           if (i>=text.selectionStart && i<text.selectionEnd) {
             var que = anormalChars.indexOf(fullt[i]);
