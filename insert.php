@@ -162,7 +162,7 @@ $link = "insert";
             if (isNaN(fullt[i])) {
               stringBuilder += fullt[i];
             }else{
-              if(i>=text.selectionStart && i<=text.selectionEnd){
+              if(i>=text.selectionStart && i<text.selectionEnd){
                 var whichNumber = fullt[i];
                 var newNumber = littleChars[whichNumber];
                 stringBuilder += newNumber;
@@ -181,7 +181,7 @@ $link = "insert";
         var fullt = text.value;
 
         for(var i=0; i<fullt.length;i++){
-          if (i>=text.selectionStart && i<=text.selectionEnd) {
+          if (i>=text.selectionStart && i<text.selectionEnd) {
             var que = anormalChars.indexOf(fullt[i]);
             if (que>=0 && que <=9) {
               stringBuilder += normalChars[que];
