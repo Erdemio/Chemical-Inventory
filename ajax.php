@@ -45,7 +45,7 @@ $database = new database ();
       $a = $_POST['a'];//-
       $gt = $_POST['gt'];//-
 
-      $get = $q -> insert_chemical($ka,$formula,$uf,$m,$a,$gt);
+      $get = $q -> insert_chemical($ka,$formula,$uf,$m,$a,$gt,@$_SESSION['auth']);
 
     }
 

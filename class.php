@@ -123,13 +123,14 @@ class db_query
   }
 
   /* Ekleme İşlemleri */
-  function insert_chemical($ka,$formula,$uf,$m,$a,$gt){
+  function insert_chemical($ka,$formula,$uf,$m,$a,$gt,$author){
     $ka =       $this->clear($ka);
     $formula =  $this->clear($formula);
     $uf =       $this->clear($uf);
     $m =        $this->clear($m);
     $a =        $this->clear($a);
     $gt =       $this->clear($gt);
+    $author =   $this->clear($author);
     $state = "false";
 
     //varsa al yoksa ben yazıyorum.
@@ -182,12 +183,25 @@ class db_query
     $new_date = explode("-",$gt);
     $date = $new_date[2].'-'.$new_date[1].'-'.$new_date[0];
 
-    $chemical_insert = mysql_query("INSERT INTO `chemical` (`unique_id`, `n_name`, `n_formula`, `n_manufacturer`, `quantity`, `stock`, `entry_date`) VALUES (NULL, '$ka', '$formula', '$uf', '$m', '$a', '$date');");
+    $q_id = mysql_query("SELECT `id`,`level` FROM `user` WHERE `user_auth` = '$author'");
+    $id_count = mysql_num_rows($q_id);
 
-      if ($chemical_insert) {
-        echo "true";
+    if ($id_count) {
+      while ($row = mysql_fetch_assoc($q_id)) {
+        $id = $row['id'];
+        $perm = $row['level'];
       }
-
+      if ($perm>1) {
+        $chemical_insert = mysql_query("INSERT INTO `chemical` (`unique_id`, `n_name`, `n_formula`, `n_manufacturer`, `quantity`, `stock`, `entry_date`,`author`) VALUES (NULL, '$ka', '$formula', '$uf', '$m', '$a', '$date', $id);");
+        if ($chemical_insert) {
+          echo "true";
+        }
+      }else{
+        echo "Yetersiz yetki.";
+      }
+    }else{
+      echo "Not authorized.";
+    }
   }
 
   /* Güvenlik Prosedürleri */
