@@ -33,7 +33,7 @@ $link = "insert";
                         <div class="row">
                           <div class="input-field col s12">
                             <i class="material-icons prefix">label_outline</i>
-                            <input type="text" id="autocomplete-input-ka" class="autocomplete" value="Amonyak">
+                            <input type="text" id="autocomplete-input-ka" class="autocomplete" name="ka">
                             <label for="autocomplete-input-ka">Kimyasal Adı</label>
                           </div>
                         </div>
@@ -43,7 +43,7 @@ $link = "insert";
                         <div class="row">
                           <div class="input-field col s9 m8 l10">
                             <i class="material-icons prefix">label_important_outline</i>
-                            <input type="text" name="formula" id="autocomplete-input-kf">
+                            <input type="text" name="formula" id="autocomplete-input-kf" name="kf">
                             <label for="autocomplete-input-kf">Kimyasal Formülü</label>
                           </div>
                           <div class="input-field col s3 m4 l2">
@@ -61,7 +61,7 @@ $link = "insert";
                         <div class="row">
                           <div class="input-field col s12">
                             <i class="material-icons prefix">build_outline</i>
-                            <input type="text" id="autocomplete-input-uf" class="autocomplete" value="Merch">
+                            <input type="text" id="autocomplete-input-uf" class="autocomplete" name="uf">
                             <label for="autocomplete-input-uf">Üretici Firma</label>
                           </div>
                         </div>
@@ -70,7 +70,7 @@ $link = "insert";
                         <div class="row">
                           <div class="input-field col s12">
                             <i class="material-icons prefix">exposure_outline</i>
-                            <input type="text" id="autocomplete-input-mk" value="1L">
+                            <input type="text" id="autocomplete-input-mk" name="m">
                             <label for="autocomplete-input-mk">Miktar</label>
                           </div>
                         </div>
@@ -79,7 +79,7 @@ $link = "insert";
                         <div class="row">
                           <div class="input-field col s12">
                             <i class="material-icons prefix">exposure_outline</i>
-                            <input type="text" id="autocomplete-input-ad" value="1">
+                            <input type="text" id="autocomplete-input-ad" name="a">
                             <label for="autocomplete-input-ad">Adet</label>
                           </div>
                         </div>
@@ -88,7 +88,7 @@ $link = "insert";
                         <div class="row">
                           <div class="input-field col s12">
                             <i class="material-icons prefix">date_range</i>
-                            <input type="text" class="datepicker" id="autocomplete-input-gt" value="15-03-2019">
+                            <input type="text" class="datepicker" id="autocomplete-input-gt" name="gt">
                             <label for="autocomplete-input-gt">Giriş Tarihi</label>
                           </div>
                         </div>
@@ -102,29 +102,25 @@ $link = "insert";
           <div class="col m12 s12 l4">
             <div class="card card-wns">
               <div class="card-content">
-
-
-
                 <ul class="collection">
-                  <li class="collection-item">Kimyasal adı: Amonyak</li>
-                  <li class="collection-item">Kimyasal formülü: <span id="cf">NH&#8323;</span></li>
-                  <li class="collection-item">Üretici firma: Merch</li>
-                  <li class="collection-item">Miktar: 1L</li>
-                  <li class="collection-item">Adet: 1</li>
-                  <li class="collection-item">Giriş tarihi: 15-03-2019</li>
+                  <li class="collection-item">Kimyasal adı: <span id="ka"></span></li>
+                  <li class="collection-item">Kimyasal formülü: <span id="cf"></span></li>
+                  <li class="collection-item">Üretici firma: <span id="uf"></span></li>
+                  <li class="collection-item">Miktar: <span id="m"></span></li>
+                  <li class="collection-item">Adet: <span id="a"></span></li>
+                  <li class="collection-item">Giriş tarihi: <span id="gt"></span></li>
                 </ul>
-
               </div>
               <div class="card-action">
-                <a class="waves-effect waves-light btn"><i class="material-icons right">send</i>Kaydet</a>
-                <a class="waves-effect waves-light btn"><i class="material-icons right">cancel</i>İptal</a>
+                <button class="btn waves-effect waves-light" type="button" name="action">Kaydet
+                  <i class="material-icons right">send</i>
+                </button>
+                <button class="btn waves-effect waves-light" type="reset" name="action">Sıfırla
+                  <i class="material-icons right">cancel</i>
+                </button>
               </div>
             </div>
           </div>
-
-
-
-
       </div>
 
 
@@ -159,10 +155,12 @@ $link = "insert";
           var cf = document.getElementById("cf");
           var fullt = text.value;
           for(var i=0; i<fullt.length;i++){
+
             if (isNaN(fullt[i])) {
               stringBuilder += fullt[i];
             }else{
-              if(i>=text.selectionStart && i<text.selectionEnd){
+              if(i>=text.selectionStart && i<text.selectionEnd && fullt[i] != " "){
+
                 var whichNumber = fullt[i];
                 var newNumber = littleChars[whichNumber];
                 stringBuilder += newNumber;
@@ -170,17 +168,19 @@ $link = "insert";
                 stringBuilder += fullt[i];
               }
             }
+
           }
           cf.innerHTML= stringBuilder;
           text.value=cf.innerHTML;
       }
+
       function upItem(){
         var stringBuilder="";
         var text = document.getElementById("autocomplete-input-kf");
         var cf = document.getElementById("cf");
         var fullt = text.value;
         for(var i=0; i<fullt.length;i++){
-          if (i>=text.selectionStart && i<text.selectionEnd) {
+          if (i>=text.selectionStart && i<text.selectionEnd && fullt[i] != " ") {
             var que = anormalChars.indexOf(fullt[i]);
             if (que>=0 && que <=9) {
               stringBuilder += normalChars[que];

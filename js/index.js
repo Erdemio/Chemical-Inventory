@@ -174,6 +174,20 @@ $("#geri-arama").click(function() {
 
 //Giriş formunda ki işlemleri sağlar.
 $("#gonder-login").click(function() {
+  login();
+});
+
+$("#form").keyup(function(event) {
+    if (event.keyCode === 13) {
+        login();
+    }
+});
+
+
+
+
+
+function login(){
   var values = $("#form").serialize();
   $.ajax({
     url: "ajax.php",
@@ -193,7 +207,8 @@ $("#gonder-login").click(function() {
       console.log(textStatus, errorThrown);
     }
   });
-});
+}
+
 $("#password").on('input', function(e) {
   document.getElementById("response").innerHTML = "";
 });

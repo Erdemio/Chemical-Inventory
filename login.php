@@ -45,14 +45,17 @@ if(@$_GET['error']=="not_authorized"){
                   <div class="row">
                     <div class="col s12">
                       <input type="hidden" value="login_form" name="action">
-                    <a class="btn right grey darken-1 waves-effect waves-light" id="gonder-login" >
-                      Giriş Yap <i class="material-icons right">send</i>
-                    </a>
+                    <button class="btn right grey darken-1 waves-effect waves-light" id="gonder-login" type="button" onclick="login()" name="action">Giriş Yap
+                      <i class="material-icons right">send</i>
+                    </button>
                     </div>
                   </div>
                   <div class="col s12">
                     <blockquote>
-                      <span class="text" id="response"><?php if(@$_GET){if(@$_GET['error']=="first_login"){ echo "İlk önce giriş yapın.";}} ?></span>
+                      <span class="text" id="response"><?php if(@$_GET){if(@$_GET['error']=="first_login"){
+                        // echo "İlk önce giriş yapın.";
+                      }}
+                         ?></span>
                     </blockquote>
                   </div>
                 </form>
