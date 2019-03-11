@@ -50,6 +50,37 @@ class db_query
     }
   }
 
+  function get_autocomplete_data($chosen){
+    if ($chosen=="chemical_names") {
+      $q = mysql_query("SELECT * FROM `chemical_names`");
+      $row_count= mysql_num_rows($q);
+      $count = 0;
+      while($row = mysql_fetch_assoc($q)){
+
+        if ($count < $row_count-1) {
+          echo "\"".$row['name']."\": null, ";
+        }else{
+          echo "\"".$row['name']."\": null";
+        }
+        $count += 1;
+      }
+    }else if ($chosen=="manufacturer_names") {
+      $q1 = mysql_query("SELECT * FROM `manufacturer_names`");
+      $row_count1= mysql_num_rows($q1);
+      $count2 = 0;
+      while($row = mysql_fetch_assoc($q1)){
+
+        if ($count2 < $row_count1-1) {
+          echo "\"".$row['manufacturer']."\": null, ";
+        }else{
+          echo "\"".$row['manufacturer']."\": null";
+        }
+        $count2 += 1;
+      }
+    }
+
+  }
+
   function get_data_with_parameters($canon,$search,$auth){
     $canon = $this->clear($canon);
     $search = $this->clear($search);
