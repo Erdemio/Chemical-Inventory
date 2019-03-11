@@ -6,6 +6,10 @@ $database = new database ();
 define('check_for_direct_access', TRUE);
 //Üst kısım sabit, index'den farklı olarak procedure.php yok.
 
+$active = "login";
+$page = "Giriş Yap";
+$link = "login";
+
 //Giriş kontrol kısmı giriş varsa form'a yönlendirir.
 if(@$_GET['error']=="not_authorized"){
   header("location:logoff");
@@ -17,7 +21,7 @@ if(@$_GET['error']=="not_authorized"){
 <html>
   <head>
     <?php require_once "header.php"; ?>
-    <title>Giriş Yap</title>
+    <title><?php echo $page; ?></title>
   </head>
   <body>
     <div class="container">
@@ -71,5 +75,43 @@ if(@$_GET['error']=="not_authorized"){
       </div>
     </div>
     <?php require_once "scripts.php"; ?>
+    <script type="text/javascript">
+    //Giriş formunda ki işlemleri sağlar.
+    $("#gonder-login").click(function() {
+      login();
+    });
+
+    $("#form").keyup(function(event) {
+        if (event.keyCode === 13) {
+            login();
+        }
+    });
+
+    function login(){
+      var values = $("#form").serialize();
+      $.ajax({
+        url: "ajax.php",
+        type: "post",
+        data: values,
+        success: function(response) {
+          document.getElementById("response").innerHTML = response;
+          if (response == 'Giriş başarılı!') {
+            setTimeout(function() {
+              window.location.href = "index";
+            }, 300);
+          } else {
+            document.getElementById("password").value = "";
+          }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          console.log(textStatus, errorThrown);
+        }
+      });
+    }
+
+    $("#password").on('input', function(e) {
+      document.getElementById("response").innerHTML = "";
+    });
+    </script>
   </body>
 </html>

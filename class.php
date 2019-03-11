@@ -122,6 +122,74 @@ class db_query
     }
   }
 
+  /* Ekleme İşlemleri */
+  function insert_chemical($ka,$formula,$uf,$m,$a,$gt){
+    $ka =       $this->clear($ka);
+    $formula =  $this->clear($formula);
+    $uf =       $this->clear($uf);
+    $m =        $this->clear($m);
+    $a =        $this->clear($a);
+    $gt =       $this->clear($gt);
+    $state = "false";
+
+    //varsa al yoksa ben yazıyorum.
+    $q_kimyasal_adi = mysql_query("SELECT `n_name` FROM `chemical_names` WHERE `name` = '$ka'");
+    if (mysql_num_rows($q_kimyasal_adi)>0) {
+      while ($row = mysql_fetch_assoc($q_kimyasal_adi)) {
+        $ka = $row['n_name'];
+      }
+    }else{
+      $insert = mysql_query("INSERT INTO `chemical_names` (`n_name`, `name`) VALUES (NULL, '$ka');");
+      if ($insert) {
+        $find = mysql_query("SELECT `n_name` FROM `chemical_names` WHERE `name` = '$ka'");
+        while ($row = mysql_fetch_assoc($find)) {
+          $ka = $row['n_name'];
+        }
+      }
+    }
+
+    $q_uretici_firma = mysql_query("SELECT `n_manufacturer` FROM `manufacturer_names` WHERE `manufacturer` = '$uf'");
+    if (mysql_num_rows($q_uretici_firma)>0) {
+      while ($row = mysql_fetch_assoc($q_uretici_firma)) {
+        $uf = $row['n_manufacturer'];
+      }
+    }else{
+      $insert = mysql_query("INSERT INTO `manufacturer_names` (`n_manufacturer`, `manufacturer`) VALUES (NULL, '$uf')");
+      if ($insert) {
+        $find = mysql_query("SELECT `n_manufacturer` FROM `manufacturer_names` WHERE `manufacturer` = '$uf'");
+        while ($row = mysql_fetch_assoc($find)) {
+          $uf = $row['n_manufacturer'];
+        }
+      }
+    }
+
+    $q_formula = mysql_query("SELECT * FROM `chemical_formula` WHERE `formula` = '$formula'");
+
+    if (mysql_num_rows($q_formula)>0) {
+      while ($row = mysql_fetch_assoc($q_formula)) {
+        $formula = $row['n_formula'];
+      }
+    }else{
+      $insert = mysql_query("INSERT INTO `chemical_formula` (`n_formula`, `formula`) VALUES (NULL, '$formula')");
+      if ($insert) {
+        $find = mysql_query("SELECT `n_formula` FROM `chemical_formula` WHERE `formula` = '$formula'");
+        while ($row = mysql_fetch_assoc($find)) {
+          $formula = $row['n_formula'];
+        }
+      }
+    }
+
+    $new_date = explode("-",$gt);
+    $date = $new_date[2].'-'.$new_date[1].'-'.$new_date[0];
+
+    $chemical_insert = mysql_query("INSERT INTO `chemical` (`unique_id`, `n_name`, `n_formula`, `n_manufacturer`, `quantity`, `stock`, `entry_date`) VALUES (NULL, '$ka', '$formula', '$uf', '$m', '$a', '$date');");
+
+      if ($chemical_insert) {
+        echo "true";
+      }
+
+  }
+
   /* Güvenlik Prosedürleri */
   function check_auth($auth){
     $auth = $this->clear($auth);

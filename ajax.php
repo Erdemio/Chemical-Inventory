@@ -34,6 +34,19 @@ $database = new database ();
       }else{
         echo $get;
       }
+
+    }else if (@$_POST['action']=="insert_form") {
+
+
+      $ka = $_POST['ka']; //+
+      $formula = $_POST['formula'];//-
+      $uf = $_POST['uf'];//+
+      $m = $_POST['m'];//-
+      $a = $_POST['a'];//-
+      $gt = $_POST['gt'];//-
+
+      $get = $q -> insert_chemical($ka,$formula,$uf,$m,$a,$gt);
+
     }
 
   }

@@ -43,16 +43,16 @@ $link = "index";
                         </div>
                         <div class="input-field col s12">
                           <i class="material-icons prefix">filter_2</i>
+                          <input type="hidden" value="search_form" name="action">
                           <input id="icon_prefix" type="text" name="search">
                           <label for="icon_prefix">Kimyasal adi, üretici firma.</label>
                         </div>
-                        <div class="input-field col s12">
-                          <input type="hidden" value="search_form" name="action">
-                          <a class="btn grey darken-1 waves-effect waves-light disabled" id="geri-arama"><i class="material-icons">arrow_back</i></a>
-                          <a class="btn grey darken-1 waves-effect waves-light" id="gonder-arama">Arama Yap <i class="material-icons right">search</i></a>
-                        </div>
                        </div>
                    </form>
+                 </div>
+                 <div class="card-action">
+                   <a class="btn grey darken-1 waves-effect waves-light disabled" id="geri-arama"><i class="material-icons">arrow_back</i></a>
+                   <a class="btn grey darken-1 waves-effect waves-light" id="gonder-arama">Arama Yap <i class="material-icons right">search</i></a>
                  </div>
                </div>
            </div>

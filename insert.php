@@ -21,7 +21,7 @@ $link = "insert";
     <body>
       <?php require_once "headerbar.php"; ?>
       <main>
-        <form class="insert_form" action="a.php" method="get">
+        <form class="insert_form" id="insert_form" method="post">
       <div class="row">
 
           <div class="col m12 s12 l8 iomr">
@@ -112,10 +112,11 @@ $link = "insert";
                 </ul>
               </div>
               <div class="card-action">
-                <button class="btn waves-effect waves-light" type="button" name="action">Kaydet
+                <input type="hidden" name="action" value="insert_form">
+                <button class="btn waves-effect waves-light" type="button" id="gonder-insert">Kaydet
                   <i class="material-icons right">send</i>
                 </button>
-                <button class="btn waves-effect waves-light" type="reset" name="action">Sıfırla
+                <button class="btn waves-effect waves-light" type="reset">Sıfırla
                   <i class="material-icons right">cancel</i>
                 </button>
               </div>
@@ -128,11 +129,29 @@ $link = "insert";
       <?php require_once "scripts.php"; ?>
       <script type="text/javascript">
 
+      $("#gonder-insert").click(function() {
+        insertForm();
+      });
+      function insertForm(){
+        var values = $("#insert_form").serialize();
+        $.ajax({
+          url: "ajax.php",
+          type: "post",
+          data: values,
+          success: function(response) {
+            alert(response);
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus, errorThrown);
+          }
+        });
+
+
+      }
 
       function input2span(name){
         document.getElementById(name+"_span").innerHTML = document.getElementById(name).value;
       }
-
 
       $(document).ready(function(){
         $('input.autocomplete#ka').autocomplete({
