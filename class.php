@@ -31,7 +31,7 @@ class db_query
                       echo "<tr>
                               <td>".$row['name']."</td>
                               <td>".$row['formula']."</td>
-                              <td><a href=\"#\" data-position=\"left\" data-tooltip=\"Görüntüle\" class=\"waves-effect waves-light btn tooltipped\"><i class='material-icons'>open_in_new</i></a> <a href=\"edit?n_name=".$row['n_name']."\" data-position=\"right\" data-tooltip=\"Düzenle\"  class=\"waves-effect waves-light btn tooltipped\"><i class='material-icons'>forward</i></a></td>
+                              <td><a href=\"#\" class=\"waves-effect waves-light btn\">MGBF</a> <a href=\"#\" data-position=\"bottom\" data-tooltip=\"Görüntüle\" class=\"waves-effect waves-light btn tooltipped\"><i class='material-icons'>open_in_new</i></a> <a href=\"edit?n_name=".$row['n_name']."\" data-position=\"bottom\" data-tooltip=\"Düzenle\"  class=\"waves-effect waves-light btn tooltipped\"><i class='material-icons'>forward</i></a></td>
                             </tr>";
                     }
                   }

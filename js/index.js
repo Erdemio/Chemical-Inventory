@@ -25,12 +25,21 @@ document.addEventListener('DOMContentLoaded', function() {
   var instances = M.FormSelect.init(elems, options);
 });
 
-//Alt mesaj
+//Alt mesaj tooltip
 document.addEventListener('DOMContentLoaded', function() {
   var options = {enterDelay:325};
   var elems = document.querySelectorAll('.tooltipped');
   var instances = M.Tooltip.init(elems, options);
 });
+
+// aksiyon butonları
+/*
+document.addEventListener('DOMContentLoaded', function() {
+  var elems = document.querySelectorAll('.fixed-action-btn');
+  var instances = M.FloatingActionButton.init(elems, {
+    direction: 'left'
+  });
+});*/
 
 //Form nesnesi olan datepicker nesnesinin frameworkda ki tanımlaması.
 document.addEventListener('DOMContentLoaded', function() {

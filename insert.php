@@ -21,7 +21,7 @@ $link = "insert";
     <body>
       <?php require_once "headerbar.php"; ?>
       <main>
-        <form class="insert_form" id="insert_form" method="post">
+        <form class="insert_form" id="insert_form" enctype="multipart/form-data" method="post">
       <div class="row">
 
           <div class="col m12 s12 l8 iomr">
@@ -33,7 +33,7 @@ $link = "insert";
                         <div class="row">
                           <div class="input-field col s12">
                             <i class="material-icons prefix">label_outline</i>
-                            <input type="text" id="ka" class="autocomplete" onchange="input2span('ka')" name="ka">
+                            <input type="text" id="ka" class="autocomplete" autocomplete="off" onchange="input2span('ka')" name="ka">
                             <label for="ka">Kimyasal Adı</label>
                           </div>
                         </div>
@@ -43,7 +43,7 @@ $link = "insert";
                         <div class="row">
                           <div class="input-field col s9 m8 l10">
                             <i class="material-icons prefix">label_important_outline</i>
-                            <input type="text" name="formula" id="kf" name="kf" onchange="input2span('kf')">
+                            <input type="text" name="formula" autocomplete="off" id="kf" name="kf" onchange="input2span('kf')">
                             <label for="kf">Kimyasal Formülü</label>
                           </div>
                           <div class="input-field col s3 m4 l2">
@@ -60,7 +60,7 @@ $link = "insert";
                       <div class="col s12">
                         <div class="row">
                           <div class="input-field col s12">
-                            <i class="material-icons prefix">build_outline</i>
+                            <i class="material-icons prefix">build</i>
                             <input type="text" id="uf" class="autocomplete" name="uf" onchange="input2span('uf')">
                             <label for="uf">Üretici Firma</label>
                           </div>
@@ -68,33 +68,92 @@ $link = "insert";
                       </div>
                       <div class="col s12">
                         <div class="row">
-                          <div class="input-field col s12">
-                            <i class="material-icons prefix">exposure_outline</i>
-                            <input type="text" id="m" name="m" onchange="input2span('m')">
+                          <div class="input-field col s3">
+                            <i class="material-icons prefix">exposure</i>
+                            <input type="text" id="m" autocomplete="off" name="m" onchange="input2span('m')" value="0">
                             <label for="m">Miktar</label>
+                          </div>
+                          <div class="input-field col s9" id="m_type_div">
+
+                            <div class="input-field col s2">
+                              <label>
+                                <input class="with-gap" name="m_type" id="m_type" type="radio" value="litre" checked />
+                                <span>Litre</span>
+                              </label>
+                            </div>
+                            <div class="input-field col s2">
+                              <label>
+                                <input class="with-gap" name="m_type" id="m_type" type="radio" value="mili litre" />
+                                <span>Mili Litre</span>
+                              </label>
+                            </div>
+                            <div class="input-field col s2">
+                              <label>
+                                <input class="with-gap" name="m_type" id="m_type" type="radio" value="kilo gram" />
+                                <span>Kilo Gram</span>
+                              </label>
+                            </div>
+                            <div class="input-field col s2">
+                              <label>
+                                <input class="with-gap" name="m_type" id="m_type" type="radio" value="gram" />
+                                <span>Gram</span>
+                              </label>
+                            </div>
+                            <div class="input-field col s2">
+                              <label>
+                                <input class="with-gap" name="m_type" id="m_type" type="radio" value="mili gram" />
+                                <span>Mili gram</span>
+                              </label>
+                            </div>
+
+
+
                           </div>
                         </div>
                       </div>
                       <div class="col s12">
                         <div class="row">
-                          <div class="input-field col s12">
-                            <i class="material-icons prefix">exposure_outline</i>
-                            <input type="text" id="a" name="a" onchange="input2span('a')">
-                            <label for="ad">Adet</label>
+                          <div class="input-field col s9 m 8 l10">
+                            <i class="material-icons prefix">exposure</i>
+                            <input type="text" id="a" name="a" autocomplete="off" onchange="input2span('a')" value="0">
+                            <label for="a">Adet</label>
                           </div>
+
+                          <div class="input-field col s3 m4 l2">
+                            <button class="btn waves-effect waves-light col s5" type="button" id="count-down">
+                              <i class="material-icons">exposure_neg_1</i>
+                            </button>
+                            <button class="btn waves-effect waves-light col s5 offset-s1" type="button" id="count-up">
+                              <i class="material-icons">exposure_plus_1</i>
+                            </button>
+                          </div>
+
                         </div>
                       </div>
                       <div class="col s12">
                         <div class="row">
                           <div class="input-field col s12">
                             <i class="material-icons prefix">date_range</i>
-                            <input type="text" class="datepicker" id="gt" name="gt" onchange="input2span('gt')">
+                            <input type="text" class="datepicker" id="gt" autocomplete="off" name="gt" onchange="input2span('gt')">
                             <label for="gt">Giriş Tarihi</label>
                           </div>
                         </div>
                       </div>
-                    </div>
+                      <div class="col s12">
+                        <div class="row">
+                          <div class="file-field input-field">
+                            <div class="btn">
+                              <span>MGBF</span>
+                              <input type="file">
+                            </div>
+                            <div class="file-path-wrapper">
+                              <input class="file-path" type="text">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
 
+                    </div>
                   </div>
                 </div>
             </div>
@@ -116,7 +175,7 @@ $link = "insert";
                 <button class="btn waves-effect waves-light" type="button" id="gonder-insert">Kaydet
                   <i class="material-icons right">send</i>
                 </button>
-                <button class="btn waves-effect waves-light" type="reset">Sıfırla
+                <button class="btn waves-effect waves-light" type="reset" id="gonder-reset">Sıfırla
                   <i class="material-icons right">cancel</i>
                 </button>
               </div>
@@ -149,8 +208,42 @@ $link = "insert";
 
       }
 
+        $("#gonder-reset").click(function(){
+          $(".collection-item span").html("");
+          document.getElementById("a").value=1;
+        });
+
+        $("#count-up").click(function(){
+          val = document.getElementById("a").value;
+          val = eval(parseInt(document.getElementById("a").value)+1);
+
+           document.getElementById("a").value = val;
+           document.getElementById("a_span").innerHTML = val + " ";
+        });
+
+        $("#count-down").click(function(){
+          var val = document.getElementById("a").value;
+          if (val>1) {
+            val = eval(parseInt(val)-1);
+          }
+          document.getElementById("a").value = val;
+          document.getElementById("a_span").innerHTML = val + " ";
+        });
+
+
+
+        $("#m_type_div").click(function(){
+           document.getElementById("m_span").innerHTML = document.querySelector('input[name="m"]').value + " " + document.querySelector('input[name="m_type"]:checked').value;
+        });
+
+
       function input2span(name){
-        document.getElementById(name+"_span").innerHTML = document.getElementById(name).value;
+        if (name == "m") {
+            document.getElementById(name+"_span").innerHTML = document.querySelector('input[name="m"]').value + " " + document.querySelector('input[name="m_type"]:checked').value;
+        }else {
+          document.getElementById(name+"_span").innerHTML = document.getElementById(name).value;
+        }
+
       }
 
       $(document).ready(function(){
