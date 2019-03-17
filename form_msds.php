@@ -42,9 +42,17 @@ $link = "index";
           <div class="row">
             <blockquote>
               <span class="text" id="response"><?php
-              if(@$_GET){if(@$_GET['error']=="dosya"){
+              if(@$_GET){
+                if(@$_GET['error']=="dosya"){
                  echo "Geçersiz dosya türü seçtiniz. Lütfen pdf seçiniz.";
-              }}
+               }else if(@$_GET['error']=="eklendi"){
+                echo "Başarılı bir şekilde eklediniz.";
+                echo "<script>setTimeout(function(){ var iframes = document.querySelectorAll('body');
+                      for (var i = 0; i < iframes.length; i++) {
+                          iframes[i].parentNode.removeChild(iframes[i]);
+                      } }, 2000);</script>";
+               }
+              }
                  ?></span>
             </blockquote>
             <button class="btn waves-effect waves-light right" type="submit">Yükle

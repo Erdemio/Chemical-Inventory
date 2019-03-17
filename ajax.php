@@ -66,9 +66,12 @@ $database = new database ();
         $file = $_FILES['file'];
 
         if ($file['type']=='application/pdf') {
-          $let = $q -> insert_msds($name,$file,@$_SESSION['auth']);  
+           $let = $q -> insert_msds($name,$file,@$_SESSION['auth']);
+           if ($let == "101") {
+             header("location:form_msds.php?error=eklendi");
+           }
+
         }else{
-          echo "Geçersiz dosya türü.";
           header("location:form_msds.php?error=dosya&data="+$name);
         }
 

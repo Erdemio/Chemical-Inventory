@@ -240,7 +240,9 @@ class db_query
 
       $q = mysql_query("INSERT INTO `msds` (`id`, `n_id`, `msds`, `author`) VALUES (NULL, '$temp','$data', '$auth')");
       if($q){
-          echo "ekleme başarılı";
+          return "101";
+      }else{
+          return "102";  
       }
     }
   }else{
