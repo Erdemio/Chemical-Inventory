@@ -1,9 +1,12 @@
-/*kimyasal view 12.03.2019 - 00:00 tarihinde oluþturuldu*/
+/*kimyasal view 17.03.2019 - 11:03 tarihinde oluþturuldu*/
 create view kimyasal as
-SELECT  chemical.unique_id,chemical_names.name, chemical_formula.formula, manufacturer_names.manufacturer, chemical.quantity, chemical.stock, chemical.entry_date, chemical.n_name
+SELECT  chemical.unique_id,chemical_names.name, chemical_formula.formula, manufacturer_names.manufacturer, chemical.quantity, chemical.stock, chemical.entry_date, chemical.n_name, chemical.n_formula
 FROM `chemical`
 INNER JOIN chemical_names ON chemical.n_name = chemical_names.n_name
 INNER JOIN chemical_formula ON chemical.n_formula = chemical_formula.n_formula
 INNER JOIN manufacturer_names ON chemical.n_manufacturer = manufacturer_names.n_manufacturer
 
 select uniqýe_id, name, formula, manufacturer, quantity,stock,entry_date,DISTINCT n_name from kimyasal
+
+
+chemical:n_name = msds:n_id

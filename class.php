@@ -24,14 +24,14 @@ class db_query
                   </thead>
 
                   <tbody>';
-                  $q = mysql_query("select name, formula,n_name from kimyasal GROUP BY n_name;");
+                  $q = mysql_query("select name,formula,n_name,n_formula from kimyasal GROUP BY n_name;");
                   if($q){
                     while($row = mysql_fetch_assoc($q)){
                       //buraya akordiyon olarak firma isimleri ekliyebilirsin
                       echo "<tr>
                               <td>".$row['name']."</td>
                               <td>".$row['formula']."</td>
-                              <td><a href=\"#\" class=\"waves-effect waves-light btn\">MGBF</a> <a href=\"#\" data-position=\"bottom\" data-tooltip=\"Görüntüle\" class=\"waves-effect waves-light btn tooltipped\"><i class='material-icons'>open_in_new</i></a> <a href=\"edit?n_name=".$row['n_name']."\" data-position=\"bottom\" data-tooltip=\"Düzenle\"  class=\"waves-effect waves-light btn tooltipped\"><i class='material-icons'>forward</i></a></td>
+                              <td><a href=\"msds.php?id=".$row['n_name']."\" target=\"_blank\" class=\"waves-effect waves-light btn\">MGBF</a> <a href=\"#\" data-position=\"bottom\" data-tooltip=\"Görüntüle\" class=\"waves-effect waves-light btn tooltipped\"><i class='material-icons'>open_in_new</i></a> <a href=\"edit?n_name=".$row['n_name']."\" data-position=\"bottom\" data-tooltip=\"Düzenle\"  class=\"waves-effect waves-light btn tooltipped\"><i class='material-icons'>forward</i></a></td>
                             </tr>";
                     }
                   }
@@ -106,7 +106,7 @@ class db_query
                 echo "<tr class=\"searched\">
                         <td>".$row['name']."</td>
                         <td>".$row['formula']."</td>
-                        <td><a href=\"#\" data-position=\"left\" data-tooltip=\"Görüntüle\" class=\"waves-effect waves-light btn tooltipped\"><i class='material-icons'>open_in_new</i></a> <a href=\"edit?n_name=".$row['n_name']."\" data-position=\"right\" data-tooltip=\"Düzenle\"  class=\"waves-effect waves-light btn tooltipped\"><i class='material-icons'>forward</i></a></td>
+                        <td><a href=\"msds.php?id=".$row['n_name']."\" target=\"_blank\" class=\"waves-effect waves-light btn\">MGBF</a> <a href=\"#\" data-position=\"left\" data-tooltip=\"Görüntüle\" class=\"waves-effect waves-light btn tooltipped\"><i class='material-icons'>open_in_new</i></a> <a href=\"edit?n_name=".$row['n_name']."\" data-position=\"right\" data-tooltip=\"Düzenle\"  class=\"waves-effect waves-light btn tooltipped\"><i class='material-icons'>forward</i></a></td>
                       </tr>";
               }
               if(mysql_num_rows($q)<1){
@@ -123,7 +123,7 @@ class db_query
   }
 
   /* Ekleme İşlemleri */
-  function insert_chemical($ka,$formula,$uf,$m,$a,$gt,$author){
+  function insert_chemical($ka,$formula,$uf,$m,$a,$gt,$author,$msds){
     $ka =       $this->clear($ka);
     $formula =  $this->clear($formula);
     $uf =       $this->clear($uf);
@@ -181,7 +181,7 @@ class db_query
     }
 
     $new_date = explode("-",$gt);
-    $date = $new_date[2].'-'.$new_date[1].'-'.$new_date[0];
+    $date = @$new_date[2].'-'.@$new_date[1].'-'.@$new_date[0];
 
     $q_id = mysql_query("SELECT `id`,`level` FROM `user` WHERE `user_auth` = '$author'");
     $id_count = mysql_num_rows($q_id);
@@ -194,14 +194,59 @@ class db_query
       if ($perm>1) {
         $chemical_insert = mysql_query("INSERT INTO `chemical` (`unique_id`, `n_name`, `n_formula`, `n_manufacturer`, `quantity`, `stock`, `entry_date`,`author`) VALUES (NULL, '$ka', '$formula', '$uf', '$m', '$a', '$date', $id);");
         if ($chemical_insert) {
-          echo "true";
+          //ekleme başarılı
+          $q = @mysql_query("SELECT * FROM `msds` WHERE `n_id` = $ka");
+          if (mysql_num_rows($q)>0) {
+            echo "71";
+          }else{
+            echo "70";
+          }
         }
       }else{
-        echo "Yetersiz yetki.";
+        echo "8";
       }
     }else{
-      echo "Not authorized.";
+      echo "9";
     }
+  }
+
+  function get_msds($id){
+    $id = $this->clear($id);
+
+    $q = mysql_query("SELECT * FROM `msds` WHERE `n_id` = $id");
+    if(mysql_num_rows($q)>0){
+        while ($row = mysql_fetch_assoc($q)) {
+          echo $row['msds'];
+        }
+    }else{
+      return false;
+    }
+
+  }
+
+  function insert_msds($name,$file,$auth){
+    $name = $this-> clear($name);
+    $auth = $this-> clear($auth);
+
+    if ($this->check_level($auth)>1) {
+
+    $q= mysql_query("SELECT * FROM `chemical_names` WHERE `name` = '$name'");
+    if (mysql_num_rows($q)>0) {
+      while ($row = mysql_fetch_assoc($q)) {
+        $temp = $row['n_name'];
+      }
+
+      $data = addslashes(file_get_contents($file['tmp_name']));
+
+      $q = mysql_query("INSERT INTO `msds` (`id`, `n_id`, `msds`, `author`) VALUES (NULL, '$temp','$data', '$auth')");
+      if($q){
+          echo "ekleme başarılı";
+      }
+    }
+  }else{
+    return "yetersiz_yetki";
+  }
+
   }
 
   /* Güvenlik Prosedürleri */
@@ -216,6 +261,14 @@ class db_query
     }else{
       return false;
     }
+  }
+  function check_level($auth){
+    $auth = $this->clear($auth);
+    $q = mysql_query("SELECT level FROM `user` WHERE `user_auth` = '$auth'");
+    while($row = mysql_fetch_assoc($q)){
+      $level = $row['level'];
+    }
+    return $level;
   }
 
   private function clear($item){

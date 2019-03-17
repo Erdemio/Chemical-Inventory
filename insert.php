@@ -139,20 +139,6 @@ $link = "insert";
                           </div>
                         </div>
                       </div>
-                      <div class="col s12">
-                        <div class="row">
-                          <div class="file-field input-field">
-                            <div class="btn">
-                              <span>MGBF</span>
-                              <input type="file">
-                            </div>
-                            <div class="file-path-wrapper">
-                              <input class="file-path" type="text">
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
                     </div>
                   </div>
                 </div>
@@ -181,8 +167,16 @@ $link = "insert";
               </div>
             </div>
           </div>
-      </div>
-      </form>
+          </form>
+          <!-- Ekleme sonucunda eğer msds yoksa açılsın -->
+          <div class="col m12 s12 l4 hide" id="msds_form">
+            <iframe src="form_msds.php" width="100%" height="1000rem" id="insert_frame" style="border:0px"></iframe>
+          </div>
+
+
+
+
+
       </main>
       <?php require_once "modal.php"; ?>
       <?php require_once "scripts.php"; ?>
@@ -191,14 +185,56 @@ $link = "insert";
       $("#gonder-insert").click(function() {
         insertForm();
       });
-      function insertForm(){
+      var files;
+      $('input[type=file]').on('change', prepareUpload);
+      function prepareUpload(event)
+      {
+        files = event.target.files;
+      }
+
+      function insertForm(event){
+
         var values = $("#insert_form").serialize();
+
         $.ajax({
           url: "ajax.php",
           type: "post",
           data: values,
           success: function(response) {
-            alert(response);
+            var error='Formu boş bırakmayınız.';
+            var color_class='red lighten-1';
+              if (response == "1") {
+                error = "Kimyasal adını boş bırakmayınız.";
+              }else if(response == "2") {
+                error = "Formülü boş bırakmayınız.";
+              }else if(response == "3") {
+                error = "Üretici firmayı boş bırakmayınız.";
+              }else if(response == "4") {
+                error = "Miktar 1'den küçük olamaz.";
+              }else if(response == "5") {
+                error = "Adet 1'den küçük olamaz.";
+              }else if(response == "6") {
+                error = "Giriş tarihini boş bırakmayın.";
+              }else if(response == "70"){
+                error = "Ekleme işlemi başarılı.<br>MGBF bulamadım eklemek istermisin?";
+                color_class='orange lighten-1';
+                $("#insert_frame").attr("src", "form_msds.php?data="+document.querySelector('input[name="ka"]').value);
+                $("#msds_form").removeClass( "hide" );
+              }else if(response == "71"){
+                error = "Ekleme işlemi başarılı.<br>MGBF zaten var.";
+                color_class='green lighten-1';
+              }else if(response == "8"){
+                error = "Ekleme için yetkiniz yok.";
+              }else if(response == "9"){
+                error = "Tekrar giriş yapın.";
+              }else{
+                error = "Veri girişini doğru sağlayınız."
+              }
+              M.toast({
+                html: '<span class="white-text">'+error+'</span>',
+                classes: color_class
+              })
+            console.log(response);
           },
           error: function(jqXHR, textStatus, errorThrown) {
             console.log(textStatus, errorThrown);

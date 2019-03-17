@@ -37,15 +37,41 @@ $database = new database ();
 
     }else if (@$_POST['action']=="insert_form") {
 
-
       $ka = $_POST['ka']; //+
       $formula = $_POST['formula'];//-
       $uf = $_POST['uf'];//+
       $m = $_POST['m'];//-
+      $m_type = $_POST['m_type'];
       $a = $_POST['a'];//-
       $gt = $_POST['gt'];//-
+      $m = $m + " " + $m_type;
 
-      $get = $q -> insert_chemical($ka,$formula,$uf,$m,$a,$gt,@$_SESSION['auth']);
+      if ($ka == "" || $ka == " ") {
+        echo "1";
+      }else if ($formula == "" || $formula == " ") {
+        echo "2";
+      }else if ($uf == "" || $uf == " ") {
+        echo "3";
+      }else if ($m == "" || $m == " " || $m<1) {
+        echo "4";
+      }else if ($a == "" || $a == " " || $a<1) {
+        echo "5";
+      }else if ($gt == "" || $gt == " ") {
+        echo "6";
+      }else{
+        $get = $q -> insert_chemical($ka,$formula,$uf,$m,$a,$gt,@$_SESSION['auth'],@$msds);
+      }
+    }else if(@$_POST['action']=="insert_msds"){
+        $name = $_POST['msds_n_name'];
+        $file = $_FILES['file'];
+
+        if ($file['type']=='application/pdf') {
+          $let = $q -> insert_msds($name,$file,@$_SESSION['auth']);  
+        }else{
+          echo "Geçersiz dosya türü.";
+          header("location:form_msds.php?error=dosya&data="+$name);
+        }
+
 
     }
 
