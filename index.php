@@ -35,7 +35,7 @@ $link = "index";
                        <div class="row search-row-side">
                          <div class="input-field col s12">
                            <i class="material-icons prefix">filter_1</i>
-                          <select name="canon">
+                          <select name="canon" id="search-select">
                             <option value="" disabled selected>Arama kriteri seçin</option>
                             <option value="k">Kimyasal Adı</option>
                             <option value="f">Üretici Firma</option>
@@ -44,8 +44,8 @@ $link = "index";
                         <div class="input-field col s12">
                           <i class="material-icons prefix">filter_2</i>
                           <input type="hidden" value="search_form" name="action">
-                          <input id="icon_prefix" type="text" name="search">
-                          <label for="icon_prefix">Kimyasal adi, üretici firma.</label>
+                          <input id="search-box" type="text" name="search">
+                          <label for="search-box">Kimyasal adi, üretici firma.</label>
                         </div>
                        </div>
                    </form>

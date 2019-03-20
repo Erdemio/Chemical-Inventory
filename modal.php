@@ -13,3 +13,14 @@ if(!defined('check_for_direct_access')) {
     <a href="logoff" class="btn waves-effect red waves-light">Çıkış yap<i class="material-icons right">exit_to_app</i></a>
   </div>
 </div>
+
+<!-- Modal Structure -->
+<div id="list" class="modal bottom-sheet">
+  <div class="modal-content">
+    <h4>Amonyak</h4>
+    <p>NH₃</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-close waves-effect waves-green btn-flat"><i class="material-icons right">close</i></a>
+  </div>
+</div>

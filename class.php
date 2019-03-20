@@ -3,53 +3,6 @@
 class db_query
 {
 
-  function get_data($auth_full){
-    $auth_full = $this->clear($auth_full);
-    $q = mysql_query("SELECT level FROM `user` WHERE `user_auth` = '$auth_full'");
-    if($q){
-      while($row = mysql_fetch_assoc($q)){
-        $level = $row['level'];
-      }
-      if($level > 1){
-        echo '
-          <div class="col m12 s12 l9 iomr">
-            <div class="card card-wns">
-                <table id="kimyasal-liste" class="highlight centered">
-                  <thead>
-                    <tr>
-                        <th>Kimyasal Adı</th>
-                        <th>Kimyasal Formülü</th>
-                        <th class="no-sort">Aksiyonlar</th>
-                    </tr>
-                  </thead>
-
-                  <tbody>';
-                  $q = mysql_query("select name,formula,n_name,n_formula from kimyasal GROUP BY n_name;");
-                  if($q){
-                    while($row = mysql_fetch_assoc($q)){
-                      //buraya akordiyon olarak firma isimleri ekliyebilirsin
-                      echo "<tr>
-                              <td>".$row['name']."</td>
-                              <td>".$row['formula']."</td>
-                              <td><a href=\"msds.php?id=".$row['n_name']."\" target=\"_blank\" class=\"waves-effect waves-light btn\">MGBF</a> <a href=\"#\" data-position=\"bottom\" data-tooltip=\"Görüntüle\" class=\"waves-effect waves-light btn tooltipped\"><i class='material-icons'>open_in_new</i></a> <a href=\"edit?n_name=".$row['n_name']."\" data-position=\"bottom\" data-tooltip=\"Düzenle\"  class=\"waves-effect waves-light btn tooltipped\"><i class='material-icons'>forward</i></a></td>
-                            </tr>";
-                    }
-                  }
-              echo '</tbody>
-                </table>
-            </div>
-        </div>';
-        return true;
-      }else{
-        echo '<div class="row">
-          <div class="col m12">
-          <h1 class="center">Yetersiz yetkiye sahipsiniz.</h1>
-          </div></div>';
-          return false;
-      }
-    }
-  }
-
   function get_autocomplete_data($chosen){
     if ($chosen=="chemical_names") {
       $q = mysql_query("SELECT * FROM `chemical_names`");
@@ -80,7 +33,54 @@ class db_query
     }
 
   }
+  function get_data($auth_full){
+    $auth_full = $this->clear($auth_full);
+    $q = mysql_query("SELECT level FROM `user` WHERE `user_auth` = '$auth_full'");
+    if($q){
+      while($row = mysql_fetch_assoc($q)){
+        $level = $row['level'];
+      }
+      if($level > 1){
+        echo '
+          <div class="col m12 s12 l9 iomr">
+            <div class="card card-wns">
+                <table id="kimyasal-liste" class="highlight centered">
+                  <thead>
+                    <tr>
+                        <th>Kimyasal Adı</th>
+                        <th>Kimyasal Formülü</th>
+                        <th class="no-sort">Aksiyonlar</th>
+                    </tr>
+                  </thead>
 
+                  <tbody>';
+                  $q = mysql_query("select name,formula,n_name,n_formula from kimyasal GROUP BY n_name ORDER BY name ASC;");
+                  if($q){
+                    while($row = mysql_fetch_assoc($q)){
+                      //buraya akordiyon olarak firma isimleri ekliyebilirsin
+                      echo "<tr>
+                              <td>".$row['name']."</td>
+                              <td>".$row['formula']."</td>
+                              <td>
+                              <a href=\"msds.php?id=".$row['n_name']."\" data-position=\"bottom\" data-tooltip=\"Malzeme Güvenlik Bilgi Formu'nu görüntüle.\" target=\"_blank\"  class=\"waves-effect waves-light btn tooltipped\">MGBF</a>
+                              <a href=\"#list\" data-position=\"bottom\" data-tooltip=\"Kimyasalı görüntüle & düzenle.\" class=\"waves-effect waves-light btn tooltipped modal-trigger\"><i class='material-icons'>edit</i></a></td>
+                            </tr>";
+                    }
+                  }
+              echo '</tbody>
+                </table>
+            </div>
+        </div>';
+        return true;
+      }else{
+        echo '<div class="row">
+          <div class="col m12">
+          <h1 class="center">Yetersiz yetkiye sahipsiniz.</h1>
+          </div></div>';
+          return false;
+      }
+    }
+  }
   function get_data_with_parameters($canon,$search,$auth){
     $canon = $this->clear($canon);
     $search = $this->clear($search);
@@ -106,7 +106,9 @@ class db_query
                 echo "<tr class=\"searched\">
                         <td>".$row['name']."</td>
                         <td>".$row['formula']."</td>
-                        <td><a href=\"msds.php?id=".$row['n_name']."\" target=\"_blank\" class=\"waves-effect waves-light btn\">MGBF</a> <a href=\"#\" data-position=\"left\" data-tooltip=\"Görüntüle\" class=\"waves-effect waves-light btn tooltipped\"><i class='material-icons'>open_in_new</i></a> <a href=\"edit?n_name=".$row['n_name']."\" data-position=\"right\" data-tooltip=\"Düzenle\"  class=\"waves-effect waves-light btn tooltipped\"><i class='material-icons'>forward</i></a></td>
+                        <td>
+                        <a href=\"msds.php?id=".$row['n_name']."\" data-position=\"bottom\" data-tooltip=\"Malzeme Güvenlik Bilgi Formu'nu görüntüle.\" target=\"_blank\"  class=\"waves-effect waves-light btn tooltipped\">MGBF</a>
+                        <a href=\"#list\" data-position=\"bottom\" data-tooltip=\"Kimyasalı görüntüle & düzenle.\" class=\"waves-effect waves-light btn tooltipped modal-trigger\"><i class='material-icons'>edit</i></a></td>
                       </tr>";
               }
               if(mysql_num_rows($q)<1){
@@ -242,7 +244,7 @@ class db_query
       if($q){
           return "101";
       }else{
-          return "102";  
+          return "102";
       }
     }
   }else{

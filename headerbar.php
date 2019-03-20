@@ -4,6 +4,7 @@ if(!defined('check_for_direct_access')) {
 }
 ?>
 <header>
+
   <nav>
     <div class="nav-wrapper">
       <div class="row">
@@ -14,16 +15,22 @@ if(!defined('check_for_direct_access')) {
         </div>
         <div class="col s12 m12 l6">
           <a href="#" data-target="nav-mobile" class=" sidenav-trigger full hide-on-large-only"><i class="material-icons">menu</i></a>
-          <a  href="#logoff" class="right modal-trigger"><i class="material-icons">exit_to_app</i></a>
+          <a class="dropdown-trigger2 right" href="#!" data-target="dropdown1"><?php echo @$_SESSION['user']; ?><i class="material-icons right">arrow_drop_down</i></a>
         </div>
       </div>
     </div>
   </nav>
+  <ul id="dropdown1" class="dropdown-content">
+    <li><a  href="#logoff" class="modal-trigger">Hesap Ayarlarım</a></li>
+    <li class="divider"></li>
+    <li><a  href="#logoff" class="modal-trigger">Çıkış Yap</a></li>
+  </ul>
   <ul id="nav-mobile" class="sidenav sidenav-fixed">
     <li><div class="user-view">
       <a href="index"><img class="profil" src="assets/deu.png"></a>
-      <span class="userid"><?php echo @$_SESSION['user']; ?></span>
+      <!--<span class="userid"><?php echo @$_SESSION['user']; ?></span>-->
     </div></li>
+    <li><div class="divider"></div></li>
     <li <?php if($active == "index"){echo " class=\"active\";";} ?> ><a href="index" class="waves-effect"><i class="material-icons">view_list</i>Kimyasal Listele</a></li>
     <li <?php if($active == "stock"){echo " class=\"active\";";} ?> ><a href="index" class="waves-effect"><i class="material-icons">list_alt</i>Stokta Olmayanlar</a></li>
     <li><div class="divider"></div></li>

@@ -129,6 +129,22 @@ $(document).on('click', '#toast-container .toast', function() {
     $(this).remove();
   });
 });
+
+//BURASI ÇALIŞMIYOR BURAYI DÜZELTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+$("#search-select").on('change', function() {
+  $( "#search-box").click();
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  var options = {hover:true,constrainWidth:false,alignment:'right'};
+  var elems = document.querySelectorAll('.dropdown-trigger2');
+  var instances = M.Dropdown.init(elems, options);
+});
+
+
+
+
+
 //Tablo tıklama ile A-Z Z-A sıralamasını sağlar.
 $('table').tablesort();
 
@@ -169,7 +185,7 @@ $("#gonder-arama").click(function() {
     }
   });
 });
-//Geri arama KISMINI YAPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+
 $("#geri-arama").click(function() {
   $("tbody tr").removeClass("hide");
   $(".searched").remove();

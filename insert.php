@@ -34,7 +34,7 @@ $link = "insert";
                           <div class="input-field col s12">
                             <i class="material-icons prefix">label_outline</i>
                             <input type="text" id="ka" class="autocomplete" autocomplete="off" onchange="input2span('ka')" name="ka">
-                            <label for="ka">Kimyasal Adı</label>
+                            <label for="ka">Kimyasal adı girmek için tıklayın</label>
                           </div>
                         </div>
                       </div>
@@ -44,7 +44,7 @@ $link = "insert";
                           <div class="input-field col s9 m8 l10">
                             <i class="material-icons prefix">label_important_outline</i>
                             <input type="text" name="formula" autocomplete="off" id="kf" name="kf" onchange="input2span('kf')">
-                            <label for="kf">Kimyasal Formülü</label>
+                            <label for="kf">Kimyasal formülü girmek için tıklayın</label>
                           </div>
                           <div class="input-field col s3 m4 l2">
                             <button onclick="upItem()" class="btn waves-effect waves-light col s5" type="button" name="action">
@@ -62,7 +62,7 @@ $link = "insert";
                           <div class="input-field col s12">
                             <i class="material-icons prefix">build</i>
                             <input type="text" id="uf" class="autocomplete" name="uf" onchange="input2span('uf')">
-                            <label for="uf">Üretici Firma</label>
+                            <label for="uf">Üretici firma girmek için tıklayın</label>
                           </div>
                         </div>
                       </div>
@@ -70,8 +70,8 @@ $link = "insert";
                         <div class="row">
                           <div class="input-field col s3">
                             <i class="material-icons prefix">exposure</i>
-                            <input type="text" id="m" autocomplete="off" name="m" onchange="input2span('m')" value="0">
-                            <label for="m">Miktar</label>
+                            <input type="text" id="m" autocomplete="off" name="m" onchange="input2span('m')">
+                            <label for="m">Miktar girmek için tıklayın</label>
                           </div>
                           <div class="input-field col s9" id="m_type_div">
 
@@ -115,8 +115,8 @@ $link = "insert";
                         <div class="row">
                           <div class="input-field col s9 m 8 l10">
                             <i class="material-icons prefix">exposure</i>
-                            <input type="text" id="a" name="a" autocomplete="off" onchange="input2span('a')" value="0">
-                            <label for="a">Adet</label>
+                            <input type="text" id="a" name="a" autocomplete="off" onchange="input2span('a')">
+                            <label for="a">Adet girmek için tıklayın</label>
                           </div>
 
                           <div class="input-field col s3 m4 l2">
@@ -135,7 +135,7 @@ $link = "insert";
                           <div class="input-field col s12">
                             <i class="material-icons prefix">date_range</i>
                             <input type="text" class="datepicker" id="gt" autocomplete="off" name="gt" onchange="input2span('gt')">
-                            <label for="gt">Giriş Tarihi</label>
+                            <label for="gt">Giriş tarihi seçmek için tıklayın</label>
                           </div>
                         </div>
                       </div>

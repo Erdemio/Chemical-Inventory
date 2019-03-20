@@ -30,7 +30,7 @@ table.highlight>tbody>tr:hover {
 }
 
 .dropdown-content li>a, .dropdown-content li>span {
-  color: #0061aa !important;
+  /*color: #0061aa !important;*/
 }
 .input-field label {
   color: #000;
