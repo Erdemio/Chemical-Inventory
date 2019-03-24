@@ -44,7 +44,7 @@ $database = new database ();
       $m_type = $_POST['m_type'];
       $a = $_POST['a'];//-
       $gt = $_POST['gt'];//-
-      $m = $m + " " + $m_type;
+      $m = $m . " " . $m_type;
 
       if ($ka == "" || $ka == " ") {
         echo "1";

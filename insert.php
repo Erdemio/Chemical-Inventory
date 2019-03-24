@@ -245,6 +245,7 @@ $link = "insert";
       }
 
         $("#gonder-reset").click(function(){
+          $("#msds_form").addClass( "hide" );
           $(".collection-item span").html("");
           document.getElementById("a").value=1;
         });
