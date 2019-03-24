@@ -54,7 +54,7 @@ class db_query
                   </thead>
 
                   <tbody>';
-                  $q = mysql_query("select name,formula,n_name,n_formula from kimyasal GROUP BY n_name ORDER BY name ASC;");
+                  $q = mysql_query("select name,formula,n_name,n_formula,unique_id from kimyasal GROUP BY n_name ORDER BY name ASC;");
                   if($q){
                     while($row = mysql_fetch_assoc($q)){
                       //buraya akordiyon olarak firma isimleri ekliyebilirsin
@@ -63,7 +63,7 @@ class db_query
                               <td>".$row['formula']."</td>
                               <td>
                               <a href=\"msds.php?id=".$row['n_name']."\" data-position=\"bottom\" data-tooltip=\"Malzeme Güvenlik Bilgi Formu'nu görüntüle.\" target=\"_blank\"  class=\"waves-effect waves-light btn tooltipped\">MGBF</a>
-                              <a href=\"#list\" data-position=\"bottom\" data-tooltip=\"Kimyasalı görüntüle & düzenle.\" class=\"waves-effect waves-light btn tooltipped modal-trigger\"><i class='material-icons'>edit</i></a></td>
+                              <a href=\"#list\" onclick=\"getDataLi('".$row['n_name']."');\" data-position=\"bottom\" data-tooltip=\"Kimyasalı görüntüle & düzenle.\" class=\"waves-effect waves-light btn tooltipped modal-trigger\"><i class='material-icons'>edit</i></a></td>
                             </tr>";
                     }
                   }
@@ -97,9 +97,9 @@ class db_query
         }
         else{
             if($canon=="f"){
-              $q = mysql_query("select name, formula,n_name from kimyasal WHERE `manufacturer` LIKE '%$search%' GROUP BY n_name;");
+              $q = mysql_query("select name, formula,n_name,unique_id from kimyasal WHERE `manufacturer` LIKE '%$search%' GROUP BY n_name;");
             }else if($canon=="k"){
-              $q = mysql_query("select name, formula,n_name from kimyasal WHERE `name` LIKE '%$search%' GROUP BY n_name;");
+              $q = mysql_query("select name, formula,n_name,unique_id  from kimyasal WHERE `name` LIKE '%$search%' GROUP BY n_name;");
             }
             if($q){
               while($row = mysql_fetch_assoc($q)){
@@ -108,7 +108,7 @@ class db_query
                         <td>".$row['formula']."</td>
                         <td>
                         <a href=\"msds.php?id=".$row['n_name']."\" data-position=\"bottom\" data-tooltip=\"Malzeme Güvenlik Bilgi Formu'nu görüntüle.\" target=\"_blank\"  class=\"waves-effect waves-light btn tooltipped\">MGBF</a>
-                        <a href=\"#list\" data-position=\"bottom\" data-tooltip=\"Kimyasalı görüntüle & düzenle.\" class=\"waves-effect waves-light btn tooltipped modal-trigger\"><i class='material-icons'>edit</i></a></td>
+                        <a href=\"#list\" onclick=\"getDataLi('".$row['n_name']."');\" data-position=\"bottom\" data-tooltip=\"Kimyasalı görüntüle & düzenle.\" class=\"waves-effect waves-light btn tooltipped modal-trigger\"><i class='material-icons'>edit</i></a></td>
                       </tr>";
               }
               if(mysql_num_rows($q)<1){
@@ -123,6 +123,49 @@ class db_query
       }
     }
   }
+  function get_data_li($cname,$auth){
+    $cname = $this-> clear($cname);
+    $auth = $this-> clear($auth);
+
+    if ($this->check_level($auth)>1) {
+      $f = 0;
+      $q = mysql_query("SELECT * FROM `kimyasal` WHERE `n_name` = $cname ORDER BY `entry_date` DESC");
+      if (mysql_num_rows($q)>0) {
+          while ($row = mysql_fetch_assoc($q)) {
+          if ($f==0) {
+            echo '<li class="collection-header"><h4>'.$row['name'].'</h4></li>';
+          }
+
+                echo '
+                      <li class="collection-item">
+                        <div>
+                          <p>
+                            Formülü: '.$row['formula'].'
+                            <br>
+                            Üretici Firma: '.$row['manufacturer'].'
+                            <br>
+                            Miktar: '.$row['quantity'].'
+                            <br>
+                            Adet: '.$row['stock'].'
+                            <br>
+                            Giriş Tarihi: '.$row['entry_date'].'
+                            <br>
+                            <a href="edit.php?id='.$row['unique_id'].'" class="secondary-content btn flat-btn">Düzenle</a>
+                            <br>
+                          </p>
+                        </div>
+                      </li>';
+                      $f++;
+            }
+
+      }
+
+
+
+
+
+    }
+  }
 
   /* Ekleme İşlemleri */
   function insert_chemical($ka,$formula,$uf,$m,$a,$gt,$author,$msds){
@@ -135,6 +178,7 @@ class db_query
     $author =   $this->clear($author);
     $state = "false";
 
+    if ($this->check_level($author)>1) {
     //varsa al yoksa ben yazıyorum.
     $q_kimyasal_adi = mysql_query("SELECT `n_name` FROM `chemical_names` WHERE `name` = '$ka'");
     if (mysql_num_rows($q_kimyasal_adi)>0) {
@@ -210,6 +254,9 @@ class db_query
     }else{
       echo "9";
     }
+
+  }
+
   }
 
   function get_msds($id){

@@ -141,7 +141,21 @@ document.addEventListener('DOMContentLoaded', function() {
   var instances = M.Dropdown.init(elems, options);
 });
 
+function getDataLi(cName){
 
+
+  $.ajax({
+    url: "ajax.php",
+    type: "post",
+    data: { action: "getdatali", cname: cName },
+    success: function(response) {
+        document.getElementById("edit-modal-content").innerHTML=response;  
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+      console.log(textStatus, errorThrown);
+    }
+  });
+}
 
 
 

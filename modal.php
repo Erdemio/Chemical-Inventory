@@ -17,10 +17,15 @@ if(!defined('check_for_direct_access')) {
 <!-- Modal Structure -->
 <div id="list" class="modal bottom-sheet">
   <div class="modal-content">
-    <h4>Amonyak</h4>
-    <p>NH₃</p>
-  </div>
-  <div class="modal-footer">
-    <a href="#!" class="modal-close waves-effect waves-green btn-flat"><i class="material-icons right">close</i></a>
+    <h4><a href="javascript:void(0);" class="modal-close right btn-flat"><i class="material-icons ">close</i></a></h4>
+    <div class="container">
+        <div class="row container">
+          <div class="col s12">
+            <ul class="collection with-header" id="edit-modal-content">
+
+            </ul>
+          </div>
+        </div>
+    </div>
   </div>
 </div>

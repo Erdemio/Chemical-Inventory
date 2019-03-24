@@ -76,6 +76,8 @@ $database = new database ();
         }
 
 
+    }else if (@$_POST['action']=="getdatali") {
+        $get = $q -> get_data_li(@$_POST['cname'],@$_SESSION['auth']);
     }
 
   }

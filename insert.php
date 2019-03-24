@@ -41,12 +41,12 @@ $link = "insert";
 
                       <div class="col s12">
                         <div class="row">
-                          <div class="input-field col s9 m8 l10">
+                          <div class="input-field col s12 m8 l10">
                             <i class="material-icons prefix">label_important_outline</i>
                             <input type="text" name="formula" autocomplete="off" id="kf" name="kf" onchange="input2span('kf')">
-                            <label for="kf">Kimyasal formülü girmek için tıklayın</label>
+                            <label for="kf" class="truncate">Kimyasal formülü girmek için tıklayın</label>
                           </div>
-                          <div class="input-field col s3 m4 l2">
+                          <div class="input-field col s12 m4 l2">
                             <button onclick="upItem()" class="btn waves-effect waves-light col s5" type="button" name="action">
                               <i class="material-icons">arrow_upward</i>
                             </button>
@@ -62,44 +62,44 @@ $link = "insert";
                           <div class="input-field col s12">
                             <i class="material-icons prefix">build</i>
                             <input type="text" id="uf" class="autocomplete" name="uf" onchange="input2span('uf')">
-                            <label for="uf">Üretici firma girmek için tıklayın</label>
+                            <label for="uf" class="truncate">Üretici firma girmek için tıklayın</label>
                           </div>
                         </div>
                       </div>
                       <div class="col s12">
                         <div class="row">
-                          <div class="input-field col s3">
+                          <div class="input-field col s12 l3">
                             <i class="material-icons prefix">exposure</i>
-                            <input type="text" id="m" autocomplete="off" name="m" onchange="input2span('m')">
-                            <label for="m">Miktar girmek için tıklayın</label>
+                            <input type="text" id="m" autocomplete="off" name="m" onchange="input2span('m')" value="1">
+                            <label for="m" class="truncate">Miktar girmek için tıklayın</label>
                           </div>
-                          <div class="input-field col s9" id="m_type_div">
+                          <div class="input-field col s12 l9" id="m_type_div">
 
-                            <div class="input-field col s2">
+                            <div class="input-field col s12 m12 l2">
                               <label>
                                 <input class="with-gap" name="m_type" id="m_type" type="radio" value="litre" checked />
                                 <span>Litre</span>
                               </label>
                             </div>
-                            <div class="input-field col s2">
+                            <div class="input-field col s12 m12 l2">
                               <label>
                                 <input class="with-gap" name="m_type" id="m_type" type="radio" value="mili litre" />
                                 <span>Mili Litre</span>
                               </label>
                             </div>
-                            <div class="input-field col s2">
+                            <div class="input-field col s12 m12 l2">
                               <label>
                                 <input class="with-gap" name="m_type" id="m_type" type="radio" value="kilo gram" />
                                 <span>Kilo Gram</span>
                               </label>
                             </div>
-                            <div class="input-field col s2">
+                            <div class="input-field col s12 m12 l2">
                               <label>
                                 <input class="with-gap" name="m_type" id="m_type" type="radio" value="gram" />
                                 <span>Gram</span>
                               </label>
                             </div>
-                            <div class="input-field col s2">
+                            <div class="input-field col s12 m12 l2">
                               <label>
                                 <input class="with-gap" name="m_type" id="m_type" type="radio" value="mili gram" />
                                 <span>Mili gram</span>
@@ -113,13 +113,13 @@ $link = "insert";
                       </div>
                       <div class="col s12">
                         <div class="row">
-                          <div class="input-field col s9 m 8 l10">
+                          <div class="input-field col s12 m8 l10">
                             <i class="material-icons prefix">exposure</i>
-                            <input type="text" id="a" name="a" autocomplete="off" onchange="input2span('a')">
-                            <label for="a">Adet girmek için tıklayın</label>
+                            <input type="text" id="a" name="a" autocomplete="off" onchange="input2span('a')" value="1">
+                            <label for="a" class="truncate">Adet girmek için tıklayın</label>
                           </div>
 
-                          <div class="input-field col s3 m4 l2">
+                          <div class="input-field col s12 m4 l2">
                             <button class="btn waves-effect waves-light col s5" type="button" id="count-down">
                               <i class="material-icons">exposure_neg_1</i>
                             </button>
@@ -135,7 +135,7 @@ $link = "insert";
                           <div class="input-field col s12">
                             <i class="material-icons prefix">date_range</i>
                             <input type="text" class="datepicker" id="gt" autocomplete="off" name="gt" onchange="input2span('gt')">
-                            <label for="gt">Giriş tarihi seçmek için tıklayın</label>
+                            <label for="gt" class="truncate">Giriş tarihi seçmek için tıklayın</label>
                           </div>
                         </div>
                       </div>
