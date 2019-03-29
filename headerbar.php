@@ -34,7 +34,7 @@ if(!defined('check_for_direct_access')) {
     <li <?php if($active == "index"){echo " class=\"active\";";} ?> ><a href="index" class="waves-effect"><i class="material-icons">view_list</i>Kimyasal Listele</a></li>
     <li <?php if($active == "stock"){echo " class=\"active\";";} ?> ><a href="index" class="waves-effect"><i class="material-icons">list_alt</i>Stokta Olmayanlar</a></li>
     <li><div class="divider"></div></li>
-    <li <?php if($active == "edit"){echo " class=\"active\";";} ?> ><a href="edit" class="waves-effect"><i class="material-icons">mode_edit</i>Kimyasal Düzenle</a></li>
+    <li <?php if($active == "edit"){echo " class=\"active\";";} ?> ><a href="javascript:void(0);" class="waves-effect"><i class="material-icons">mode_edit</i>Kimyasal Düzenle</a></li>
     <li <?php if($active == "insert"){echo " class=\"active\";";} ?> ><a href="insert" class="waves-effect"><i class="material-icons">add</i>Kimyasal Ekle</a></li>
     <li <?php if($active == "export"){echo " class=\"active\";";} ?> ><a href="export" class="waves-effect"><i class="material-icons">cloud_upload</i>Dışarı Aktar</a></li>
     <li><div class="divider"></div></li>

@@ -150,7 +150,7 @@ class db_query
                             <br>
                             Giriş Tarihi: '.$row['entry_date'].'
                             <br>
-                            <a href="edit.php?id='.$row['unique_id'].'" class="secondary-content btn flat-btn">Düzenle</a>
+                            <a href="edit.php?id='.$row['unique_id'].'" class="secondary-content btn flat-btn"><i class="material-icons">edit</i></a>
                             <br>
                           </p>
                         </div>
@@ -165,6 +165,21 @@ class db_query
 
 
     }
+  }
+
+  function get_msds($id){
+    $id = $this->clear($id);
+
+    $q = mysql_query("SELECT * FROM `msds` WHERE `n_id` = $id");
+    if(mysql_num_rows($q)>0){
+        while ($row = mysql_fetch_assoc($q)) {
+          echo $row['msds'];
+        }
+        return true;
+    }else{
+      return false;
+    }
+
   }
 
   /* Ekleme İşlemleri */
@@ -259,20 +274,6 @@ class db_query
 
   }
 
-  function get_msds($id){
-    $id = $this->clear($id);
-
-    $q = mysql_query("SELECT * FROM `msds` WHERE `n_id` = $id");
-    if(mysql_num_rows($q)>0){
-        while ($row = mysql_fetch_assoc($q)) {
-          echo $row['msds'];
-        }
-    }else{
-      return false;
-    }
-
-  }
-
   function insert_msds($name,$file,$auth){
     $name = $this-> clear($name);
     $auth = $this-> clear($auth);
@@ -298,6 +299,151 @@ class db_query
     return "yetersiz_yetki";
   }
 
+  }
+
+  /* Güncelleme İşlemleri */
+  function update_chemical($ka,$formula,$uf,$m,$a,$gt,$author,$msds){
+    $ka =       $this->clear($ka);
+    $formula =  $this->clear($formula);
+    $uf =       $this->clear($uf);
+    $m =        $this->clear($m);
+    $a =        $this->clear($a);
+    $gt =       $this->clear($gt);
+    $author =   $this->clear($author);
+    $state = "false";
+
+    if ($this->check_level($author)>1) {
+    //varsa al yoksa ben yazıyorum.
+    $q_kimyasal_adi = mysql_query("SELECT `n_name` FROM `chemical_names` WHERE `name` = '$ka'");
+    if (mysql_num_rows($q_kimyasal_adi)>0) {
+      while ($row = mysql_fetch_assoc($q_kimyasal_adi)) {
+        $ka = $row['n_name'];
+      }
+    }else{
+      $insert = mysql_query("INSERT INTO `chemical_names` (`n_name`, `name`) VALUES (NULL, '$ka');");
+      if ($insert) {
+        $find = mysql_query("SELECT `n_name` FROM `chemical_names` WHERE `name` = '$ka'");
+        while ($row = mysql_fetch_assoc($find)) {
+          $ka = $row['n_name'];
+        }
+      }
+    }
+
+    $q_uretici_firma = mysql_query("SELECT `n_manufacturer` FROM `manufacturer_names` WHERE `manufacturer` = '$uf'");
+    if (mysql_num_rows($q_uretici_firma)>0) {
+      while ($row = mysql_fetch_assoc($q_uretici_firma)) {
+        $uf = $row['n_manufacturer'];
+      }
+    }else{
+      $insert = mysql_query("INSERT INTO `manufacturer_names` (`n_manufacturer`, `manufacturer`) VALUES (NULL, '$uf')");
+      if ($insert) {
+        $find = mysql_query("SELECT `n_manufacturer` FROM `manufacturer_names` WHERE `manufacturer` = '$uf'");
+        while ($row = mysql_fetch_assoc($find)) {
+          $uf = $row['n_manufacturer'];
+        }
+      }
+    }
+
+    $q_formula = mysql_query("SELECT * FROM `chemical_formula` WHERE `formula` = '$formula'");
+
+    if (mysql_num_rows($q_formula)>0) {
+      while ($row = mysql_fetch_assoc($q_formula)) {
+        $formula = $row['n_formula'];
+      }
+    }else{
+      $insert = mysql_query("INSERT INTO `chemical_formula` (`n_formula`, `formula`) VALUES (NULL, '$formula')");
+      if ($insert) {
+        $find = mysql_query("SELECT `n_formula` FROM `chemical_formula` WHERE `formula` = '$formula'");
+        while ($row = mysql_fetch_assoc($find)) {
+          $formula = $row['n_formula'];
+        }
+      }
+    }
+
+    $new_date = explode("-",$gt);
+    $date = @$new_date[2].'-'.@$new_date[1].'-'.@$new_date[0];
+
+    $q_id = mysql_query("SELECT `id`,`level` FROM `user` WHERE `user_auth` = '$author'");
+    $id_count = mysql_num_rows($q_id);
+
+    if ($id_count) {
+      while ($row = mysql_fetch_assoc($q_id)) {
+        $id = $row['id'];
+        $perm = $row['level'];
+      }
+      if ($perm>1) {
+        $chemical_insert = mysql_query("INSERT INTO `chemical` (`unique_id`, `n_name`, `n_formula`, `n_manufacturer`, `quantity`, `stock`, `entry_date`,`author`) VALUES (NULL, '$ka', '$formula', '$uf', '$m', '$a', '$date', $id);");
+        if ($chemical_insert) {
+          //ekleme başarılı
+          $q = @mysql_query("SELECT * FROM `msds` WHERE `n_id` = $ka");
+          if (mysql_num_rows($q)>0) {
+            echo "71";
+          }else{
+            echo "70";
+          }
+        }
+      }else{
+        echo "8";
+      }
+    }else{
+      echo "9";
+    }
+
+  }
+
+  }
+  function update_msds($name,$file,$auth){
+    $name = $this-> clear($name);
+    $auth = $this-> clear($auth);
+
+      if ($this->check_level($auth)>1) {
+
+        //id geldi gelen id ile veritabanında msds varmı bak varsa güncelle yoksa insertle!
+        $q = mysql_query("SELECT * FROM `user` WHERE `user_auth` = '$auth'");
+        if (mysql_num_rows($q)>0) {
+          while ($row = mysql_fetch_assoc($q)) {
+            $auth = $row['user_id'];
+          }
+        }
+        ////
+      $q = mysql_query("SELECT * FROM `msds` WHERE `n_id` = $name");
+      if (mysql_num_rows($q)>0) {
+            $data = addslashes(file_get_contents($file['tmp_name']));
+            $q = mysql_query("UPDATE `msds` SET `msds`= '$data'  WHERE `msds`.`n_id` = $name;");
+            if($q){
+                return "101";
+            }else{
+                return "102";
+            }
+      }else{
+        $data = addslashes(file_get_contents($file['tmp_name']));
+        $q = mysql_query("INSERT INTO `msds` (`id`, `n_id`, `msds`, `author`) VALUES (NULL, '$name','$data', '$auth')");
+        if($q){
+            return "101";
+        }else{
+            return "102";
+        }
+      }
+
+
+    }else{
+      return "yetersiz_yetki";
+    }
+
+
+  }
+
+  function id_to_n($id,$auth){
+    $id = $this->clear($id);
+    $auth = $this->clear($auth);
+    if ($this->check_level($auth)>1) {
+    $q = @mysql_query("SELECT `n_name` FROM `chemical` WHERE `unique_id` = $id");
+    if (@mysql_num_rows($q)>0) {
+      while ($row = mysql_fetch_assoc($q)) {
+        return $row['n_name'];
+      }
+    }
+    }
   }
 
   /* Güvenlik Prosedürleri */

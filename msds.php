@@ -7,11 +7,14 @@ require_once "procedure.php";
 
   $id = @$_GET['id'];
   if ($_GET) {
-      header("Content-type:application/pdf");
-      $q -> get_msds($id);
+
+      if ($q -> get_msds($id)) {
+        header("Content-type:application/pdf");
+      }else{
+        header("location:edit.php?error=msds-not-found&id=$id");
+      }
   }else{
     echo "404.";
   }
-
 
  ?>

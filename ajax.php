@@ -76,8 +76,49 @@ $database = new database ();
         }
 
 
+    }else if (@$_POST['action']=="update_form") {
+      $ka = $_POST['ka'];
+      $formula = $_POST['formula'];
+      $uf = $_POST['uf'];
+      $m = $_POST['m'];
+      $m_type = $_POST['m_type'];
+      $a = $_POST['a'];
+      $gt = $_POST['gt'];
+      $m = $m . " " . $m_type;
+
+      if ($ka == "" || $ka == " ") {
+        echo "1";
+      }else if ($formula == "" || $formula == " ") {
+        echo "2";
+      }else if ($uf == "" || $uf == " ") {
+        echo "3";
+      }else if ($m == "" || $m == " " || $m<1) {
+        echo "4";
+      }else if ($a == "" || $a == " " || $a<1) {
+        echo "5";
+      }else if ($gt == "" || $gt == " ") {
+        echo "6";
+      }else{
+        $get = $q -> update_chemical($ka,$formula,$uf,$m,$a,$gt,@$_SESSION['auth'],@$msds);
+      }
+    }else if(@$_POST['action']=="update_msds"){
+      $name = $_POST['msds_n_name'];
+      $file = $_FILES['file'];
+
+      if ($file['type']=='application/pdf') {
+         $let = $q -> update_msds($name,$file,@$_SESSION['auth']);
+         if ($let == "101") {
+           header("location:form_msds_update.php?error=eklendi&data2=$name");
+         }
+         echo mysql_error();
+      }else{
+        header("location:form_msds_update.php?error=dosya&data2="+$name);
+      }
+
     }else if (@$_POST['action']=="getdatali") {
         $get = $q -> get_data_li(@$_POST['cname'],@$_SESSION['auth']);
+    }else{
+      echo "boş post";
     }
 
   }
