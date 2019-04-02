@@ -77,14 +77,13 @@ $database = new database ();
 
 
     }else if (@$_POST['action']=="update_form") {
+      $id = $_POST['id'];
       $ka = $_POST['ka'];
       $formula = $_POST['formula'];
       $uf = $_POST['uf'];
       $m = $_POST['m'];
-      $m_type = $_POST['m_type'];
       $a = $_POST['a'];
       $gt = $_POST['gt'];
-      $m = $m . " " . $m_type;
 
       if ($ka == "" || $ka == " ") {
         echo "1";
@@ -98,8 +97,10 @@ $database = new database ();
         echo "5";
       }else if ($gt == "" || $gt == " ") {
         echo "6";
+      }else if ($id == "" || $id == " ") {
+        echo "7";
       }else{
-        $get = $q -> update_chemical($ka,$formula,$uf,$m,$a,$gt,@$_SESSION['auth'],@$msds);
+        $get = $q -> update_chemical($id,$ka,$formula,$uf,$m,$a,$gt,@$_SESSION['auth'],@$msds);
       }
     }else if(@$_POST['action']=="update_msds"){
       $name = $_POST['msds_n_name'];
@@ -110,7 +111,6 @@ $database = new database ();
          if ($let == "101") {
            header("location:form_msds_update.php?error=eklendi&data2=$name");
          }
-         echo mysql_error();
       }else{
         header("location:form_msds_update.php?error=dosya&data2="+$name);
       }

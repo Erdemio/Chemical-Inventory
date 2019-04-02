@@ -302,94 +302,132 @@ class db_query
   }
 
   /* Güncelleme İşlemleri */
-  function update_chemical($ka,$formula,$uf,$m,$a,$gt,$author,$msds){
+  function update_chemical($id,$ka,$f,$uf,$m,$a,$gt,$author,$msds){
+    $id =       $this->clear($id);
     $ka =       $this->clear($ka);
-    $formula =  $this->clear($formula);
+    $f =  $this->clear($f);
     $uf =       $this->clear($uf);
     $m =        $this->clear($m);
     $a =        $this->clear($a);
     $gt =       $this->clear($gt);
     $author =   $this->clear($author);
-    $state = "false";
+    $state = "8";
 
-    if ($this->check_level($author)>1) {
-    //varsa al yoksa ben yazıyorum.
-    $q_kimyasal_adi = mysql_query("SELECT `n_name` FROM `chemical_names` WHERE `name` = '$ka'");
-    if (mysql_num_rows($q_kimyasal_adi)>0) {
-      while ($row = mysql_fetch_assoc($q_kimyasal_adi)) {
-        $ka = $row['n_name'];
-      }
-    }else{
-      $insert = mysql_query("INSERT INTO `chemical_names` (`n_name`, `name`) VALUES (NULL, '$ka');");
-      if ($insert) {
-        $find = mysql_query("SELECT `n_name` FROM `chemical_names` WHERE `name` = '$ka'");
-        while ($row = mysql_fetch_assoc($find)) {
-          $ka = $row['n_name'];
-        }
-      }
-    }
+          if ($this->check_level($author)>1) {
 
-    $q_uretici_firma = mysql_query("SELECT `n_manufacturer` FROM `manufacturer_names` WHERE `manufacturer` = '$uf'");
-    if (mysql_num_rows($q_uretici_firma)>0) {
-      while ($row = mysql_fetch_assoc($q_uretici_firma)) {
-        $uf = $row['n_manufacturer'];
-      }
-    }else{
-      $insert = mysql_query("INSERT INTO `manufacturer_names` (`n_manufacturer`, `manufacturer`) VALUES (NULL, '$uf')");
-      if ($insert) {
-        $find = mysql_query("SELECT `n_manufacturer` FROM `manufacturer_names` WHERE `manufacturer` = '$uf'");
-        while ($row = mysql_fetch_assoc($find)) {
-          $uf = $row['n_manufacturer'];
-        }
-      }
-    }
+            $q = mysql_query("SELECT * FROM `kimyasal` WHERE `unique_id` = $id");
+            if (mysql_num_rows($q)>0) {
+              while ($row = mysql_fetch_assoc($q)) {
+                $name = $row['name'];
+                $formula = $this->clear($row['formula']);
+                $manufacturer = $row['manufacturer'];
+                $quantity = $row['quantity'];
+                $stock = $row['stock'];
+                $entry_date = $row['entry_date'];
+                $new_date = explode("-",$entry_date);
+                $date2 = @$new_date[2].'-'.@$new_date[1].'-'.@$new_date[0];
+              }
 
-    $q_formula = mysql_query("SELECT * FROM `chemical_formula` WHERE `formula` = '$formula'");
+              if ($name != $ka) {
+                          $q_kimyasal_adi = mysql_query("SELECT `n_name` FROM `chemical_names` WHERE `name` = '$ka'");
+                          if (mysql_num_rows($q_kimyasal_adi)>0) {
+                            while ($row = mysql_fetch_assoc($q_kimyasal_adi)) {
+                              $ka = $row['n_name'];
+                            }
+                          }else{
+                            $insert = mysql_query("INSERT INTO `chemical_names` (`n_name`, `name`) VALUES (NULL, '$ka');");
+                            if ($insert) {
+                              $find = mysql_query("SELECT `n_name` FROM `chemical_names` WHERE `name` = '$ka'");
+                              while ($row = mysql_fetch_assoc($find)) {
+                                $ka = $row['n_name'];
+                              }
+                            }
+                          }
+                          //$ka artık bizim için bir numara ve güncelleyelim
+                          $update = mysql_query("UPDATE `chemical` SET `n_name` = '$ka' WHERE `chemical`.`unique_id` = $id;");
+                          if(!$update){
+                            $state="7";
+                          }
+              }
 
-    if (mysql_num_rows($q_formula)>0) {
-      while ($row = mysql_fetch_assoc($q_formula)) {
-        $formula = $row['n_formula'];
-      }
-    }else{
-      $insert = mysql_query("INSERT INTO `chemical_formula` (`n_formula`, `formula`) VALUES (NULL, '$formula')");
-      if ($insert) {
-        $find = mysql_query("SELECT `n_formula` FROM `chemical_formula` WHERE `formula` = '$formula'");
-        while ($row = mysql_fetch_assoc($find)) {
-          $formula = $row['n_formula'];
-        }
-      }
-    }
 
-    $new_date = explode("-",$gt);
-    $date = @$new_date[2].'-'.@$new_date[1].'-'.@$new_date[0];
 
-    $q_id = mysql_query("SELECT `id`,`level` FROM `user` WHERE `user_auth` = '$author'");
-    $id_count = mysql_num_rows($q_id);
+              if ($uf != $manufacturer) {
+                          $q_uretici_firma = mysql_query("SELECT `n_manufacturer` FROM `manufacturer_names` WHERE `manufacturer` = '$uf'");
+                          if (mysql_num_rows($q_uretici_firma)>0) {
+                            while ($row = mysql_fetch_assoc($q_uretici_firma)) {
+                              $uf = $row['n_manufacturer'];
+                            }
+                          }else{
+                            $insert = mysql_query("INSERT INTO `manufacturer_names` (`n_manufacturer`, `manufacturer`) VALUES (NULL, '$uf')");
+                            if ($insert) {
+                              $find = mysql_query("SELECT `n_manufacturer` FROM `manufacturer_names` WHERE `manufacturer` = '$uf'");
+                              while ($row = mysql_fetch_assoc($find)) {
+                                $uf = $row['n_manufacturer'];
+                              }
+                            }
+                          }
+                          //$ka artık bizim için bir numara ve güncelleyelim
+                          $update = mysql_query("UPDATE `chemical` SET `n_manufacturer` = '$uf' WHERE `chemical`.`unique_id` = $id;");
+                          if(!$update){
+                            $state="7";
+                          }
+              }
+              if ($quantity != $m) {
+                $update = mysql_query("UPDATE `chemical` SET `quantity` = '$m' WHERE `chemical`.`unique_id` = $id;");
+                if(!$update){
+                  $state="7";
+                }
+              }
+              if ($stock != $a) {
+                $update = mysql_query("UPDATE `chemical` SET `stock` = '$a' WHERE `chemical`.`unique_id` = $id;");
+                if(!$update){
+                  $state="7";
+                }
+              }
+              if ($date2 != $gt) {
+                  $new_date = explode("-",$gt);
+                  $date = @$new_date[2].'-'.@$new_date[1].'-'.@$new_date[0];
+                $update = mysql_query("UPDATE `kimyasal` SET `entry_date` = '$date' WHERE `kimyasal`.`unique_id` = $id;");
+                if(!$update){
+                  $state="7";
+                }
+              }
+              if ($f != $formula) {
+                          $q_formula = mysql_query("SELECT * FROM `chemical_formula` WHERE `formula` = '$f'");
 
-    if ($id_count) {
-      while ($row = mysql_fetch_assoc($q_id)) {
-        $id = $row['id'];
-        $perm = $row['level'];
-      }
-      if ($perm>1) {
-        $chemical_insert = mysql_query("INSERT INTO `chemical` (`unique_id`, `n_name`, `n_formula`, `n_manufacturer`, `quantity`, `stock`, `entry_date`,`author`) VALUES (NULL, '$ka', '$formula', '$uf', '$m', '$a', '$date', $id);");
-        if ($chemical_insert) {
-          //ekleme başarılı
-          $q = @mysql_query("SELECT * FROM `msds` WHERE `n_id` = $ka");
-          if (mysql_num_rows($q)>0) {
-            echo "71";
-          }else{
-            echo "70";
+                          if (mysql_num_rows($q_formula)>0) {
+                            while ($row = mysql_fetch_assoc($q_formula)) {
+                              $formula = $row['n_formula'];
+                            }
+                          }else{
+                            $insert = mysql_query("INSERT INTO `chemical_formula` (`n_formula`, `formula`) VALUES (NULL, '$f')");
+                            if ($insert) {
+                              $find = mysql_query("SELECT `n_formula` FROM `chemical_formula` WHERE `formula` = '$f'");
+                              while ($row = mysql_fetch_assoc($find)) {
+                                $formula = $row['n_formula'];
+                              }
+                            }
+                          }
+                          //$ka artık bizim için bir numara ve güncelleyelim
+                          $update = mysql_query("UPDATE `chemical` SET `n_formula` = '$formula' WHERE `chemical`.`unique_id` = $id;");
+                          if(!$update){
+                            $state="7";
+                          }
+              }
+
+              echo $state;
+            }else{
+              return "1";//gelen id de veri yok demek.
+            }
+
+
+
+
+            /* tarih çevirici
+
+            */
           }
-        }
-      }else{
-        echo "8";
-      }
-    }else{
-      echo "9";
-    }
-
-  }
 
   }
   function update_msds($name,$file,$auth){
@@ -433,10 +471,29 @@ class db_query
 
   }
 
-  function update_form_data($id){
+  function header_tag($id,$auth){
+    $id   = $this-> clear($id);
+    $auth = $this-> clear($auth);
+    if ($this->check_level($auth)>1) {
+        $q = mysql_query("SELECT `name` FROM `kimyasal` WHERE `unique_id` = $id");
+        if (mysql_num_rows($q)>0) {
+          while ($row = mysql_fetch_assoc($q)) {
+            return $row['name'];
+          }
+        }else{
+          return "hata";
+        }
+    }
+
+  }
+
+  function update_form_data($id,$auth){
     $id = $this-> clear($id);
+    $auth = $this-> clear($auth);
     $q = mysql_query("SELECT * FROM `kimyasal` WHERE `unique_id` = $id");
+    if ($this->check_level($auth)>1) {
     if (mysql_num_rows($q)>0) {
+      $id = @$_GET['id'];
       while ($row = mysql_fetch_assoc($q)) {
 
       echo '<form class="edit_form" id="edit_form" enctype="multipart/form-data" method="post">
@@ -536,7 +593,10 @@ class db_query
                         </ul>
                       </div>
                       <div class="card-action">
-                        <input type="hidden" name="action" value="insert_form">
+                        <input type="hidden" name="action" value="update_form">
+                        <input type="hidden" name="id" value="';
+                        echo $id
+                         .'">
                         <button class="btn waves-effect waves-light" type="button" id="gonder-insert">Güncelle
                           <i class="material-icons right">send</i>
                         </button>
@@ -545,6 +605,7 @@ class db_query
                   </div>
                   </form>';
       }
+    }
     }
   }
 

@@ -9,7 +9,7 @@ define('check_for_direct_access', TRUE);
 $active = "edit";
 $page = "Kimyasal Düzenle";
 $link = "edit";
-$chemical = "H";
+$chemical =  $q->header_tag(@$_GET['id'],$_SESSION['auth']);
 $chemical_name = "<a href=\"index\" class=\"breadcrumb\">".$chemical."</a>";
 
 //Sabit, değiştirme.
@@ -27,7 +27,7 @@ $chemical_name = "<a href=\"index\" class=\"breadcrumb\">".$chemical."</a>";
         <?php
           //form verisi get ile getirilsin.
           if ($_GET && isset($_GET['id'])) {
-            $q->update_form_data(@$_GET['id']);
+            $q->update_form_data(@$_GET['id'],$_SESSION['auth']);
           }else{
             header("location:index");
           }
@@ -65,6 +65,7 @@ $chemical_name = "<a href=\"index\" class=\"breadcrumb\">".$chemical."</a>";
           type: "post",
           data: values,
           success: function(response) {
+
             var error='Formu boş bırakmayınız.';
             var color_class='red lighten-1';
               if (response == "1") {
@@ -79,20 +80,14 @@ $chemical_name = "<a href=\"index\" class=\"breadcrumb\">".$chemical."</a>";
                 error = "Adet 1'den küçük olamaz.";
               }else if(response == "6") {
                 error = "Giriş tarihini boş bırakmayın.";
-              }else if(response == "70"){
-                error = "Ekleme işlemi başarılı.<br>MGBF bulamadım eklemek istermisin?";
-                color_class='orange lighten-1';
-                $("#insert_frame").attr("src", "form_msds_update.php?data="+document.querySelector('input[name="ka"]').value);
-                $("#msds_form").removeClass( "hide" );
-              }else if(response == "71"){
-                error = "Ekleme işlemi başarılı.<br>MGBF zaten var.";
-                color_class='green lighten-1';
-              }else if(response == "8"){
-                error = "Ekleme için yetkiniz yok.";
-              }else if(response == "9"){
-                error = "Tekrar giriş yapın.";
-              }else{
+              }else if(response == "7"){
                 error = "Veri girişini doğru sağlayınız."
+              }else if(response == "8") {
+                error = "Veriler güncellendi.";
+                color_class='green lighten-1';
+                setTimeout(function(){ location.reload(); }, 1000);
+              }else{
+                error = "Herhangi bir veri güncellenmedi.";
               }
               M.toast({
                 html: '<span class="white-text">'+error+'</span>',
@@ -141,7 +136,7 @@ $chemical_name = "<a href=\"index\" class=\"breadcrumb\">".$chemical."</a>";
       function input2span(name){
 
           document.getElementById(name+"_span").innerHTML = document.getElementById(name).value;
-        
+
 
       }
 
