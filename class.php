@@ -433,6 +433,121 @@ class db_query
 
   }
 
+  function update_form_data($id){
+    $id = $this-> clear($id);
+    $q = mysql_query("SELECT * FROM `kimyasal` WHERE `unique_id` = $id");
+    if (mysql_num_rows($q)>0) {
+      while ($row = mysql_fetch_assoc($q)) {
+
+      echo '<form class="edit_form" id="edit_form" enctype="multipart/form-data" method="post">
+              <div class="row">
+                  <div class="col m12 s12 l8 iomr">
+                    <div class="card card-wns">
+                        <div class="card-content ">
+                          <div class="row">
+                            <div class="col m12 s12 l12">
+                              <div class="col s12">
+                                <div class="row">
+                                  <div class="input-field col s12">
+                                    <i class="material-icons prefix">label_outline</i>
+                                    <input type="text" value="'.$row["name"].'" id="ka" class="autocomplete" autocomplete="off" onchange="input2span(\'ka\')" name="ka">
+                                    <label for="ka">Kimyasal adı düzenlemek için tıklayın</label>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="col s12">
+                                <div class="row">
+                                  <div class="input-field col s12 m8 l10">
+                                    <i class="material-icons prefix">label_important_outline</i>
+                                    <input type="text" value="'.$row["formula"].'" name="formula" autocomplete="off" id="kf" name="kf" onchange="input2span(\'kf\')">
+                                    <label for="kf" class="truncate">Kimyasal formülü düzenlemek için tıklayın</label>
+                                  </div>
+                                  <div class="input-field col s12 m4 l2">
+                                    <button onclick="upItem()" class="btn waves-effect waves-light col s5" type="button" name="action">
+                                      <i class="material-icons">arrow_upward</i>
+                                    </button>
+                                    <button onclick="downItem()" class="btn waves-effect waves-light col s5 offset-s1" type="button" name="action">
+                                      <i class="material-icons">arrow_downward</i>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col s12">
+                                <div class="row">
+                                  <div class="input-field col s12">
+                                    <i class="material-icons prefix">build</i>
+                                    <input type="text" value="'.$row["manufacturer"].'" id="uf" class="autocomplete" name="uf" onchange="input2span(\'uf\')">
+                                    <label for="uf" class="truncate">Üretici firma düzenlemek için tıklayın</label>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col s12">
+                                <div class="row">
+                                  <div class="input-field col s12 l12">
+                                    <i class="material-icons prefix">exposure</i>
+                                    <input type="text" id="m" autocomplete="off" name="m" onchange="input2span(\'m\')"  value="'.$row["quantity"].'">
+                                    <label for="m" class="truncate">Miktar düzenlemek için tıklayın</label>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col s12">
+                                <div class="row">
+                                  <div class="input-field col s12 m8 l10">
+                                    <i class="material-icons prefix">exposure</i>
+                                    <input type="text" id="a" name="a" autocomplete="off" onchange="input2span(\'a\')"  value="'.$row["stock"].'">
+                                    <label for="a" class="truncate">Adet düzenlemek için tıklayın</label>
+                                  </div>
+
+                                  <div class="input-field col s12 m4 l2">
+                                    <button class="btn waves-effect waves-light col s5" type="button" id="count-down">
+                                      <i class="material-icons">exposure_neg_1</i>
+                                    </button>
+                                    <button class="btn waves-effect waves-light col s5 offset-s1" type="button" id="count-up">
+                                      <i class="material-icons">exposure_plus_1</i>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col s12">
+                                <div class="row">
+                                  <div class="input-field col s12">
+                                    <i class="material-icons prefix">date_range</i>
+                                    <input type="text" class="datepicker" id="gt" autocomplete="off" name="gt" onchange="input2span(\'gt\')"  value="'.$row["entry_date"].'">
+                                    <label for="gt" class="truncate">Giriş tarihi güncellemek için tıklayın</label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="col m12 s12 l4">
+                    <div class="card card-wns">
+                      <div class="card-content">
+                        <ul class="collection">
+                          <li class="collection-item">Kimyasal adı: <span id="ka_span"></span></li>
+                          <li class="collection-item">Kimyasal formülü: <span id="kf_span"></span></li>
+                          <li class="collection-item">Üretici firma: <span id="uf_span"></span></li>
+                          <li class="collection-item">Miktar: <span id="m_span"></span></li>
+                          <li class="collection-item">Adet: <span id="a_span"></span></li>
+                          <li class="collection-item">Giriş tarihi: <span id="gt_span"></span></li>
+                        </ul>
+                      </div>
+                      <div class="card-action">
+                        <input type="hidden" name="action" value="insert_form">
+                        <button class="btn waves-effect waves-light" type="button" id="gonder-insert">Güncelle
+                          <i class="material-icons right">send</i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  </form>';
+      }
+    }
+  }
+
   function id_to_n($id,$auth){
     $id = $this->clear($id);
     $auth = $this->clear($auth);

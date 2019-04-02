@@ -51,8 +51,8 @@ $link = "index";
                    </form>
                  </div>
                  <div class="card-action">
-                   <a class="btn grey darken-1 waves-effect waves-light disabled" id="geri-arama"><i class="material-icons">arrow_back</i></a>
-                   <a class="btn grey darken-1 waves-effect waves-light" id="gonder-arama">Arama Yap <i class="material-icons right">search</i></a>
+                   <a class="btn s12 grey darken-1 waves-effect waves-light disabled" id="geri-arama"><i class="material-icons">arrow_back</i></a>
+                   <a class="btn s12 grey darken-1 waves-effect waves-light" id="gonder-arama">Arama Yap <i class="material-icons right">search</i></a>
                  </div>
                </div>
            </div>
