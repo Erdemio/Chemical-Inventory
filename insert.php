@@ -83,14 +83,14 @@ $link = "insert";
                             </div>
                             <div class="input-field col s12 m12 l2">
                               <label>
-                                <input class="with-gap" name="m_type" id="m_type" type="radio" value="mili litre" />
-                                <span>Mili Litre</span>
+                                <input class="with-gap" name="m_type" id="m_type" type="radio" value="mililitre" />
+                                <span>Mililitre</span>
                               </label>
                             </div>
                             <div class="input-field col s12 m12 l2">
                               <label>
-                                <input class="with-gap" name="m_type" id="m_type" type="radio" value="kilo gram" />
-                                <span>Kilo Gram</span>
+                                <input class="with-gap" name="m_type" id="m_type" type="radio" value="kilogram" />
+                                <span>Kilogram</span>
                               </label>
                             </div>
                             <div class="input-field col s12 m12 l2">
@@ -101,8 +101,8 @@ $link = "insert";
                             </div>
                             <div class="input-field col s12 m12 l2">
                               <label>
-                                <input class="with-gap" name="m_type" id="m_type" type="radio" value="mili gram" />
-                                <span>Mili gram</span>
+                                <input class="with-gap" name="m_type" id="m_type" type="radio" value="miligram" />
+                                <span>Miligram</span>
                               </label>
                             </div>
 

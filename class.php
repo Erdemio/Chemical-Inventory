@@ -418,15 +418,9 @@ class db_query
 
               echo $state;
             }else{
-              return "1";//gelen id de veri yok demek.
+              return "1";
             }
 
-
-
-
-            /* tarih çevirici
-
-            */
           }
 
   }
@@ -481,7 +475,7 @@ class db_query
             return $row['name'];
           }
         }else{
-          return "hata";
+          return "MSDS form'u yükleyin.";
         }
     }
 
