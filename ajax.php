@@ -94,7 +94,7 @@ $database = new database ();
         echo "3";
       }else if ($m == "" || $m == " " || $m<1) {
         echo "4";
-      }else if ($a == "" || $a == " " || $a<1) {
+      }else if ($a == "" || $a == " " || $a<0) {
         echo "5";
       }else if ($gt == "" || $gt == " ") {
         echo "6";

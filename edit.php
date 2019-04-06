@@ -77,7 +77,7 @@ $chemical_name = "<a href=\"index\" class=\"breadcrumb\">".$chemical."</a>";
               }else if(response == "4") {
                 error = "Miktar 1'den küçük olamaz.";
               }else if(response == "5") {
-                error = "Adet 1'den küçük olamaz.";
+                error = "Adet 0'dan küçük olamaz.";
               }else if(response == "6") {
                 error = "Giriş tarihini boş bırakmayın.";
               }else if(response == "7"){
@@ -119,7 +119,7 @@ $chemical_name = "<a href=\"index\" class=\"breadcrumb\">".$chemical."</a>";
 
         $("#count-down").click(function(){
           var val = document.getElementById("a").value;
-          if (val>1) {
+          if (val>0) {
             val = eval(parseInt(val)-1);
           }
           document.getElementById("a").value = val;
@@ -144,13 +144,13 @@ $chemical_name = "<a href=\"index\" class=\"breadcrumb\">".$chemical."</a>";
         $('input.autocomplete#ka').autocomplete({
           data: {
             <?php
-              $q -> get_autocomplete_data("chemical_names");
+              $q -> get_autocomplete_data("chemical_names",$_SESSION['auth']);
              ?>},
         });
         $('input.autocomplete#uf').autocomplete({
           data: {
             <?php
-              $q -> get_autocomplete_data("manufacturer_names");
+              $q -> get_autocomplete_data("manufacturer_names",$_SESSION['auth']);
              ?>},
         });
 
