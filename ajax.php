@@ -24,7 +24,8 @@ $database = new database ();
 
        $p1 = @$_POST['canon'];
        $p2 = @$_POST['search'];
-       $get = $q -> get_data_with_parameters($p1,$p2,$_SESSION['auth']);
+       $pg = @$_POST['page'];
+       $get = $q -> get_data_with_parameters($p1,$p2,$_SESSION['auth'],$pg);
       if($get=="level-error"){
         echo "level-error";
       }else if($get=="not-found"){
@@ -116,7 +117,7 @@ $database = new database ();
       }
 
     }else if (@$_POST['action']=="getdatali") {
-        $get = $q -> get_data_li(@$_POST['cname'],@$_SESSION['auth']);
+        $get = $q -> get_data_li(@$_POST['cname'],@$_SESSION['auth'],@$_POST['page']);
     }else{
       echo "boş post";
     }

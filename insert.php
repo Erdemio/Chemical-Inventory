@@ -287,13 +287,13 @@ $link = "insert";
         $('input.autocomplete#ka').autocomplete({
           data: {
             <?php
-              $q -> get_autocomplete_data("chemical_names");
+              $q -> get_autocomplete_data("chemical_names",$_SESSION['auth']);
              ?>},
         });
         $('input.autocomplete#uf').autocomplete({
           data: {
             <?php
-              $q -> get_autocomplete_data("manufacturer_names");
+              $q -> get_autocomplete_data("manufacturer_names",$_SESSION['auth']);
              ?>},
         });
 

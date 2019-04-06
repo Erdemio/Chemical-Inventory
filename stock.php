@@ -6,9 +6,9 @@ $database = new database ();
 require_once "procedure.php";
 define('check_for_direct_access', TRUE);
 
-$active = "index";
-$page = "Kimyasal Listele";
-$link = "index";
+$active = "stock";
+$page = "Kimyasal Stokta Olmayanlar";
+$link = "stock";
 
 //Sabit, değiştirme.
 ?>
@@ -23,7 +23,7 @@ $link = "index";
       <main>
         <div class="row">
           <?php
-          if($q -> get_data($_SESSION['auth'],"normal")){
+          if($q -> get_data($_SESSION['auth'],"stock")){
            ?>
 
 
@@ -44,7 +44,7 @@ $link = "index";
                         <div class="input-field col s12">
                           <i class="material-icons prefix">filter_2</i>
                           <input type="hidden" value="search_form" name="action">
-                          <input type="hidden" value="index" name="page">
+                          <input type="hidden" value="stock" name="page">
                           <input id="search-box" type="text" name="search">
                           <label for="search-box">Kimyasal adi, üretici firma.</label>
                         </div>

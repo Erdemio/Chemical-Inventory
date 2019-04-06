@@ -3,44 +3,42 @@
 class db_query
 {
 
-  function get_autocomplete_data($chosen){
-    if ($chosen=="chemical_names") {
-      $q = mysql_query("SELECT * FROM `chemical_names`");
-      $row_count= mysql_num_rows($q);
-      $count = 0;
-      while($row = mysql_fetch_assoc($q)){
+  function get_autocomplete_data($chosen,$auth){
+    $auth = $this->clear($auth);
+    if ($this->check_level($auth)>1) {
+      if ($chosen=="chemical_names") {
+        $q = mysql_query("SELECT * FROM `chemical_names`");
+        $row_count= mysql_num_rows($q);
+        $count = 0;
+        while($row = mysql_fetch_assoc($q)){
 
-        if ($count < $row_count-1) {
-          echo "\"".$row['name']."\": null, ";
-        }else{
-          echo "\"".$row['name']."\": null";
+          if ($count < $row_count-1) {
+            echo "\"".$row['name']."\": null, ";
+          }else{
+            echo "\"".$row['name']."\": null";
+          }
+          $count += 1;
         }
-        $count += 1;
-      }
-    }else if ($chosen=="manufacturer_names") {
-      $q1 = mysql_query("SELECT * FROM `manufacturer_names`");
-      $row_count1= mysql_num_rows($q1);
-      $count2 = 0;
-      while($row = mysql_fetch_assoc($q1)){
+      }else if ($chosen=="manufacturer_names") {
+        $q1 = mysql_query("SELECT * FROM `manufacturer_names`");
+        $row_count1= mysql_num_rows($q1);
+        $count2 = 0;
+        while($row = mysql_fetch_assoc($q1)){
 
-        if ($count2 < $row_count1-1) {
-          echo "\"".$row['manufacturer']."\": null, ";
-        }else{
-          echo "\"".$row['manufacturer']."\": null";
+          if ($count2 < $row_count1-1) {
+            echo "\"".$row['manufacturer']."\": null, ";
+          }else{
+            echo "\"".$row['manufacturer']."\": null";
+          }
+          $count2 += 1;
         }
-        $count2 += 1;
       }
     }
-
   }
-  function get_data($auth_full){
-    $auth_full = $this->clear($auth_full);
-    $q = mysql_query("SELECT level FROM `user` WHERE `user_auth` = '$auth_full'");
-    if($q){
-      while($row = mysql_fetch_assoc($q)){
-        $level = $row['level'];
-      }
-      if($level > 1){
+  function get_data($auth,$extend=0){
+
+    $auth= $this->clear($auth);
+    if ($this->check_level($auth)>1) {
         echo '
           <div class="col m12 s12 l9 iomr">
             <div class="card card-wns">
@@ -54,7 +52,12 @@ class db_query
                   </thead>
 
                   <tbody>';
-                  $q = mysql_query("select name,formula,n_name,n_formula,unique_id from kimyasal GROUP BY n_name ORDER BY name ASC;");
+                  if ($extend == "stock") {
+                    $q = mysql_query("select name,formula,n_name,n_formula,unique_id from kimyasal WHERE `stock` = '0' GROUP BY n_name ORDER BY name ASC;");
+                  }else{
+                    $q = mysql_query("select name,formula,n_name,n_formula,unique_id from kimyasal WHERE `stock` <> '0' GROUP BY n_name ORDER BY name ASC;");
+                  }
+
                   if($q){
                     while($row = mysql_fetch_assoc($q)){
                       //buraya akordiyon olarak firma isimleri ekliyebilirsin
@@ -63,7 +66,7 @@ class db_query
                               <td>".$row['formula']."</td>
                               <td>
                               <a href=\"msds.php?id=".$row['n_name']."\" data-position=\"bottom\" data-tooltip=\"Malzeme Güvenlik Bilgi Formu'nu görüntüle.\" target=\"_blank\"  class=\"waves-effect waves-light btn tooltipped\">MGBF</a>
-                              <a href=\"#list\" onclick=\"getDataLi('".$row['n_name']."');\" data-position=\"bottom\" data-tooltip=\"Kimyasalı görüntüle & düzenle.\" class=\"waves-effect waves-light btn tooltipped modal-trigger\"><i class='material-icons'>edit</i></a></td>
+                              <a href=\"#list\" onclick=\"getDataLi('".$row['n_name']."','$extend');\" data-position=\"bottom\" data-tooltip=\"Kimyasalı görüntüle & düzenle.\" class=\"waves-effect waves-light btn tooltipped modal-trigger\"><i class='material-icons'>edit</i></a></td>
                             </tr>";
                     }
                   }
@@ -72,35 +75,39 @@ class db_query
             </div>
         </div>';
         return true;
-      }else{
+      }
+      else{
         echo '<div class="row">
           <div class="col m12">
           <h1 class="center">Yetersiz yetkiye sahipsiniz.</h1>
           </div></div>';
           return false;
       }
-    }
   }
-  function get_data_with_parameters($canon,$search,$auth){
+  function get_data_with_parameters($canon,$search,$auth,$pg){
     $canon = $this->clear($canon);
     $search = $this->clear($search);
     $auth = $this->clear($auth);
 
-    $q = mysql_query("SELECT level FROM `user` WHERE `user_auth` = '$auth'");
-    if($q){
-      while($row = mysql_fetch_assoc($q)){
-        $level = $row['level'];
-      }
-      if(@$level > 1){
+    if ($this->check_level($auth)>1) {
         if($canon=="" || $search==""){
           echo "empty-data";
         }
         else{
-            if($canon=="f"){
-              $q = mysql_query("select name, formula,n_name,unique_id from kimyasal WHERE `manufacturer` LIKE '%$search%' GROUP BY n_name;");
-            }else if($canon=="k"){
-              $q = mysql_query("select name, formula,n_name,unique_id  from kimyasal WHERE `name` LIKE '%$search%' GROUP BY n_name;");
-            }
+          if ($pg="stock") {
+              if($canon=="f"){
+                $q = mysql_query("select name, formula,n_name,unique_id from kimyasal WHERE `manufacturer` LIKE '%$search%' AND  `stock` = '0' GROUP BY n_name;");
+              }else if($canon=="k"){
+                $q = mysql_query("select name, formula,n_name,unique_id  from kimyasal WHERE `name` LIKE '%$search%' AND  `stock` = '0' GROUP BY n_name;");
+              }
+          }else{
+              if($canon=="f"){
+                $q = mysql_query("select name, formula,n_name,unique_id from kimyasal WHERE `manufacturer` LIKE '%$search%' AND  `stock` <> '0'GROUP BY n_name;");
+              }else if($canon=="k"){
+                $q = mysql_query("select name, formula,n_name,unique_id  from kimyasal WHERE `name` LIKE '%$search%' AND  `stock` <> '0' GROUP BY n_name;");
+              }
+          }
+
             if($q){
               while($row = mysql_fetch_assoc($q)){
                 echo "<tr class=\"searched\">
@@ -108,7 +115,7 @@ class db_query
                         <td>".$row['formula']."</td>
                         <td>
                         <a href=\"msds.php?id=".$row['n_name']."\" data-position=\"bottom\" data-tooltip=\"Malzeme Güvenlik Bilgi Formu'nu görüntüle.\" target=\"_blank\"  class=\"waves-effect waves-light btn tooltipped\">MGBF</a>
-                        <a href=\"#list\" onclick=\"getDataLi('".$row['n_name']."');\" data-position=\"bottom\" data-tooltip=\"Kimyasalı görüntüle & düzenle.\" class=\"waves-effect waves-light btn tooltipped modal-trigger\"><i class='material-icons'>edit</i></a></td>
+                        <a href=\"#list\" onclick=\"getDataLi('".$row['n_name']."','$pg');\" data-position=\"bottom\" data-tooltip=\"Kimyasalı görüntüle & düzenle.\" class=\"waves-effect waves-light btn tooltipped modal-trigger\"><i class='material-icons'>edit</i></a></td>
                       </tr>";
               }
               if(mysql_num_rows($q)<1){
@@ -121,21 +128,29 @@ class db_query
       }else{
         echo 'level-error';
       }
-    }
+
+
+
+
   }
-  function get_data_li($cname,$auth){
+  function get_data_li($cname,$auth,$pg){
     $cname = $this-> clear($cname);
     $auth = $this-> clear($auth);
-
+    $pg = $this-> clear($pg);
     if ($this->check_level($auth)>1) {
       $f = 0;
-      $q = mysql_query("SELECT * FROM `kimyasal` WHERE `n_name` = $cname ORDER BY `entry_date` DESC");
+
+      if ($pg=="stock") {
+        $q = mysql_query("SELECT * FROM `kimyasal` WHERE `n_name` = $cname AND `stock` = '0' ORDER BY `entry_date` DESC");
+      }else{
+        $q = mysql_query("SELECT * FROM `kimyasal` WHERE `n_name` = $cname AND `stock` <> '0' ORDER BY `entry_date` DESC");
+      }
+
       if (mysql_num_rows($q)>0) {
           while ($row = mysql_fetch_assoc($q)) {
           if ($f==0) {
             echo '<li class="collection-header"><h4>'.$row['name'].'</h4></li>';
           }
-
                 echo '
                       <li class="collection-item">
                         <div>
@@ -157,13 +172,7 @@ class db_query
                       </li>';
                       $f++;
             }
-
       }
-
-
-
-
-
     }
   }
 
