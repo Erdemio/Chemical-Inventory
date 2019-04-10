@@ -2,6 +2,18 @@
 //kontrol eklendiği zaman ajax hata veriyor, EKLEME.
 class db_query
 {
+  function export_form_items(){
+
+
+    echo '<div class="row">
+      <div class="input-field col s6">
+        <label>
+          <input type="checkbox" name="kolon_adi[\'ad\']" class="filled-in" />
+          <span>Kimyasal Adı</span>
+        </label>
+      </div>
+    </div>';
+  }
 
   function get_autocomplete_data($chosen,$auth){
     $auth = $this->clear($auth);

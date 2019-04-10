@@ -26,7 +26,7 @@ $link = "insert";
 
           <div class="col m12 s12 l8 iomr">
             <div class="card card-wns">
-                <div class="card-content ">
+                <div class="card-content">
                   <div class="row">
                     <div class="col m12 s12 l12">
                       <div class="col s12">

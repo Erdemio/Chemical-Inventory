@@ -112,7 +112,9 @@ textarea.materialize-textarea:focus:not([readonly])+label {
    color: #000;
  }
 
-
+.export_items{
+  padding-bottom: 1.3rem;
+}
 
 /* Sabit kısım */
 
