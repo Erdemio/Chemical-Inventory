@@ -118,6 +118,9 @@ $database = new database ();
 
     }else if (@$_POST['action']=="getdatali") {
         $get = $q -> get_data_li(@$_POST['cname'],@$_SESSION['auth'],@$_POST['page']);
+    }else if (@$_POST['action']=="export_form") {
+        $get = $q -> export_form_items(@$_POST['stok_tipi'],@$_POST['kolon_adi'],@$_SESSION['auth']);
+
     }else{
       echo "boş post";
     }

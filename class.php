@@ -2,18 +2,64 @@
 //kontrol eklendiği zaman ajax hata veriyor, EKLEME.
 class db_query
 {
-  function export_form_items(){
+  function export_form_items($stok_tipi,$kolon_adi,$auth){
+    $auth = $this->clear($auth);
+    $stok_tipi = $this->clear_array($stok_tipi);
+    $kolon_adi = $this->clear_array($kolon_adi);
 
+    $gerekli_tip = ['var','yok'];
+    $gerekli_kolon = ['name','formula','manufacturer','quantity','stock','entry_date'];
 
-    echo '<div class="row">
-      <div class="input-field col s6">
-        <label>
-          <input type="checkbox" name="kolon_adi[\'ad\']" class="filled-in" />
-          <span>Kimyasal Adı</span>
-        </label>
-      </div>
-    </div>';
+    $tipler=0;
+
+    if ($this->check_level($auth)>1) {
+
+      foreach ($stok_tipi as $key) {
+        if (in_array($key, $gerekli_tip)) {
+
+            if ($key=="var") {
+              $tipler = $tipler + 1;
+            }else if ($key=="yok") {
+              $tipler = $tipler + 2;
+            }else{
+              $tipler = 0;
+            }
+        }
+      }//foreach
+
+      $kolon = 0;
+      foreach ($kolon_adi as $key) {
+        if (in_array($key, $gerekli_kolon)) {
+          if ($kolon==0) {
+
+          } else {
+
+          }
+          $kolon++;
+        }
+      }//foreach
+
+      //select kısmı
+      switch ($tipler) {
+        case 1:
+          echo "Stokta olanlar";
+          break;
+        case 2:
+          echo "Stokta olmayanlar";
+          break;
+
+        case 3:
+          echo "Stokta hem olan, hem olmayanlar";
+          break;
+
+        default:
+          echo $tipler;
+          break;
+      }
+
+    }//güvenlik bitişi
   }
+
 
   function get_autocomplete_data($chosen,$auth){
     $auth = $this->clear($auth);
@@ -661,6 +707,14 @@ class db_query
 
   private function clear($item){
     return htmlspecialchars($item, ENT_QUOTES);
+  }
+
+  private function clear_array($items_get){
+    $clear_array = [];
+    foreach ((array)$items_get as $key) {
+      array_push($clear_array, htmlspecialchars($key, ENT_QUOTES));
+    }
+    return $clear_array;
   }
 
   private function algorithm($identy,$password,$time){
