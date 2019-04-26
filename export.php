@@ -28,7 +28,7 @@ $link = "export";
                 <div class="row">
                   <div class="col s12">
                     <!--başlangıç-->
-                    <form class="col s12" id="export_form">
+                    <form class="col s12" id="export_form" method="post" action="export_excell">
 
                       <div class="export_items">
                         <h5>İstenen kolon bilgileri</h5>
@@ -95,7 +95,7 @@ $link = "export";
                       <div class="row">
                         <div class="input-field col s12">
                           <input type="hidden" name="action" value="export_form">
-                        <button class="btn waves-effect waves-light" type="button" id="gonder-export" name="action">Dışa Aktar
+                        <button class="btn waves-effect waves-light" type="submit" id="gonder-export" name="action">Dışa Aktar
                           <i class="material-icons right">cloud_upload</i>
                         </button>
                         </div>
@@ -113,10 +113,10 @@ $link = "export";
       <?php require_once "modal.php"; ?>
       <?php require_once "scripts.php"; ?>
       <script type="text/javascript">
-
+/*
       $("#gonder-export").click(function() {
         exportForm();
-      });
+      });*/
       function exportForm(event){
         var values = $("#export_form").serialize();
         $.ajax({
@@ -124,6 +124,8 @@ $link = "export";
           type: "post",
           data: values,
           success: function(response) {
+
+            window.location.href = "http://localhost/export_excell.php";
 
             var error='Formu boş bırakmayınız.';
             var color_class='green lighten-1';

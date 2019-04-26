@@ -10,6 +10,7 @@ class db_query
     $gerekli_tip = ['var','yok'];
     $gerekli_kolon = ['name','formula','manufacturer','quantity','stock','entry_date'];
 
+
     $tipler=0;
 
     if ($this->check_level($auth)>1) {
@@ -45,48 +46,39 @@ class db_query
 
       switch ($tipler) {
         case 1:
-          echo "Stokta olanlar indiriliyor.";
+          //echo "Stokta olanlar indiriliyor.";
             $q = mysql_query("SELECT $select FROM `kimyasal` WHERE `stock` <> '0'");
           break;
 
         case 2:
-          echo "Stokta olmayanlar ";
+          //echo "Stokta olmayanlar ";
             $q = mysql_query("SELECT $select FROM `kimyasal` WHERE `stock` = '0'");
           break;
 
         case 3:
-          echo "Stokta hem olan, hem olmayanlar ";
+          //echo "Stokta hem olan, hem olmayanlar ";
           $q = mysql_query("SELECT $select FROM `kimyasal`");
           break;
 
         default:
-          echo "Hatalı.";
+          //echo "Hatalı.";
           break;
       }
 
       if (mysql_num_rows($q)>0) {
-        header('Content-Encoding: UTF-8');
-        header('Content-Type: text/plain; charset=utf-8');
-        header("Content-disposition: attachment; filename=GuncelVeriler.xls");
-        echo "\xEF\xBB\xBF"; // UTF-8 BOM
-
         echo '<table border="1"><tr>';
         foreach($kolon_adi as $key => $value){
             echo "<th style=\"background-color:#FFA500\">".$key."</th>";
         }
         echo '</tr>';
-
           while ($row=mysql_fetch_assoc($q)) {
             echo "<tr>";
               foreach ($kolon_adi as $key => $value) {
-                echo "<td>".$key."</td>";
+                echo "<td>".$row[$key]."</td>";
               }
             echo "</tr>";
           }
       }
-
-
-
     }//güvenlik bitişi
   }
 
