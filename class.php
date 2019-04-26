@@ -16,7 +16,6 @@ class db_query
 
       foreach ($stok_tipi as $key) {
         if (in_array($key, $gerekli_tip)) {
-
             if ($key=="var") {
               $tipler = $tipler + 1;
             }else if ($key=="yok") {
@@ -28,34 +27,65 @@ class db_query
       }//foreach
 
       $kolon = 0;
-      foreach ($kolon_adi as $key) {
-        if (in_array($key, $gerekli_kolon)) {
-          if ($kolon==0) {
+      $select = "";
+      if (count($kolon_adi)>0) {
+          foreach ($kolon_adi as $key => $value) {
+            if (in_array($key, $gerekli_kolon)) {
+              if ($kolon==0) {
+                $select = $select.$key;
+              } else {
+                $select =  $select.",".$key;
+              }
+              $kolon++;
+            }
+          }//foreach
+      }else {
+        $select = "*";
+      }
 
-          } else {
-
-          }
-          $kolon++;
-        }
-      }//foreach
-
-      //select kısmı
       switch ($tipler) {
         case 1:
-          echo "Stokta olanlar";
+          echo "Stokta olanlar indiriliyor.";
+            $q = mysql_query("SELECT $select FROM `kimyasal` WHERE `stock` <> '0'");
           break;
+
         case 2:
-          echo "Stokta olmayanlar";
+          echo "Stokta olmayanlar ";
+            $q = mysql_query("SELECT $select FROM `kimyasal` WHERE `stock` = '0'");
           break;
 
         case 3:
-          echo "Stokta hem olan, hem olmayanlar";
+          echo "Stokta hem olan, hem olmayanlar ";
+          $q = mysql_query("SELECT $select FROM `kimyasal`");
           break;
 
         default:
-          echo $tipler;
+          echo "Hatalı.";
           break;
       }
+
+      if (mysql_num_rows($q)>0) {
+        header('Content-Encoding: UTF-8');
+        header('Content-Type: text/plain; charset=utf-8');
+        header("Content-disposition: attachment; filename=GuncelVeriler.xls");
+        echo "\xEF\xBB\xBF"; // UTF-8 BOM
+
+        echo '<table border="1"><tr>';
+        foreach($kolon_adi as $key => $value){
+            echo "<th style=\"background-color:#FFA500\">".$key."</th>";
+        }
+        echo '</tr>';
+
+          while ($row=mysql_fetch_assoc($q)) {
+            echo "<tr>";
+              foreach ($kolon_adi as $key => $value) {
+                echo "<td>".$key."</td>";
+              }
+            echo "</tr>";
+          }
+      }
+
+
 
     }//güvenlik bitişi
   }
@@ -711,8 +741,8 @@ class db_query
 
   private function clear_array($items_get){
     $clear_array = [];
-    foreach ((array)$items_get as $key) {
-      array_push($clear_array, htmlspecialchars($key, ENT_QUOTES));
+    foreach ((array)$items_get as $key => $value) {
+      $clear_array[htmlspecialchars($key, ENT_QUOTES)]=$value;
     }
     return $clear_array;
   }

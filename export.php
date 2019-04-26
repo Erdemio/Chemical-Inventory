@@ -35,7 +35,7 @@ $link = "export";
                           <div class="row">
                             <div class="input-field col s6">
                               <label>
-                                <input type="checkbox" name="kolon_adi['name']" value="1" class="filled-in" />
+                                <input type="checkbox" name="kolon_adi[name]" value="1" class="filled-in" />
                                 <span>Kimyasal Adı</span>
                               </label>
                             </div>
@@ -43,7 +43,7 @@ $link = "export";
                           <div class="row">
                             <div class="input-field col s6">
                               <label>
-                                <input type="checkbox" name="kolon_adi['formula']" value="1" class="filled-in" />
+                                <input type="checkbox" name="kolon_adi[formula]" value="1" class="filled-in" />
                                 <span>Kimyasal Formülü</span>
                               </label>
                             </div>
@@ -51,7 +51,7 @@ $link = "export";
                           <div class="row">
                             <div class="input-field col s6">
                               <label>
-                                <input type="checkbox" name="kolon_adi['manufacturer']" value="1" class="filled-in" />
+                                <input type="checkbox" name="kolon_adi[manufacturer]" value="1" class="filled-in" />
                                 <span>Üretici Firma</span>
                               </label>
                             </div>
@@ -59,7 +59,7 @@ $link = "export";
                           <div class="row">
                             <div class="input-field col s6">
                               <label>
-                                <input type="checkbox" name="kolon_adi['quantity']" value="1" class="filled-in" />
+                                <input type="checkbox" name="kolon_adi[quantity]" value="1" class="filled-in" />
                                 <span>Miktar</span>
                               </label>
                             </div>
@@ -67,7 +67,7 @@ $link = "export";
                           <div class="row">
                             <div class="input-field col s6">
                               <label>
-                                <input type="checkbox" name="kolon_adi['stock']" value="1" class="filled-in" />
+                                <input type="checkbox" name="kolon_adi[stock]" value="1" class="filled-in" />
                                 <span>Stok Adeti</span>
                               </label>
                             </div>
@@ -75,7 +75,7 @@ $link = "export";
                           <div class="row">
                             <div class="input-field col s6">
                               <label>
-                                <input type="checkbox" name="kolon_adi['entry_date']" value="1" class="filled-in" />
+                                <input type="checkbox" name="kolon_adi[entry_date]" value="1" class="filled-in" />
                                 <span>Stok Tarihi</span>
                               </label>
                             </div>
