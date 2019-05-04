@@ -164,6 +164,15 @@ textarea.materialize-textarea:focus:not([readonly])+label {
   min-height: 100% !important;
 }
 
+.range1{
+  background-color:#ff0202 !important;
+}
+.range2{
+  background-color:#e4843f !important;
+}
+#list{
+  font-size:1.25rem;
+}
 /* Ek Style Bitiş*/
 
 /* ID Style*/

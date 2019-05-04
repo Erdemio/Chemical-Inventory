@@ -49,6 +49,40 @@ $chemical_name = "<a href=\"index\" class=\"breadcrumb\">".$chemical."</a>";
       $("#gonder-insert").click(function() {
         editForm();
       });
+
+      $("#gonder-sil").dblclick(function() {
+        var values = $('input[name="id"]').val();
+        $.ajax({
+          url: "ajax.php",
+          type: "post",
+          data: "action=update_form&id="+values,
+          success: function(response) {
+
+            if (response=="8") {
+              error = "Başarılı bir şekilde silindi.";
+              var color_class='blue lighten-1';
+              setTimeout(function(){ location.href="index" }, 1000);
+            }else if (response=="9") {
+              error = "Böyle bir kimyasal artık mevcut değil!";
+              var color_class='red lighten-1';
+            }else if (response=="10") {
+              error = "Kimyasal bulunamadı!";
+              var color_class='red lighten-1';
+            }
+
+            M.toast({
+              html: '<span class="white-text">'+error+'</span>',
+              classes: color_class
+            })
+
+            console.log(response);
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus, errorThrown);
+          }
+        });
+      });
+
       var files;
       $('input[type=file]').on('change', prepareUpload);
       function prepareUpload(event)

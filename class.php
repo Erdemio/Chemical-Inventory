@@ -217,6 +217,7 @@ class db_query
     $cname = $this-> clear($cname);
     $auth = $this-> clear($auth);
     $pg = $this-> clear($pg);
+    $range="";
     if ($this->check_level($auth)>1) {
       $f = 0;
 
@@ -228,6 +229,20 @@ class db_query
 
       if (mysql_num_rows($q)>0) {
           while ($row = mysql_fetch_assoc($q)) {
+
+            $percent = $this->date_percent($row['entry_date']);
+
+
+            if ($percent>=100) {
+              $range = "range1";
+              $percent=100;
+            }else if($percent >=80){
+              $range = "range2";
+            }else{
+              $range="";
+            }
+
+
           if ($f==0) {
             echo '<li class="collection-header"><h4>'.$row['name'].'</h4></li>';
           }
@@ -244,6 +259,11 @@ class db_query
                             Adet: '.$row['stock'].'
                             <br>
                             Giriş Tarihi: '.$row['entry_date'].'
+                            <br>
+                            Rafta gençen ömür: '.round($percent).'%
+                            <div class="progress">
+                                <div class="determinate '.$range.'" style="width: '.$percent.'%"></div>
+                            </div>
                             <br>
                             <a href="edit.php?id='.$row['unique_id'].'" class="secondary-content btn flat-btn"><i class="material-icons">edit</i></a>
                             <br>
@@ -663,6 +683,7 @@ class db_query
                         </div>
                     </div>
                   </div>
+
                   <div class="col m12 s12 l4">
                     <div class="card card-wns">
                       <div class="card-content">
@@ -680,8 +701,11 @@ class db_query
                         <input type="hidden" name="id" value="';
                         echo $id
                          .'">
-                        <button class="btn waves-effect waves-light" type="button" id="gonder-insert">Güncelle
+                        <button class="btn blue waves-effect waves-light" type="button" id="gonder-insert">Güncelle
                           <i class="material-icons right">send</i>
+                        </button>
+                        <button class="btn red waves-effect waves-light" type="button" id="gonder-sil">Sil
+                          <i class="material-icons right">delete</i>
                         </button>
                       </div>
                     </div>
@@ -689,6 +713,26 @@ class db_query
                   </form>';
       }
     }
+    }
+  }
+  function chemical_delete($id,$auth){
+    $id = $this->clear($id);
+    $auth = $this->clear($auth);
+
+    if ($this->check_level($auth)>1) {
+
+      $q = @mysql_query("SELECT visible FROM `chemical` WHERE `unique_id` = $id");
+
+      if (mysql_num_rows($q)>0) {
+          $q = @mysql_query("DELETE FROM `chemical` WHERE `chemical`.`unique_id` = $id");
+          if (@$q) {
+            return "8";
+          }else{
+            return "9";
+          }
+      }else{
+        return "10";
+      }
     }
   }
 
@@ -703,6 +747,17 @@ class db_query
       }
     }
     }
+  }
+
+  function date_percent($push){
+    $now_time = time(); //2019-05-04
+    $entry_time = strtotime($push); //2017-05-04
+    $passed_time = $now_time - $entry_time; //geçen süre
+
+    $end_time = 31536000*2; // raf ömrü 2 yıl.
+
+    $percent = $passed_time / $end_time * 100;
+    return $percent;
   }
 
   /* Güvenlik Prosedürleri */

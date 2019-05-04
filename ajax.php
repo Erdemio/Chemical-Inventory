@@ -78,15 +78,18 @@ $database = new database ();
 
 
     }else if (@$_POST['action']=="update_form") {
-      $id = $_POST['id'];
-      $ka = $_POST['ka'];
-      $formula = $_POST['formula'];
-      $uf = $_POST['uf'];
-      $m = $_POST['m'];
-      $a = $_POST['a'];
-      $gt = $_POST['gt'];
+      $id = @$_POST['id'];
+      $ka = @$_POST['ka'];
+      $formula = @$_POST['formula'];
+      $uf = @$_POST['uf'];
+      $m = @$_POST['m'];
+      $a = @$_POST['a'];
+      $gt = @$_POST['gt'];
 
-      if ($ka == "" || $ka == " ") {
+      if(isset($id) && !isset($ka)){
+        $get = $q -> chemical_delete($id,@$_SESSION['auth']);
+        echo $get;
+      }else if ($ka == "" || $ka == " ") {
         echo "1";
       }else if ($formula == "" || $formula == " ") {
         echo "2";
