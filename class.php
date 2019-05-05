@@ -167,7 +167,7 @@ class db_query
           return false;
       }
   }
-  function get_data_with_parameters($canon,$search,$auth,$pg){
+  function get_data_with_parameters($canon,$search,$auth,$pg=0){
     $canon = $this->clear($canon);
     $search = $this->clear($search);
     $auth = $this->clear($auth);
@@ -177,7 +177,7 @@ class db_query
           echo "empty-data";
         }
         else{
-          if ($pg="stock") {
+          if ($pg=="stock") {
               if($canon=="f"){
                 $q = mysql_query("select name, formula,n_name,unique_id from kimyasal WHERE `manufacturer` LIKE '%$search%' AND  `stock` = '0' GROUP BY n_name;");
               }else if($canon=="k"){
@@ -191,7 +191,8 @@ class db_query
               }
           }
 
-            if($q){
+
+            if(mysql_num_rows($q)>0){
               while($row = mysql_fetch_assoc($q)){
                 echo "<tr class=\"searched\">
                         <td>".$row['name']."</td>
@@ -201,11 +202,9 @@ class db_query
                         <a href=\"#list\" onclick=\"getDataLi('".$row['n_name']."','$pg');\" data-position=\"bottom\" data-tooltip=\"Kimyasalı görüntüle & düzenle.\" class=\"waves-effect waves-light btn tooltipped modal-trigger\"><i class='material-icons'>edit</i></a></td>
                       </tr>";
               }
-              if(mysql_num_rows($q)<1){
-                echo "not-found";
-              }
+
             }else{
-              echo "not-found";
+                echo "not-found";
             }
         }
       }else{

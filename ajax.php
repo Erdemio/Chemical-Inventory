@@ -31,7 +31,7 @@ $database = new database ();
       }else if($get=="not-found"){
         echo "not-found";
       }else if($get=="empty-data"){
-        echo "not-found";
+        echo "empty-data";
       }else{
         echo $get;
       }

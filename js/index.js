@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function getDataLi(cName,pg){
-  
+
   $.ajax({
     url: "ajax.php",
     type: "post",
@@ -169,11 +169,12 @@ $("#gonder-arama").click(function() {
     type: "post",
     data: values,
     success: function(response) {
+      console.log(response);
       if (response == 'level-error') {
         window.location.href = "login";
       } else if (response == 'not-found') {
         M.toast({
-          html: '<span class="white-text">Aradığınız kriterlere uygun veri blunamadı.</span>',
+          html: '<span class="white-text">Aradığınız kriterlere uygun veri bulunamadı.</span>',
           classes: 'red lighten-1'
         })
       } else if (response == 'empty-data') {
