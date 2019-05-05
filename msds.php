@@ -11,7 +11,16 @@ require_once "procedure.php";
       if ($q -> get_msds($id)) {
         header("Content-type:application/pdf");
       }else{
-        header("location:edit.php?error=msds-not-found&id=$id");
+
+        $q = @mysql_query("SELECT unique_id,n_name FROM `kimyasal` where n_name = $id");
+        if (mysql_num_rows($q)>0) {
+          while ($row = mysql_fetch_assoc($q)) {
+            $unique_id = $row['unique_id'];
+          }
+        }
+
+        header("location:edit.php?error=msds-not-found&id=$unique_id");
+
       }
   }else{
     echo "404.";

@@ -234,7 +234,7 @@ $link = "insert";
                 html: '<span class="white-text">'+error+'</span>',
                 classes: color_class
               })
-            console.log(response);
+            //console.log(response);
           },
           error: function(jqXHR, textStatus, errorThrown) {
             console.log(textStatus, errorThrown);
