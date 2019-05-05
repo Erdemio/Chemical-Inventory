@@ -7,14 +7,14 @@ class db_query
     $stok_tipi = $this->clear_array($stok_tipi);
     $kolon_adi = $this->clear_array($kolon_adi);
 
-    $gerekli_tip = ['var','yok'];
-    $gerekli_kolon = ['name','formula','manufacturer','quantity','stock','entry_date'];
-
-
-    $tipler=0;
-
     if ($this->check_level($auth)>1) {
+      $gerekli_tip = ['var','yok'];
+      $gerekli_kolon = ['name','formula','manufacturer','quantity','stock','entry_date'];
 
+      $size_row = 5;
+      $size_header = 4;
+
+      $tipler=0;
       foreach ($stok_tipi as $key) {
         if (in_array($key, $gerekli_tip)) {
             if ($key=="var") {
@@ -68,16 +68,19 @@ class db_query
       if (mysql_num_rows($q)>0) {
         echo '<table border="1"><tr>';
         foreach($kolon_adi as $key => $value){
-            echo "<th style=\"background-color:#FFA500\">".$key."</th>";
+            echo "<th style=\"background-color:#FFA500\"><font size=$size_header>".$key."</font></th>";
         }
         echo '</tr>';
           while ($row=mysql_fetch_assoc($q)) {
             echo "<tr>";
               foreach ($kolon_adi as $key => $value) {
-                echo "<td>".$row[$key]."</td>";
+                echo "<td><font size=$size_row>".$row[$key]."</font></td>";
               }
             echo "</tr>";
           }
+
+          echo '<tr><td colspan="'.count($kolon_adi).'" align="center" valign="center"><i>'.@$_SESSION['user'].' tarfından, '.date('G:i j.m.Y', time()).' tarihinde oluşturuldu.</i></td></tr>';
+          echo '</table>';
       }
     }//güvenlik bitişi
   }
