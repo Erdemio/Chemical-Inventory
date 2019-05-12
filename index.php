@@ -13,7 +13,7 @@ $link = "index";
 //Sabit, değiştirme.
 ?>
 <!DOCTYPE html>
-  <html>
+  <html lang="tr">
     <head>
       <?php require_once "header.php"; ?>
       <title><?php echo $page; ?></title>
@@ -58,9 +58,11 @@ $link = "index";
                </div>
            </div>
          <?php } ?>
-
-
-
+        </div>
+        <div class="fixed-action-btn-for-scroll">
+          <a class="btn-large scroll-to-top hide-on-med-and-down">
+            <i class="large material-icons">arrow_upward</i>
+          </a>
         </div>
       </main>
       <?php require_once "modal.php"; ?>

@@ -188,6 +188,15 @@ textarea.materialize-textarea:focus:not([readonly])+label {
   cursor: pointer;
 }
 
+.fixed-action-btn-for-scroll {
+    position: fixed;
+    right: 23px;
+    top: 23px;
+    padding-top: 15px;
+    margin-bottom: 0;
+    z-index: 997;
+}
+
 @media only screen and (max-width: 992px) {
   /* Medium Screen */
   header, main, footer {

@@ -211,6 +211,23 @@ $("#geri-arama").click(function() {
   })
 });
 
+  $(document).ready(
+    function() {
+      $('.fixed-action-btn-for-scroll').hide();
+      $(window).scroll(function() {
+        if ($(this).scrollTop() > 400) {
+          $('.scroll-to-top').fadeIn();
+          $('.fixed-action-btn-for-scroll').fadeIn();
 
-
-//
+        } else {
+          $('.scroll-to-top').fadeOut(100);
+          $('.fixed-action-btn-for-scroll').fadeOut();
+        }
+      });
+      $('.scroll-to-top').click(function(e) {
+        e.preventDefault();
+        $('html, body').animate({
+          scrollTop: 0
+        }, 800);
+      });
+    });
