@@ -148,8 +148,8 @@ class db_query
                               <td>".$row['name']."</td>
                               <td>".$row['formula']."</td>
                               <td>
-                              <a href=\"msds.php?id=".$row['n_name']."\" data-position=\"bottom\" data-tooltip=\"Malzeme Güvenlik Bilgi Formu'nu görüntüle.\" target=\"_blank\"  class=\"waves-effect waves-light btn tooltipped\">MGBF</a>
-                              <a href=\"#list\" onclick=\"getDataLi('".$row['n_name']."','$extend');\" data-position=\"bottom\" data-tooltip=\"Kimyasalı görüntüle & düzenle.\" class=\"waves-effect waves-light btn tooltipped modal-trigger\"><i class='material-icons'>edit</i></a></td>
+                              <a href=\"msds.php?id=".$row['n_name']."\" data-position=\"bottom\" data-tooltip=\"Malzeme Güvenlik Bilgi Formu'nu görüntüle.\" target=\"_blank\"  class=\"blue darken-1 waves-effect waves-light btn tooltipped\">MGBF</a>
+                              <a href=\"#list\" onclick=\"getDataLi('".$row['n_name']."','$extend');\" data-position=\"bottom\" data-tooltip=\"Kimyasalı görüntüle & düzenle.\" class=\"blue darken-2 waves-effect waves-light btn tooltipped modal-trigger\"><i class='material-icons'>edit</i></a></td>
                             </tr>";
                     }
                   }
@@ -198,8 +198,8 @@ class db_query
                         <td>".$row['name']."</td>
                         <td>".$row['formula']."</td>
                         <td>
-                        <a href=\"msds.php?id=".$row['n_name']."\" data-position=\"bottom\" data-tooltip=\"Malzeme Güvenlik Bilgi Formu'nu görüntüle.\" target=\"_blank\"  class=\"waves-effect waves-light btn tooltipped\">MGBF</a>
-                        <a href=\"#list\" onclick=\"getDataLi('".$row['n_name']."','$pg');\" data-position=\"bottom\" data-tooltip=\"Kimyasalı görüntüle & düzenle.\" class=\"waves-effect waves-light btn tooltipped modal-trigger\"><i class='material-icons'>edit</i></a></td>
+                        <a href=\"msds.php?id=".$row['n_name']."\" data-position=\"bottom\" data-tooltip=\"Malzeme Güvenlik Bilgi Formu'nu görüntüle.\" target=\"_blank\"  class=\"blue darken-1 waves-effect waves-light btn tooltipped\">MGBF</a>
+                        <a href=\"#list\" onclick=\"getDataLi('".$row['n_name']."','$pg');\" data-position=\"bottom\" data-tooltip=\"Kimyasalı görüntüle & düzenle.\" class=\"blue darken-2 waves-effect waves-light btn tooltipped modal-trigger\"><i class='material-icons'>edit</i></a></td>
                       </tr>";
               }
 
@@ -267,7 +267,7 @@ class db_query
                                 <div class="determinate '.$range.'" style="width: '.$percent.'%"></div>
                             </div>
                             <br>
-                            <a href="edit.php?id='.$row['unique_id'].'" class="secondary-content btn flat-btn"><i class="material-icons">edit</i></a>
+                            <a href="edit.php?id='.$row['unique_id'].'" class="blue darken-2 secondary-content btn flat-btn"><i class="material-icons">edit</i></a>
                             <br>
                           </p>
                         </div>
