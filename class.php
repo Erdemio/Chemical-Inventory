@@ -581,15 +581,18 @@ class db_query
     $auth = $this-> clear($auth);
     if ($this->check_level($auth)>1) {
         $q = mysql_query("SELECT `name` FROM `kimyasal` WHERE `unique_id` = $id");
-        if (mysql_num_rows($q)>0) {
-          while ($row = mysql_fetch_assoc($q)) {
-            return $row['name'];
+        if ($q) {
+          if (mysql_num_rows($q)>0) {
+            while ($row = mysql_fetch_assoc($q)) {
+              return $row['name'];
+            }
+          }else{
+            return "-1";
           }
         }else{
-          return "MSDS form'u yükleyin.";
+          return "-2";
         }
     }
-
   }
 
   function stock_count($type){
@@ -604,10 +607,9 @@ class db_query
   function update_form_data($id,$auth){
     $id = $this-> clear($id);
     $auth = $this-> clear($auth);
-    $_SESSION['last_edit']=$id;
     $q = mysql_query("SELECT * FROM `kimyasal` WHERE `unique_id` = $id");
     if ($this->check_level($auth)>1) {
-    if (mysql_num_rows($q)>0) {
+    if ($q && mysql_num_rows($q)>0) {
       $id = @$_GET['id'];
       while ($row = mysql_fetch_assoc($q)) {
 
@@ -636,10 +638,10 @@ class db_query
                                     <label for="kf" class="truncate">Kimyasal formülü düzenlemek için tıklayın</label>
                                   </div>
                                   <div class="input-field col s12 m4 l2">
-                                    <button onclick="upItem()" class="btn waves-effect waves-light col s5" type="button" name="action">
+                                    <button onclick="upItem()" class="btn waves-effect waves-light col s5 blue darken-1" type="button" name="action">
                                       <i class="material-icons">arrow_upward</i>
                                     </button>
-                                    <button onclick="downItem()" class="btn waves-effect waves-light col s5 offset-s1" type="button" name="action">
+                                    <button onclick="downItem()" class="btn waves-effect waves-light col s5 offset-s1 blue darken-1" type="button" name="action">
                                       <i class="material-icons">arrow_downward</i>
                                     </button>
                                   </div>
@@ -672,10 +674,10 @@ class db_query
                                   </div>
 
                                   <div class="input-field col s12 m4 l2">
-                                    <button class="btn waves-effect waves-light col s5" type="button" id="count-down">
+                                    <button class="btn waves-effect waves-light col s5 blue darken-1" type="button" id="count-down">
                                       <i class="material-icons">exposure_neg_1</i>
                                     </button>
-                                    <button class="btn waves-effect waves-light col s5 offset-s1" type="button" id="count-up">
+                                    <button class="btn waves-effect waves-light col s5 offset-s1 blue darken-1" type="button" id="count-up">
                                       <i class="material-icons">exposure_plus_1</i>
                                     </button>
                                   </div>

@@ -6,10 +6,30 @@ $database = new database ();
 require_once "procedure.php";
 define('check_for_direct_access', TRUE);
 
+if (isset($_GET['id'])) {
+  $chemical =  $q->header_tag(@$_GET['id'],$_SESSION['auth']);
+  if ($chemical != "-1" && $chemical != "-2") {
+    $_SESSION['last_edit']=@$_GET['id'];
+  }else{
+    header("location:index");
+  }
+}else if(isset($_SESSION['last_edit'])){
+  $chemical =  $q->header_tag($_SESSION['last_edit'],$_SESSION['auth']);
+}else{
+  header("location:index");
+}
+
+
+
 $active = "edit";
 $page = "Kimyasal Düzenle";
 $link = "edit";
-$chemical =  $q->header_tag(@$_GET['id'],$_SESSION['auth']);
+
+
+
+
+
+
 $chemical_name = "<a href=\"index\" class=\"breadcrumb\">".$chemical."</a>";
 
 //Sabit, değiştirme.
@@ -26,7 +46,7 @@ $chemical_name = "<a href=\"index\" class=\"breadcrumb\">".$chemical."</a>";
 
         <?php
           //form verisi get ile getirilsin.
-          if ($_GET && isset($_GET['id'])) {
+          if ($_GET && isset($_GET['id']) && $_GET['id'] > 1 && $_GET['id'] < 999999999999999) {
             $q->update_form_data(@$_GET['id'],$_SESSION['auth']);
           }else if(isset($_SESSION['last_edit'])){
             header("location:edit.php?id=".$_SESSION['last_edit']);
@@ -35,9 +55,9 @@ $chemical_name = "<a href=\"index\" class=\"breadcrumb\">".$chemical."</a>";
           }
 
         ?>
-          <div class="col m12 s12 l4" id="msds_form">
-            <iframe src="form_msds_update.php<?php echo "?data=".@$_GET['id']; ?>" width="100%" height="1000rem" id="insert_frame" style="border:0px"></iframe>
-          </div>
+        <div class="col m12 s12 l4" id="msds_form">
+          <iframe src="form_msds_update.php<?php echo "?data=".@$_GET['id']; ?>" width="100%" height="1000rem" id="insert_frame" style="border:0px"></iframe>
+        </div>
 
 
 

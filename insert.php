@@ -47,10 +47,10 @@ $link = "insert";
                             <label for="kf" class="truncate">Kimyasal formülü girmek için tıklayın</label>
                           </div>
                           <div class="input-field col s12 m4 l2">
-                            <button onclick="upItem()" class="btn waves-effect waves-light col s5" type="button" name="action">
+                            <button onclick="upItem()" class="btn waves-effect waves-light col s5 blue darken-1" type="button" name="action">
                               <i class="material-icons">arrow_upward</i>
                             </button>
-                            <button onclick="downItem()" class="btn waves-effect waves-light col s5 offset-s1" type="button" name="action">
+                            <button onclick="downItem()" class="btn waves-effect waves-light col s5 offset-s1 blue darken-1" type="button" name="action">
                               <i class="material-icons">arrow_downward</i>
                             </button>
                           </div>
@@ -77,31 +77,31 @@ $link = "insert";
 
                             <div class="input-field col s12 m12 l2">
                               <label>
-                                <input class="with-gap" name="m_type" id="m_type" type="radio" value="litre" checked />
+                                <input name="m_type" id="m_type" type="radio" value="litre" checked />
                                 <span>Litre</span>
                               </label>
                             </div>
                             <div class="input-field col s12 m12 l2">
                               <label>
-                                <input class="with-gap" name="m_type" id="m_type" type="radio" value="mililitre" />
+                                <input name="m_type" id="m_type" type="radio" value="mililitre" />
                                 <span>Mililitre</span>
                               </label>
                             </div>
                             <div class="input-field col s12 m12 l2">
                               <label>
-                                <input class="with-gap" name="m_type" id="m_type" type="radio" value="kilogram" />
+                                <input name="m_type" id="m_type" type="radio" value="kilogram" />
                                 <span>Kilogram</span>
                               </label>
                             </div>
                             <div class="input-field col s12 m12 l2">
                               <label>
-                                <input class="with-gap" name="m_type" id="m_type" type="radio" value="gram" />
+                                <input name="m_type" id="m_type" type="radio" value="gram" />
                                 <span>Gram</span>
                               </label>
                             </div>
                             <div class="input-field col s12 m12 l2">
                               <label>
-                                <input class="with-gap" name="m_type" id="m_type" type="radio" value="miligram" />
+                                <input name="m_type" id="m_type" type="radio" value="miligram" />
                                 <span>Miligram</span>
                               </label>
                             </div>
@@ -120,10 +120,10 @@ $link = "insert";
                           </div>
 
                           <div class="input-field col s12 m4 l2">
-                            <button class="btn waves-effect waves-light col s5" type="button" id="count-down">
+                            <button class="btn waves-effect waves-light col s5 blue darken-1" type="button" id="count-down">
                               <i class="material-icons">exposure_neg_1</i>
                             </button>
-                            <button class="btn waves-effect waves-light col s5 offset-s1" type="button" id="count-up">
+                            <button class="btn waves-effect waves-light col s5 offset-s1 blue darken-1" type="button" id="count-up">
                               <i class="material-icons">exposure_plus_1</i>
                             </button>
                           </div>
@@ -158,10 +158,10 @@ $link = "insert";
               </div>
               <div class="card-action">
                 <input type="hidden" name="action" value="insert_form">
-                <button class="btn waves-effect waves-light" type="button" id="gonder-insert">Kaydet
+                <button class="btn waves-effect waves-light blue darken-1" type="button" id="gonder-insert">Kaydet
                   <i class="material-icons right">send</i>
                 </button>
-                <button class="btn waves-effect waves-light" type="reset" id="gonder-reset">Sıfırla
+                <button class="btn waves-effect waves-light blue darken-1" type="reset" id="gonder-reset">Sıfırla
                   <i class="material-icons right">cancel</i>
                 </button>
               </div>

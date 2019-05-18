@@ -23,7 +23,7 @@ $link = "index";
           <div class="row">
             <label for="file">Malzeme Güvenlik Bilgi Formu</label>
             <div class="file-field input-field">
-              <div class="btn">
+              <div class="btn blue darken-1">
                 <span>Dosya Seç</span>
                 <input type="file" name="file" id="file">
               </div>
@@ -55,7 +55,7 @@ $link = "index";
               }
                  ?></span>
             </blockquote>
-            <button class="btn waves-effect waves-light right" type="submit">Yükle
+            <button class="btn waves-effect waves-light right blue darken-1" type="submit">Yükle
               <i class="material-icons right">cloud_upload</i>
             </button>
           </div>

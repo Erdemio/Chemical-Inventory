@@ -61,7 +61,7 @@ $link = "index";
          <?php } ?>
         </div>
         <div class="fixed-action-btn-for-scroll">
-          <a class="btn-large scroll-to-top hide-on-med-and-down">
+          <a class="btn-floating btn-large scroll-to-top hide-on-med-and-down blue lighten-2">
             <i class="large material-icons">arrow_upward</i>
           </a>
         </div>
