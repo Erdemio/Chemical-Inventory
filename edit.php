@@ -28,6 +28,8 @@ $chemical_name = "<a href=\"index\" class=\"breadcrumb\">".$chemical."</a>";
           //form verisi get ile getirilsin.
           if ($_GET && isset($_GET['id'])) {
             $q->update_form_data(@$_GET['id'],$_SESSION['auth']);
+          }else if(isset($_SESSION['last_edit'])){
+            header("location:edit.php?id=".$_SESSION['last_edit']);
           }else{
             header("location:index");
           }

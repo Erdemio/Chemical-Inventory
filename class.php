@@ -592,9 +592,19 @@ class db_query
 
   }
 
+  function stock_count($type){
+    if ($type=="1") {
+      $q = mysql_query("SELECT `unique_id` FROM `kimyasal` WHERE `stock` <> '0'");
+    }else if ($type=="2") {
+      $q = mysql_query("SELECT `unique_id` FROM `kimyasal` WHERE `stock` = '0'");
+    }
+    return mysql_num_rows($q);
+  }
+
   function update_form_data($id,$auth){
     $id = $this-> clear($id);
     $auth = $this-> clear($auth);
+    $_SESSION['last_edit']=$id;
     $q = mysql_query("SELECT * FROM `kimyasal` WHERE `unique_id` = $id");
     if ($this->check_level($auth)>1) {
     if (mysql_num_rows($q)>0) {

@@ -21,7 +21,7 @@ if(!defined('check_for_direct_access')) {
     </div>
   </nav>
   <ul id="dropdown1" class="dropdown-content">
-    <li><a  href="#logoff" class="modal-trigger">Hesap Ayarlarım</a></li>
+    <li><a  href="settings" class="modal-trigger">Hesap Ayarlarım</a></li>
     <li class="divider"></li>
     <li><a  href="#logoff" class="modal-trigger">Çıkış Yap</a></li>
   </ul>
@@ -31,10 +31,10 @@ if(!defined('check_for_direct_access')) {
       <!--<span class="userid"><?php echo @$_SESSION['user']; ?></span>-->
     </div></li>
     <li><div class="divider"></div></li>
-    <li <?php if($active == "index"){echo " class=\"active\";";} ?> ><a href="index" class="waves-effect"><i class="material-icons">view_list</i>Kimyasal Listele</a></li>
-    <li <?php if($active == "stock"){echo " class=\"active\";";} ?> ><a href="stock" class="waves-effect"><i class="material-icons">list_alt</i>Stokta Olmayanlar</a></li>
+    <li <?php if($active == "index"){echo " class=\"active\";";} ?> ><a href="index" class="waves-effect"><i class="material-icons">view_list</i>Kimyasal Listele<span class="new badge blue" data-badge-caption="<?php echo $stock_count1; ?>"></span></a></li>
+    <li <?php if($active == "stock"){echo " class=\"active\";";}else if(@$stock_count2<=0){echo " class=\"hide\";";} ?> ><a href="stock" class="waves-effect"><i class="material-icons">list_alt</i>Stokta Olmayanlar<span class="new badge red" data-badge-caption="<?php echo $stock_count2; ?>"></span></a></li>
     <li><div class="divider"></div></li>
-    <li <?php if($active == "edit"){echo " class=\"active\";";} ?> ><a href="javascript:void(0);" class="waves-effect"><i class="material-icons">mode_edit</i>Kimyasal Düzenle</a></li>
+    <li <?php if($active == "edit"){echo " class=\"active\";";} ?> ><a href="edit" class="waves-effect"><i class="material-icons">mode_edit</i>Kimyasal Düzenle</a></li>
     <li <?php if($active == "insert"){echo " class=\"active\";";} ?> ><a href="insert" class="waves-effect"><i class="material-icons">add</i>Kimyasal Ekle</a></li>
     <li <?php if($active == "export"){echo " class=\"active\";";} ?> ><a href="export" class="waves-effect"><i class="material-icons">cloud_upload</i>Dışarı Aktar</a></li>
     <li><div class="divider"></div></li>

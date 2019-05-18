@@ -10,6 +10,7 @@ $active = "index";
 $page = "Kimyasal Listele";
 $link = "index";
 
+
 //Sabit, değiştirme.
 ?>
 <!DOCTYPE html>
