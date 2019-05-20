@@ -28,7 +28,7 @@ if(!defined('check_for_direct_access')) {
   <ul id="nav-mobile" class="sidenav sidenav-fixed">
     <li><div class="user-view">
       <a href="index"><img class="profil" src="assets/deu.png"></a>
-      <!--<span class="userid"><?php echo @$_SESSION['user']; ?></span>-->
+      
     </div></li>
     <li><div class="divider"></div></li>
     <li <?php if($active == "index"){echo " class=\"active\";";} ?> ><a href="index" class="waves-effect"><i class="material-icons">view_list</i>Kimyasal Listele<span class="new badge blue" data-badge-caption="<?php echo $stock_count1; ?>"></span></a></li>

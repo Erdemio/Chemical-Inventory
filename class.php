@@ -144,11 +144,17 @@ class db_query
                   if($q){
                     while($row = mysql_fetch_assoc($q)){
                       //buraya akordiyon olarak firma isimleri ekliyebilirsin
+                      $custom_id=$row['n_name'];
+                      $color = "red";
+                      $new_q = mysql_query("SELECT * FROM `msds` WHERE `n_id` = $custom_id");
+                      if (mysql_num_rows($new_q)>0) {
+                        $color = "blue";
+                      }
                       echo "<tr>
                               <td>".$row['name']."</td>
                               <td>".$row['formula']."</td>
                               <td>
-                              <a href=\"msds.php?id=".$row['n_name']."\" data-position=\"bottom\" data-tooltip=\"Malzeme Güvenlik Bilgi Formu'nu görüntüle.\" target=\"_blank\"  class=\"blue darken-1 waves-effect waves-light btn tooltipped\">MGBF</a>
+                              <a href=\"msds.php?id=".$row['n_name']."\" data-position=\"bottom\" data-tooltip=\"Malzeme Güvenlik Bilgi Formu'nu görüntüle.\" target=\"_blank\"  class=\"$color darken-1 waves-effect waves-light btn tooltipped\">MGBF</a>
                               <a href=\"#list\" onclick=\"getDataLi('".$row['n_name']."','$extend');\" data-position=\"bottom\" data-tooltip=\"Kimyasalı görüntüle & düzenle.\" class=\"blue darken-2 waves-effect waves-light btn tooltipped modal-trigger\"><i class='material-icons'>edit</i></a></td>
                             </tr>";
                     }
@@ -194,11 +200,17 @@ class db_query
 
             if(mysql_num_rows($q)>0){
               while($row = mysql_fetch_assoc($q)){
+                $custom_id=$row['n_name'];
+                $color = "red";
+                $new_q = mysql_query("SELECT * FROM `msds` WHERE `n_id` = $custom_id");
+                if (mysql_num_rows($new_q)>0) {
+                  $color = "blue";
+                }
                 echo "<tr class=\"searched\">
                         <td>".$row['name']."</td>
                         <td>".$row['formula']."</td>
                         <td>
-                        <a href=\"msds.php?id=".$row['n_name']."\" data-position=\"bottom\" data-tooltip=\"Malzeme Güvenlik Bilgi Formu'nu görüntüle.\" target=\"_blank\"  class=\"blue darken-1 waves-effect waves-light btn tooltipped\">MGBF</a>
+                        <a href=\"msds.php?id=".$row['n_name']."\" data-position=\"bottom\" data-tooltip=\"Malzeme Güvenlik Bilgi Formu'nu görüntüle.\" target=\"_blank\"  class=\"$color darken-1 waves-effect waves-light btn tooltipped\">MGBF</a>
                         <a href=\"#list\" onclick=\"getDataLi('".$row['n_name']."','$pg');\" data-position=\"bottom\" data-tooltip=\"Kimyasalı görüntüle & düzenle.\" class=\"blue darken-2 waves-effect waves-light btn tooltipped modal-trigger\"><i class='material-icons'>edit</i></a></td>
                       </tr>";
               }
