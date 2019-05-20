@@ -127,7 +127,7 @@ $database = new database ();
         $pw2 = $_POST['password2'];
 
         if (($pw1 == $pw2)) {
-          if (strlen($pw1)>8) {
+          if (strlen($pw1)>=8) {
             $get = $q -> reset_password($pw1,@$_SESSION['auth']);
             if ($get == "1") {
               echo "1";
