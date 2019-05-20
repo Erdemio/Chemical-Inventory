@@ -808,10 +808,6 @@ class db_query
     return $level;
   }
 
-  private function clear($item){
-    return htmlspecialchars($item, ENT_QUOTES);
-  }
-
   private function clear_array($items_get){
     $clear_array = [];
     foreach ((array)$items_get as $key => $value) {
@@ -825,6 +821,9 @@ class db_query
   }
 
   function register($identy,$password,$time){
+    $identy = $this->clear($identy);
+    $password = $this->clear($password);
+    $time = $this->clear($time);
     $auth = $this->algorithm($identy,$password,$time);
     $q = mysql_query("INSERT INTO `user` (`id`, `user_id`, `user_auth`, `user_login_time`) VALUES (NULL, '$identy', '$auth', '$time');");
     if(@$q){
@@ -836,6 +835,8 @@ class db_query
   }
 
   function login($identy,$password){
+    $identy = $this->clear($identy);
+    $password = $this->clear($password);
     $q = mysql_query("SELECT user_login_time FROM `user` WHERE `user_id` = '$identy'");
     if($q){
       while($row = mysql_fetch_assoc($q)){
@@ -872,6 +873,41 @@ class db_query
     }
   }
 
+  function reset_password($pw1,$auth){
+    $pw1 = $this->clear($pw1);
+    $auth = $this->clear($auth);
+
+    $q = mysql_query("SELECT * FROM `user` WHERE `user_auth` = '$auth'");
+    if ($q) {
+      if (mysql_num_rows($q)>0) {
+        while ($row = mysql_fetch_assoc($q)) {
+          $identy = $row['user_id'];
+        }
+
+        $new_time = time();
+        $new_auth = $this->algorithm($identy,$pw1,$new_time);
+        $time_update = mysql_query("UPDATE `user` SET `user_login_time` = '$new_time', `user_auth` = '$new_auth' WHERE `user`.`user_id` = '$identy';");
+        if ($time_update) {
+          $_SESSION['auth'] = $new_auth;
+          $_SESSION['user']=$identy;
+          return "3";
+        }else{
+          return "5";
+        }
+      }else{
+        return "2";
+        //kullanıcı bulunamadı işlem yapılmadı
+      }
+    }else{
+      return "1";
+      //illegal bir deneme sağlandı
+    }
+
+  }
+
+  private function clear($item){
+    return htmlspecialchars($item, ENT_QUOTES);
+  }
   /*Komutlar burada biter*/
   private function close() {
       $this->connection = @mysql_close($this->connection);

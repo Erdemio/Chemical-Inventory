@@ -122,6 +122,28 @@ $database = new database ();
     }else if (@$_POST['action']=="getdatali") {
         $get = $q -> get_data_li(@$_POST['cname'],@$_SESSION['auth'],@$_POST['page']);
 
+    }else if (@$_POST['action']=="update_password") {
+        $pw1 = $_POST['password1'];
+        $pw2 = $_POST['password2'];
+
+        if (($pw1 == $pw2)) {
+          if (strlen($pw1)>8) {
+            $get = $q -> reset_password($pw1,@$_SESSION['auth']);
+            if ($get == "1") {
+              echo "1";
+            }else if ($get == "2") {
+              echo "2";
+            }else if ($get == "3") {
+              echo "3";
+            }
+          }else{
+            echo "6";
+          }
+
+        }else{
+          echo "4";
+        }
+
     }else{
       echo "boş post";
     }
