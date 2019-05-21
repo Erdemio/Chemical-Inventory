@@ -172,11 +172,6 @@ $link = "insert";
           <div class="col m12 s12 l4 hide" id="msds_form">
             <iframe src="form_msds.php" width="100%" height="1000rem" id="insert_frame" style="border:0px"></iframe>
           </div>
-
-
-
-
-
       </main>
       <?php require_once "modal.php"; ?>
       <?php require_once "scripts.php"; ?>
