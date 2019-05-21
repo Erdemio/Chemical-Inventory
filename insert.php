@@ -33,7 +33,7 @@ $link = "insert";
                         <div class="row">
                           <div class="input-field col s12">
                             <i class="material-icons prefix">label_outline</i>
-                            <input type="text" id="ka" class="autocomplete" autocomplete="off" onchange="input2span('ka')" name="ka">
+                            <input type="text" id="ka" class="autocomplete" autocomplete="off" onchange="input2span('ka')" name="ka" data-length="64">
                             <label for="ka">Kimyasal adı girmek için tıklayın</label>
                           </div>
                         </div>
@@ -43,7 +43,7 @@ $link = "insert";
                         <div class="row">
                           <div class="input-field col s12 m8 l10">
                             <i class="material-icons prefix">label_important_outline</i>
-                            <input type="text" name="formula" autocomplete="off" id="kf" name="kf" onchange="input2span('kf')">
+                            <input type="text" name="formula" autocomplete="off" id="kf" name="kf" onchange="input2span('kf')"  data-length="100">
                             <label for="kf" class="truncate">Kimyasal formülü girmek için tıklayın</label>
                           </div>
                           <div class="input-field col s12 m4 l2">
@@ -61,7 +61,7 @@ $link = "insert";
                         <div class="row">
                           <div class="input-field col s12">
                             <i class="material-icons prefix">build</i>
-                            <input type="text" id="uf" class="autocomplete" name="uf" onchange="input2span('uf')">
+                            <input type="text" id="uf" class="autocomplete" name="uf" onchange="input2span('uf')" data-length="32">
                             <label for="uf" class="truncate">Üretici firma girmek için tıklayın</label>
                           </div>
                         </div>
@@ -70,7 +70,7 @@ $link = "insert";
                         <div class="row">
                           <div class="input-field col s12 l3">
                             <i class="material-icons prefix">exposure</i>
-                            <input type="text" id="m" autocomplete="off" name="m" onchange="input2span('m')" value="1">
+                            <input type="text" id="m" autocomplete="off" name="m" onchange="input2span('m')" value="1" data-length="10">
                             <label for="m" class="truncate">Miktar girmek için tıklayın</label>
                           </div>
                           <div class="input-field col s12 l9" id="m_type_div">
@@ -115,7 +115,7 @@ $link = "insert";
                         <div class="row">
                           <div class="input-field col s12 m8 l10">
                             <i class="material-icons prefix">exposure</i>
-                            <input type="text" id="a" name="a" autocomplete="off" onchange="input2span('a')" value="1">
+                            <input type="text" id="a" name="a" autocomplete="off" onchange="input2span('a')" value="1" data-length="10">
                             <label for="a" class="truncate">Adet girmek için tıklayın</label>
                           </div>
 
@@ -134,7 +134,7 @@ $link = "insert";
                         <div class="row">
                           <div class="input-field col s12">
                             <i class="material-icons prefix">date_range</i>
-                            <input type="text" class="datepicker" id="gt" autocomplete="off" name="gt" onchange="input2span('gt')">
+                            <input type="text" class="datepicker" id="gt" autocomplete="off" name="gt" onchange="input2span('gt')" data-length="10">
                             <label for="gt" class="truncate">Giriş tarihi seçmek için tıklayın</label>
                           </div>
                         </div>
@@ -147,7 +147,7 @@ $link = "insert";
           <div class="col m12 s12 l4">
             <div class="card card-wns">
               <div class="card-content">
-                <ul class="collection">
+                <ul class="collection truncate">
                   <li class="collection-item">Kimyasal adı: <span id="ka_span"></span></li>
                   <li class="collection-item">Kimyasal formülü: <span id="kf_span"></span></li>
                   <li class="collection-item">Üretici firma: <span id="uf_span"></span></li>
@@ -227,6 +227,18 @@ $link = "insert";
                 error = "Ekleme için yetkiniz yok.";
               }else if(response == "9"){
                 error = "Tekrar giriş yapın.";
+              }else if(response == "10"){
+                error = "Kimyasal adı en az 1, en çok 64 karakter olabilir.";
+              }else if(response == "11"){
+                error = "Formül en az 1, en çok 32 karakter olabilir.";
+              }else if(response == "12"){
+                error = "Üretici firma en az 1, en çok 32 karakter olabilir.";
+              }else if(response == "13"){
+                error = "Miktar en az 1, en çok 10 adet rakam içerebilir.";
+              }else if(response == "14"){
+                error = "Adet en az 1, en çok 10 adet rakam içerebilir.";
+              }else if(response == "15"){
+                error = "Tarih gg-aa-yyyy formatında olmalıdır.";
               }else{
                 error = "Veri girişini doğru sağlayınız."
               }
