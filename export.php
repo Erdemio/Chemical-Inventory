@@ -113,37 +113,21 @@ $link = "export";
       <?php require_once "modal.php"; ?>
       <?php require_once "scripts.php"; ?>
       <script type="text/javascript">
-/*
-      $("#gonder-export").click(function() {
-        exportForm();
-      });*/
-      function exportForm(event){
-        var values = $("#export_form").serialize();
-        $.ajax({
-          url: "ajax.php",
-          type: "post",
-          data: values,
-          success: function(response) {
-
-            window.location.href = "http://localhost/export_excell.php";
-
-            var error='Formu boş bırakmayınız.';
-            var color_class='green lighten-1';
-
-              error = response;
-              M.toast({
-                html: '<span class="white-text">'+error+'</span>',
-                classes: color_class
-              })
-            console.log(response);
-          },
-          error: function(jqXHR, textStatus, errorThrown) {
-            console.log(textStatus, errorThrown);
+      <?php
+        if ($_GET) {
+          if ($_GET['error']=="type1") {
+            $hata = "Lütfen en az 1 adet kolon seçiniz ve<br> stok tipini boş bırakmayınız.";
           }
-        });
 
+       echo "var error='".$hata."';";
+       ?>
+          M.toast({
+            html: '<span class="white-text">'+error+'</span>',
+            classes: "red lighten-1"
+          });
 
-      }
+          <?php } ?>
+
       </script>
     </body>
   </html>

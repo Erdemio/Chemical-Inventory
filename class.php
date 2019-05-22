@@ -67,6 +67,7 @@ class db_query
 
       if (mysql_num_rows($q)>0) {
         echo '<table border="1"><tr>';
+
         foreach($kolon_adi as $key => $value){
             echo "<th style=\"background-color:#FFA500\"><font size=$size_header>".$key."</font></th>";
         }
