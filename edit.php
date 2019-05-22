@@ -138,18 +138,29 @@ $chemical_name = "<a href=\"index\" class=\"breadcrumb\">".$chemical."</a>";
                 error = "Giriş tarihini boş bırakmayın.";
               }else if(response == "7"){
                 error = "Veri girişini doğru sağlayınız."
+              }else if(response == "10"){
+                error = "Kimyasal adı en az 1, en çok 64 karakter olabilir.";
+              }else if(response == "11"){
+                error = "Formül en az 1, en çok 32 karakter olabilir.";
+              }else if(response == "12"){
+                error = "Üretici firma en az 1, en çok 32 karakter olabilir.";
+              }else if(response == "13"){
+                error = "Miktar en az 1, en çok 10 adet rakam içerebilir.";
+              }else if(response == "14"){
+                error = "Adet en az 1, en çok 10 adet rakam içerebilir.";
+              }else if(response == "15"){
+                error = "Tarih gg-aa-yyyy formatında olmalıdır.";
               }else if(response == "8") {
                 error = "Veriler güncellendi.";
                 color_class='green lighten-1';
                 setTimeout(function(){ location.reload(); }, 1000);
               }else{
-                error = "Herhangi bir veri güncellenmedi.";
+                error = "Herhangi bir veri güncellenmedi."+response;
               }
               M.toast({
                 html: '<span class="white-text">'+error+'</span>',
                 classes: color_class
               })
-            console.log(response);
           },
           error: function(jqXHR, textStatus, errorThrown) {
             console.log(textStatus, errorThrown);

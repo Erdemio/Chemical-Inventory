@@ -56,9 +56,9 @@ $database = new database ();
         echo "11"; // formül yetersiz.
       }else if (!(strlen($uf)>0 && strlen($uf)<=32)) {
         echo "12"; // üretici firma yetersiz.
-      }else if (!(strlen($m2)>0 && strlen($m2)<=10 && preg_match("/^[0-9]$/",$m2))) {
+      }else if (!(strlen($m2)>0 && strlen($m2)<=10 && preg_match("/^[0-9]{1,10}$/",$m2))) {
         echo "13"; // miktar yetersiz. sadece sayı
-      }else if (!(strlen($a)>0 && strlen($a)<=10 && preg_match("/^[0-9]$/",$a))) {
+      }else if (!(strlen($a)>0 && strlen($a)<=10 && preg_match("/^[0-9]{1,10}$/",$a))) {
         echo "14"; // adet yetersiz. sadece sayı
       }else if (!(preg_match("/^[0-9]{2}-[0-9]{2}-[0-9]{4}$/",$gt))) {
         echo "15"; // tarih yetersiz yetersiz.
@@ -118,6 +118,18 @@ $database = new database ();
         echo "6";
       }else if ($id == "" || $id == " ") {
         echo "7";
+      }else if (!(strlen($ka)>0 && strlen($ka)<=64)) {
+        echo "10"; // ad yetersiz.
+      }else if (!(strlen($formula)>0 && strlen($formula)<=100)) {
+        echo "11"; // formül yetersiz.
+      }else if (!(strlen($uf)>0 && strlen($uf)<=32)) {
+        echo "12"; // üretici firma yetersiz.
+      }else if (!(preg_match("/^[0-9]{1,10} ((litre)|(mililitre)|(kilogram)|(miligram)|(gram))$/",$m))) {
+        echo "13"; // miktar yetersiz. sadece sayı
+      }else if (!(strlen($a)>0 && strlen($a)<=10 && preg_match("/^[0-9]$/",$a))) {
+        echo "14"; // adet yetersiz. sadece sayı
+      }else if (!(preg_match("/^[0-9]{2}-[0-9]{2}-[0-9]{4}$/",$gt))) {
+        echo "15"; // tarih yetersiz yetersiz.
       }else{
         $get = $q -> update_chemical($id,$ka,$formula,$uf,$m,$a,$gt,@$_SESSION['auth'],@$msds);
       }
