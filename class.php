@@ -608,13 +608,11 @@ class db_query
     }
   }
 
-  function stock_count($type){
-    if ($type=="1") {
-      $q = mysql_query("SELECT `unique_id` FROM `kimyasal` WHERE `stock` <> '0'");
-    }else if ($type=="2") {
-      $q = mysql_query("SELECT `unique_id` FROM `kimyasal` WHERE `stock` = '0'");
-    }
-    return mysql_num_rows($q);
+  function stock_count(){
+      $q1 = mysql_query("SELECT `unique_id` FROM `kimyasal` WHERE `stock` <> '0'");
+      $q2 = mysql_query("SELECT `unique_id` FROM `kimyasal` WHERE `stock` = '0'");
+      $stocks = mysql_num_rows($q1)." ".mysql_num_rows($q2);
+    return $stocks;
   }
 
   function update_form_data($id,$auth){

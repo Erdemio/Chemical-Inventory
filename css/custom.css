@@ -216,6 +216,7 @@ textarea.materialize-textarea:focus:not([readonly])+label {
     padding-top: 15px;
     margin-bottom: 0;
     z-index: 997;
+    display: none;
 }
 
 @media only screen and (max-width: 992px) {

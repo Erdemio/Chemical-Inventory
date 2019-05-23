@@ -95,7 +95,7 @@ $link = "export";
                       <div class="row">
                         <div class="input-field col s12">
                           <input type="hidden" name="action" value="export_form">
-                        <button class="btn waves-effect waves-light" type="submit" id="gonder-export" name="action">Dışa Aktar
+                        <button class="btn waves-effect waves-light blue darken-1" type="submit" id="gonder-export" name="action">Dışa Aktar
                           <i class="material-icons right">cloud_upload</i>
                         </button>
                         </div>
