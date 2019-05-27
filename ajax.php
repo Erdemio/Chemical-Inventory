@@ -54,7 +54,7 @@ $database = new database ();
         echo "11"; // formül yetersiz.
       }else if (!(strlen($uf)>0 && strlen($uf)<=32)) {
         echo "12"; // üretici firma yetersiz.
-      }else if (!(strlen($m2)>0 && strlen($m2)<=10 && preg_match("/^[0-9]{1,10}$/",$m2))) {
+      }else if (!(strlen($m2)>0 && strlen($m2)<=10 && preg_match("/^([0-9]{1,5}[.][1-9]{1,5})|([0-9]{1,10})$/",$m2))) {
         echo "13"; // miktar yetersiz. sadece sayı
       }else if (!(strlen($a)>0 && strlen($a)<=10 && preg_match("/^[0-9]{1,10}$/",$a))) {
         echo "14"; // adet yetersiz. sadece sayı
@@ -122,8 +122,8 @@ $database = new database ();
         echo "11"; // formül yetersiz.
       }else if (!(strlen($uf)>0 && strlen($uf)<=32)) {
         echo "12"; // üretici firma yetersiz.
-      }else if (!(preg_match("/^[0-9]{1,10} ((litre)|(mililitre)|(kilogram)|(miligram)|(gram))$/",$m))) {
-        echo "13"; // miktar yetersiz. sadece sayı
+      }else if (!(preg_match("/^(([0-9]{1,5}[.][1-9]{1,5})|([0-9]{1,10})) ((litre)|(mililitre)|(kilogram)|(miligram)|(gram))$/",$m))) {
+        echo "13"; // miktar yetersiz. sadece sayı1
       }else if (!(strlen($a)>0 && strlen($a)<=10 && preg_match("/^[0-9]$/",$a))) {
         echo "14"; // adet yetersiz. sadece sayı
       }else if (!(preg_match("/^[0-9]{2}-[0-9]{2}-[0-9]{4}$/",$gt))) {
@@ -145,7 +145,7 @@ $database = new database ();
       }
 
     }else if (@$_POST['action']=="getdatali") {
-        $get = $q -> get_data_li(@$_POST['cname'],@$_SESSION['auth'],@$_POST['page']);
+        $get = $q -> get_data_li(@$_POST['cname'],@$_SESSION['auth'],$_POST['page']);
 
     }else if (@$_POST['action']=="update_password") {
         $pw1 = $_POST['password1'];

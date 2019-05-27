@@ -1,5 +1,5 @@
 <?php
-error_reporting(0);
+//error_reporting(0);
 //kontrol eklendiği zaman ajax hata veriyor, EKLEME.
 session_start();
 ob_start();

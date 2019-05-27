@@ -8,7 +8,7 @@ class db_query
     $kolon_adi = $this->clear_array($kolon_adi);
 
     if ($this->check_level($auth)>1) {
-      $gerekli_tip = ['var','yok'];
+      $gerekli_tip = ['var','yok','tarih'];
       $gerekli_kolon = ['name','formula','manufacturer','quantity','stock','entry_date'];
 
       $size_row = 5;
@@ -21,6 +21,8 @@ class db_query
               $tipler = $tipler + 1;
             }else if ($key=="yok") {
               $tipler = $tipler + 2;
+            }else if ($key=="tarih") {
+              $tipler = $tipler + 4;
             }else{
               $tipler = 0;
             }
@@ -43,25 +45,39 @@ class db_query
       }else {
         $select = "*";
       }
-
+      $old = date("Y-m-d ");
+      $old = strtotime("$old -2 year");
+      $old = date("Y-m-d ",$old);
+// var 1, yok 2, var olan tarihi geçmemiş 5, tarihi geçmiş ve stokta olmayan 6
       switch ($tipler) {
         case 1:
-          //echo "Stokta olanlar indiriliyor.";
-            $q = mysql_query("SELECT $select FROM `kimyasal` WHERE `stock` <> '0'");
+          //echo "Stokta olup tarihi geçenler.";
+            $q = mysql_query("SELECT $select FROM `kimyasal` WHERE `stock` <> '0' AND `entry_date` <= '$old'");
           break;
 
         case 2:
-          //echo "Stokta olmayanlar ";
-            $q = mysql_query("SELECT $select FROM `kimyasal` WHERE `stock` = '0'");
+          //echo "Stokta olmayıp tarihi geçenler ";
+            $q = mysql_query("SELECT $select FROM `kimyasal` WHERE `stock` = '0' AND `entry_date` <= '$old'");
           break;
 
         case 3:
-          //echo "Stokta hem olan, hem olmayanlar ";
-          $q = mysql_query("SELECT $select FROM `kimyasal`");
+          //echo "Stokta hem olan, hem olmayanlar ama tarihi geçenler ";
+          $q = mysql_query("SELECT $select FROM `kimyasal` WHERE `entry_date` <= '$old'");
           break;
-
+        case 5:
+          //echo "Stokta olup tarihi geçmeyenler";
+          $q = mysql_query("SELECT $select FROM `kimyasal` WHERE `stock` <> '0' AND `entry_date` > '$old'");
+          break;
+        case 6:
+          //echo "Stokta olmayıp tarihi geçmeyenler ";
+          $q = mysql_query("SELECT $select FROM `kimyasal` WHERE  `stock` = '0' AND `entry_date` > '$old'");
+          break;
+        case 7:
+          //echo "Stokta hem olan, hem olmayanlar ama tarih geçmemiş olacak";
+          $q = mysql_query("SELECT $select FROM `kimyasal` WHERE `entry_date` > '$old'");
+          break;
         default:
-          //echo "Hatalı.";
+          echo mysql_error();
           break;
       }
 
@@ -136,10 +152,15 @@ class db_query
                   </thead>
 
                   <tbody>';
+                  $old = date("Y-m-d ");
+                  $old = strtotime("$old -2 year");
+                  $old = date("Y-m-d ",$old);
                   if ($extend == "stock") {
-                    $q = mysql_query("select name,formula,n_name,n_formula,unique_id from kimyasal WHERE `stock` = '0' GROUP BY n_name ORDER BY name ASC;");
+                    $q = mysql_query("select name,formula,n_name,n_formula,unique_id from kimyasal WHERE `stock` = '0' AND `entry_date` > '$old' GROUP BY n_name ORDER BY name ASC;");
+                  }else if ($extend == "outdated") {
+                    $q = mysql_query("select name,formula,n_name,n_formula,unique_id from kimyasal WHERE `entry_date` <= '$old' GROUP BY n_name ORDER BY name ASC;");
                   }else{
-                    $q = mysql_query("select name,formula,n_name,n_formula,unique_id from kimyasal WHERE `stock` <> '0' GROUP BY n_name ORDER BY name ASC;");
+                    $q = mysql_query("select name,formula,n_name,n_formula,unique_id from kimyasal WHERE `stock` <> '0' AND `entry_date` > '$old' GROUP BY n_name ORDER BY name ASC;");
                   }
 
                   if($q){
@@ -184,17 +205,27 @@ class db_query
           echo "empty-data";
         }
         else{
+          $old = date("Y-m-d ");
+          $old = strtotime("$old -2 year");
+          $old = date("Y-m-d ",$old);
           if ($pg=="stock") {
               if($canon=="f"){
-                $q = mysql_query("select name, formula,n_name,unique_id from kimyasal WHERE `manufacturer` LIKE '%$search%' AND  `stock` = '0' GROUP BY n_name;");
+                $q = mysql_query("select name, formula,n_name,unique_id from kimyasal WHERE `entry_date` > '$old' AND `manufacturer` LIKE '%$search%' AND  `stock` = '0' GROUP BY n_name;");
               }else if($canon=="k"){
-                $q = mysql_query("select name, formula,n_name,unique_id  from kimyasal WHERE `name` LIKE '%$search%' AND  `stock` = '0' GROUP BY n_name;");
+                $q = mysql_query("select name, formula,n_name,unique_id  from kimyasal WHERE `entry_date` > '$old' AND `name` LIKE '%$search%' AND  `stock` = '0' GROUP BY n_name;");
               }
+          }else if ($pg == "outdated") {
+
+            if($canon=="f"){
+              $q = mysql_query("select name, formula,n_name,unique_id from kimyasal WHERE `entry_date` <= '$old' AND `manufacturer` LIKE '%$search%' AND  `stock` <> '0'GROUP BY n_name;");
+            }else if($canon=="k"){
+              $q = mysql_query("select name, formula,n_name,unique_id  from kimyasal WHERE `entry_date` <= '$old' AND `name` LIKE '%$search%' AND  `stock` <> '0' GROUP BY n_name;");
+            }
           }else{
               if($canon=="f"){
-                $q = mysql_query("select name, formula,n_name,unique_id from kimyasal WHERE `manufacturer` LIKE '%$search%' AND  `stock` <> '0'GROUP BY n_name;");
+                $q = mysql_query("select name, formula,n_name,unique_id from kimyasal WHERE `entry_date` > '$old' AND `manufacturer` LIKE '%$search%' AND  `stock` <> '0'GROUP BY n_name;");
               }else if($canon=="k"){
-                $q = mysql_query("select name, formula,n_name,unique_id  from kimyasal WHERE `name` LIKE '%$search%' AND  `stock` <> '0' GROUP BY n_name;");
+                $q = mysql_query("select name, formula,n_name,unique_id  from kimyasal WHERE `entry_date` > '$old' AND `name` LIKE '%$search%' AND  `stock` <> '0' GROUP BY n_name;");
               }
           }
 
@@ -236,10 +267,16 @@ class db_query
     if ($this->check_level($auth)>1) {
       $f = 0;
 
+      $old = date("Y-m-d ");
+      $old = strtotime("$old -2 year");
+      $old = date("Y-m-d ",$old);
+
       if ($pg=="stock") {
-        $q = mysql_query("SELECT * FROM `kimyasal` WHERE `n_name` = $cname AND `stock` = '0' ORDER BY `entry_date` DESC");
+        $q = mysql_query("SELECT * FROM `kimyasal` WHERE `n_name` = $cname AND `stock` = '0' AND `entry_date` > '$old' ORDER BY `entry_date` DESC");
+      }else if($pg=="outdated"){
+        $q = mysql_query("SELECT * FROM `kimyasal` WHERE `n_name` = $cname AND `entry_date` <= '$old' ORDER BY `entry_date` DESC");
       }else{
-        $q = mysql_query("SELECT * FROM `kimyasal` WHERE `n_name` = $cname AND `stock` <> '0' ORDER BY `entry_date` DESC");
+        $q = mysql_query("SELECT * FROM `kimyasal` WHERE `n_name` = $cname AND `stock` <> '0' AND `entry_date` > '$old' ORDER BY `entry_date` DESC");
       }
 
       if (mysql_num_rows($q)>0) {
@@ -613,9 +650,13 @@ class db_query
   }
 
   function stock_count(){
-      $q1 = mysql_query("SELECT `unique_id` FROM `kimyasal` WHERE `stock` <> '0'");
-      $q2 = mysql_query("SELECT `unique_id` FROM `kimyasal` WHERE `stock` = '0'");
-      $stocks = mysql_num_rows($q1)." ".mysql_num_rows($q2);
+      $old = date("Y-m-d ");
+      $old = strtotime("$old -2 year");
+      $old = date("Y-m-d ",$old);
+      $q1 = mysql_query("SELECT `unique_id` FROM `kimyasal` WHERE `stock` <> '0' AND `entry_date` > '$old'");
+      $q2 = mysql_query("SELECT `unique_id` FROM `kimyasal` WHERE `stock` = '0' AND `entry_date` > '$old'");
+      $q3 = mysql_query("SELECT `unique_id` FROM `kimyasal` WHERE `entry_date` <= '$old'");
+      $stocks = mysql_num_rows($q1)." ".mysql_num_rows($q2)." ".mysql_num_rows($q3);
     return $stocks;
   }
 
@@ -855,6 +896,7 @@ class db_query
           }
           if (@$time > 0) {
             if (@$time == @$time2) {
+
               $_SESSION['user']=$uid;
               $new_time = time();
               $new_auth = $this->algorithm($identy,$password,$new_time);

@@ -88,6 +88,7 @@ $link = "export";
                             <option value="" disabled>Seçiniz</option>
                             <option value="var" selected>Stokta olanlar</option>
                             <option value="yok" selected>Stokta olmayanlar</option>
+                            <option value="tarih" selected>Raf ömrü olanlar</option>
                           </select>
                           <label>Dışa aktarılması istenen veriler</label>
                         </div>

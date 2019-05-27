@@ -52,9 +52,10 @@ document.addEventListener('DOMContentLoaded', function() {
     format: 'dd-mm-yyyy',
     showClearBtn: true,
     firstDay: 1,
-    showDaysInNextAndPreviousMonths:false,
+    showDaysInNextAndPreviousMonths:true,
     setDefaultDate:true,
-    yearRange:2,
+    yearRange:1,
+    maxDate:new Date(),
     i18n: {
       clear: 'Temizle',
       cancel: 'İptal',
@@ -112,6 +113,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('.datepicker');
   var instances = M.Datepicker.init(elems, options);
 });
+
 /*
 //Akordiyon açılır kapanır sekmenin frameworkda ki tanımlaması.
 document.addEventListener('DOMContentLoaded', function() {
