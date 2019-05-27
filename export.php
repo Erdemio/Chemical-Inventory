@@ -94,6 +94,18 @@ $link = "export";
                         </div>
                       </div>
                       <div class="row">
+                        <div class="input-field col s4">
+                          <div class="input-field col s6">
+                            <input type="text" class="datepicker" id="baslangic" autocomplete="off" name="bt1" data-length="10">
+                            <label for="baslangic" class="truncate">Başlangıç<label>
+                          </div>
+                          <div class="input-field col s6">
+                            <input type="text" class="datepicker" id="bitis" autocomplete="off" name="bt2" data-length="10">
+                            <label for="bitis" class="truncate">Bitiş<label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
                         <div class="input-field col s12">
                           <input type="hidden" name="action" value="export_form">
                         <button class="btn waves-effect waves-light blue darken-1" type="submit" id="gonder-export" name="action">Dışa Aktar
@@ -117,7 +129,7 @@ $link = "export";
       <?php
         if ($_GET) {
           if ($_GET['error']=="type1") {
-            $hata = "Lütfen en az 1 adet kolon seçiniz ve<br> stok tipini boş bırakmayınız.";
+            $hata = "Lütfen en az 1 adet kolon seçiniz ve<br> stok tipini boş bırakmayınız.<br>Ardından tarihleri doğru seçiniz.";
           }
 
        echo "var error='".$hata."';";

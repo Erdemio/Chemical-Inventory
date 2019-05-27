@@ -41,11 +41,9 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });*/
 
-$(document).ready(function() {
-  $('input#ka,input#kf,input#uf,input#kf,input#m,input#kf,input#a,input#gt').characterCounter();
-});
-
-
+  $(document).ready(function() {
+    $('input#ka,input#kf,input#uf,input#kf,input#m,input#kf,input#a,input#gt').characterCounter();
+  });
 //Form nesnesi olan datepicker nesnesinin frameworkda ki tanımlaması.
 document.addEventListener('DOMContentLoaded', function() {
   var options = {

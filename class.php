@@ -2,14 +2,22 @@
 //kontrol eklendiği zaman ajax hata veriyor, EKLEME.
 class db_query
 {
-  function export_form_items($stok_tipi,$kolon_adi,$auth){
+  function export_form_items($stok_tipi,$kolon_adi,$auth,$bt1,$bt2){
     $auth = $this->clear($auth);
     $stok_tipi = $this->clear_array($stok_tipi);
     $kolon_adi = $this->clear_array($kolon_adi);
+    $bt1 = $this->clear($bt1);
+    $bt2 = $this->clear($bt2);
 
     if ($this->check_level($auth)>1) {
       $gerekli_tip = ['var','yok','tarih'];
       $gerekli_kolon = ['name','formula','manufacturer','quantity','stock','entry_date'];
+
+      if (strtotime($bt1)>=strtotime($bt2)) {
+        $ek = "AND `entry_date` <= '$bt1' AND `entry_date` > '$bt2'";
+      }else{
+        $ek = "AND `entry_date` >= '$bt1' AND `entry_date` < '$bt2'";
+      }
 
       $size_row = 5;
       $size_header = 4;
@@ -52,32 +60,32 @@ class db_query
       switch ($tipler) {
         case 1:
           //echo "Stokta olup tarihi geçenler.";
-            $q = mysql_query("SELECT $select FROM `kimyasal` WHERE `stock` <> '0' AND `entry_date` <= '$old'");
+            $q = mysql_query("SELECT $select FROM `kimyasal` WHERE `stock` <> '0' AND `entry_date` <= '$old' $ek");
           break;
 
         case 2:
           //echo "Stokta olmayıp tarihi geçenler ";
-            $q = mysql_query("SELECT $select FROM `kimyasal` WHERE `stock` = '0' AND `entry_date` <= '$old'");
+            $q = mysql_query("SELECT $select FROM `kimyasal` WHERE `stock` = '0' AND `entry_date` <= '$old'  $ek");
           break;
 
         case 3:
           //echo "Stokta hem olan, hem olmayanlar ama tarihi geçenler ";
-          $q = mysql_query("SELECT $select FROM `kimyasal` WHERE `entry_date` <= '$old'");
+          $q = mysql_query("SELECT $select FROM `kimyasal` WHERE `entry_date` <= '$old' $ek");
           break;
         case 5:
           //echo "Stokta olup tarihi geçmeyenler";
-          $q = mysql_query("SELECT $select FROM `kimyasal` WHERE `stock` <> '0' AND `entry_date` > '$old'");
+          $q = mysql_query("SELECT $select FROM `kimyasal` WHERE `stock` <> '0' AND `entry_date` > '$old' $ek");
           break;
         case 6:
           //echo "Stokta olmayıp tarihi geçmeyenler ";
-          $q = mysql_query("SELECT $select FROM `kimyasal` WHERE  `stock` = '0' AND `entry_date` > '$old'");
+          $q = mysql_query("SELECT $select FROM `kimyasal` WHERE  `stock` = '0' AND `entry_date` > '$old' $ek");
           break;
         case 7:
           //echo "Stokta hem olan, hem olmayanlar ama tarih geçmemiş olacak";
-          $q = mysql_query("SELECT $select FROM `kimyasal` WHERE `entry_date` > '$old'");
+          $q = mysql_query("SELECT $select FROM `kimyasal` WHERE `entry_date` > '$old' $ek");
           break;
         default:
-          echo mysql_error();
+          //echo mysql_error();
           break;
       }
 
@@ -98,6 +106,8 @@ class db_query
 
           echo '<tr><td colspan="'.count($kolon_adi).'" align="center" valign="center"><i>'.@$_SESSION['user'].' tarfından, '.date('G:i j.m.Y', time()).' tarihinde oluşturuldu.</i></td></tr>';
           echo '</table>';
+      }else{
+        echo "<table><th style=\"background-color:#FFA500\">Hata</th><tr><td>Aralık içerisinde veri yok!</td></tr></table>";
       }
     }//güvenlik bitişi
   }
