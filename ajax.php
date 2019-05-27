@@ -48,8 +48,6 @@ $database = new database ();
       $gt = $_POST['gt'];//-
       $m = $m . " " . $m_type;
 
-
-
       if (!(strlen($ka)>0 && strlen($ka)<=64)) {
         echo "10"; // ad yetersiz.
       }else if (!(strlen($formula)>0 && strlen($formula)<=100)) {

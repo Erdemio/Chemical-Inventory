@@ -46,7 +46,7 @@ $link = "settings";
                       </div>
                       <div class="col s12">
                         <input type="hidden" name="action" value="update_password">
-                        <button class="btn waves-effect right waves-light" type="button" id="gonder-reset">Şifremi değiştir
+                        <button class="btn waves-effect right waves-light blue darken-1" type="button" id="gonder-reset">Şifremi değiştir
                           <i class="material-icons right">send</i>
                         </button>
                       </div>

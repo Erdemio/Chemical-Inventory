@@ -253,8 +253,12 @@ class db_query
               $percent=100;
             }else if($percent >=80){
               $range = "range2";
+            }else if($percent <0){
+              $range = "";
+              $percent=0;
             }else{
               $range="";
+              //$percent=0;
             }
 
 
@@ -275,7 +279,7 @@ class db_query
                             <br>
                             Giriş Tarihi: '.$row['entry_date'].'
                             <br>
-                            Rafta gençen ömür: '.round($percent).'%
+                            Rafta geçen süre: '.round($percent).'%
                             <div class="progress">
                                 <div class="determinate '.$range.'" style="width: '.$percent.'%"></div>
                             </div>

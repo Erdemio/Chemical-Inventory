@@ -5,8 +5,3 @@ FROM `chemical`
 INNER JOIN chemical_names ON chemical.n_name = chemical_names.n_name
 INNER JOIN chemical_formula ON chemical.n_formula = chemical_formula.n_formula
 INNER JOIN manufacturer_names ON chemical.n_manufacturer = manufacturer_names.n_manufacturer
-
-select uniqýe_id, name, formula, manufacturer, quantity,stock,entry_date,DISTINCT n_name from kimyasal
-
-
-chemical:n_name = msds:n_id
