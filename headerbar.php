@@ -28,12 +28,12 @@ if(!defined('check_for_direct_access')) {
   <ul id="nav-mobile" class="sidenav sidenav-fixed">
     <li><div class="user-view">
       <a href="index"><img class="profil" src="assets/deu.png"></a>
-    
+
     </div></li>
     <li><div class="divider"></div></li>
     <li <?php if($active == "index"){echo " class=\"active\";";} ?> ><a href="index" class="waves-effect"><i class="material-icons">view_list</i>Kimyasal Listele<span class="new badge blue" data-badge-caption="<?php echo $stock_count1; ?>"></span></a></li>
     <li <?php if($active == "stock"){echo " class=\"active\";";}else if(@$stock_count2<=0){echo " class=\"hide\";";} ?> ><a href="stock" class="waves-effect"><i class="material-icons">list_alt</i>Stokta Olmayanlar<span class="new badge red" data-badge-caption="<?php echo $stock_count2; ?>"></span></a></li>
-    <li <?php if($active == "outdated"){echo " class=\"active\";";}else if(@$stock_count3<=0){echo " class=\"hide\";";} ?> ><a href="outdated" class="waves-effect"><i class="material-icons">report</i>Süresi dolanlar<span class="new badge orange" data-badge-caption="<?php echo $stock_count3; ?>"></span></a></li>
+    <li <?php if($active == "outdated"){echo " class=\"active\";";}else if(@$stock_count3<=0){echo " class=\"hide\";";} ?> ><a href="outdated" class="waves-effect"><i class="material-icons">report</i>Süresi Dolanlar<span class="new badge orange" data-badge-caption="<?php echo $stock_count3; ?>"></span></a></li>
     <li><div class="divider"></div></li>
     <li <?php if($active == "edit"){echo " class=\"active\";";} ?> ><a href="edit" class="waves-effect"><i class="material-icons">mode_edit</i>Kimyasal Düzenle</a></li>
     <li <?php if($active == "insert"){echo " class=\"active\";";} ?> ><a href="insert" class="waves-effect"><i class="material-icons">add</i>Kimyasal Ekle</a></li>
